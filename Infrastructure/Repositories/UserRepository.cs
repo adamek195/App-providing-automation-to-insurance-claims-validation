@@ -27,15 +27,9 @@ namespace Infrastructure.Repositories
             }
         };
 
-        public bool SignIn(string firstName, string lastName, string email)
+        public List<User> GetAllUsers()
         {
-            var user = _users.SingleOrDefault(u => u.FirstName == firstName && u.LastName == lastName
-                                                                    && u.Email == email);
-
-            if (user == null)
-                return false;
-            else
-                return true;
+            return _users;
         }
     }
 }

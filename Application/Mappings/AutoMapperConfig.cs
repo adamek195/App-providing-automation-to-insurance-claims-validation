@@ -15,6 +15,7 @@ namespace Application.Mappings
             => new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<User, UserDto>();
+                cfg.CreateMap<CreateUserDto, User>();
             })
             .CreateMapper();
     }

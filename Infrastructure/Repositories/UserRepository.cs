@@ -31,5 +31,11 @@ namespace Infrastructure.Repositories
         {
             return _users;
         }
+
+        public User CreateUser(User user)
+        {
+            _users.Add(user);
+            return user;
+        }
     }
 }

@@ -11,5 +11,7 @@ namespace Application.Interfaces
     {
         IEnumerable<UserDto> GetAllUsers();
 
+        UserDto CreateUser(CreateUserDto createUserDto);
+
     }
 }

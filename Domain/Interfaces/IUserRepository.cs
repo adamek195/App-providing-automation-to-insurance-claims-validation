@@ -10,5 +10,6 @@ namespace Domain.Interfaces
     public interface IUserRepository
     {
         List<User> GetAllUsers();
+        User CreateUser(User user);
     }
 }

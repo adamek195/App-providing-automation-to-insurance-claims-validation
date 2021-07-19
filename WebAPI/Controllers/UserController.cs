@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Dto;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,6 +25,14 @@ namespace WebAPI.Controllers
         {
             var users = _userService.GetAllUsers();
             return Ok(users);
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser([FromBody] CreateUserDto newUserDto)
+        {
+            var user = _userService.CreateUser(newUserDto);
+
+            return Created($"api/users/{user.Id}", user);
         }
     }
 }

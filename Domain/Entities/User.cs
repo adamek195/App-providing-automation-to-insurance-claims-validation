@@ -1,22 +1,18 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class User
+    [Table("Users")]
+    public class User: IdentityUser
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email  { get; set; }
-
-        public User () { }
-        public User(int id, string firstName, string lastName, string email)
-        {
-            (Id, FirstName, LastName, Email) = (id, firstName, lastName, email);
-        }
+        [Required]
+        public string CompanyName { get; set; }
     }
 }

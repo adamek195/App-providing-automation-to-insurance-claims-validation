@@ -30,8 +30,7 @@ namespace Application.Services
 
         public UserDto CreateUser(CreateUserDto newUserDto)
         {
-            if (string.IsNullOrEmpty(newUserDto.FirstName) || string.IsNullOrEmpty(newUserDto.LastName)
-                 || string.IsNullOrEmpty(newUserDto.Email))
+            if (string.IsNullOrEmpty(newUserDto.UserName) || string.IsNullOrEmpty(newUserDto.Email))
             {
                 throw new Exception("Information about user can not be empty");
             }

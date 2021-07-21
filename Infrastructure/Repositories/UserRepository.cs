@@ -4,37 +4,28 @@ using System.Linq;
 using System.Text;
 using Domain.Entities;
 using Domain.Interfaces;
+using Infrastructure.Data;
 
 namespace Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private static readonly List<User> _users = new List<User>()
+        private readonly InsuranceAppContext _context;
+
+        public UserRepository(InsuranceAppContext context)
         {
-            new User()
-            {
-                Id = 0,
-                FirstName = "Robert",
-                LastName = "Lewandowski",
-                Email = "rober@onet.pl"
-            },
-            new User()
-            {
-                Id = 1,
-                FirstName = "Kamil",
-                LastName = "Glik",
-                Email = "kamil@wp.pl"
-            }
-        };
+            _context = context;
+        }
 
         public List<User> GetAllUsers()
         {
-            return _users;
+            return _context.Users.ToList();
         }
 
         public User CreateUser(User user)
         {
-            _users.Add(user);
+            _context.Users.Add(user);
+            _context.SaveChanges();
             return user;
         }
     }

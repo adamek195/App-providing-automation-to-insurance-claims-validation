@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(InsuranceAppContext))]
-    [Migration("20210721212533_AddIdentityUserTable")]
-    partial class AddIdentityUserTable
+    [Migration("20210721213730_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

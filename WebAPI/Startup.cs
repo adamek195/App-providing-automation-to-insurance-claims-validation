@@ -43,8 +43,8 @@ namespace WebAPI
             services.AddDbContext<InsuranceAppContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("InsuranceAppCS")));
 
-            services.AddIdentityCore<User>()
-                    .AddEntityFrameworkStores<InsuranceAppContext>();
+            services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<InsuranceAppContext>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

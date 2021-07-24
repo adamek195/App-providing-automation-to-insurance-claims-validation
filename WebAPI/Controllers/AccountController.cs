@@ -11,11 +11,11 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        public AccountController(IUserService userService)
         {
             _userService = userService;
         }
@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
         {
             var user = _userService.CreateUser(newUserDto);
 
-            return Created($"api/users/", user);
+            return Created($"api/users/{user.Id}", user);
         }
     }
 }

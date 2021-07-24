@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    [Table("Users")]
-    public class User: IdentityUser
+    public class User: IdentityUser<Guid>
     {
-        [Required]
         public string CompanyName { get; set; }
     }
 }

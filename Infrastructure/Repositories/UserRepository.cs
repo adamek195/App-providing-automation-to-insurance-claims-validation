@@ -22,7 +22,7 @@ namespace Infrastructure.Repositories
             return _context.Users.ToList();
         }
 
-        public User CreateUser(User user)
+        public User AddUser(User user)
         {
             _context.Users.Add(user);
             _context.SaveChanges();

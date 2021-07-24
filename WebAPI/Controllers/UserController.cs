@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
         {
             var user = _userService.CreateUser(newUserDto);
 
-            return Created($"api/users/{user.Id}", user);
+            return Created($"api/users/", user);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Application.Interfaces
 {
     public interface IUserService
     {
-        IEnumerable<UserDto> GetAllUsers();
+        List<UserDto> GetAllUsers();
 
         UserDto CreateUser(CreateUserDto createUserDto);
 

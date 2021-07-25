@@ -11,6 +11,5 @@ namespace Domain.Entities
 {
     public class User: IdentityUser<Guid>
     {
-        public string CompanyName { get; set; }
     }
 }

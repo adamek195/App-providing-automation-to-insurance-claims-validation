@@ -11,7 +11,9 @@ namespace Application.Interfaces
     {
         List<UserDto> GetAllUsers();
 
-        UserDto CreateUser(CreateUserDto createUserDto);
+        Task<UserDto> CreateUser(CreateUserDto createUserDto);
+
+        Task<bool> SignIn(LoginUserDto loginUserDto);
 
     }
 }

@@ -10,6 +10,7 @@ namespace Domain.Interfaces
     public interface IUserRepository
     {
         List<User> GetAllUsers();
-        User AddUser(User user);
+        Task<User> AddUser(User newUser);
+        Task<bool> SignIn(User loginUser);
     }
 }

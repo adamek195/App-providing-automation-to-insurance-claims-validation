@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,20 +40,63 @@ namespace WebAPI
         {
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ITokenService, TokenService>();
 
             services.AddSingleton(AutoMapperConfig.Initialize());
+
+            services.AddControllers();
 
             services.AddDbContext<InsuranceAppContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("InsuranceAppCS")));
 
-            services.AddControllers();
-
             services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<InsuranceAppContext>();
+
+            var key = Encoding.ASCII.GetBytes(Configuration["JwtToken:Key"]);
+
+            services.AddAuthentication(options =>
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        RequireExpirationTime = true
+                    };
+                });
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                          new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] {}
+
+                    }
+                });
             });
         }
 

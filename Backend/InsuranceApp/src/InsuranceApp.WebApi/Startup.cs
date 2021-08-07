@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using InsuranceApp.WebApi.Filters;
 
 namespace InsuranceApp.WebApi
 {
@@ -35,6 +36,11 @@ namespace InsuranceApp.WebApi
             services.AddTransient<ITokenService, TokenService>();
 
             services.AddSingleton(AutoMapperConfig.Initialize());
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new GlobalExceptionFilter());
+            });
 
             services.AddControllers();
 

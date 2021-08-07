@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Text;
 using System;
+using InsuranceApp.Application.Exceptions;
 
 namespace InsuranceApp.Application.Services
 {
@@ -27,11 +28,11 @@ namespace InsuranceApp.Application.Services
         {
             var user = await _userManager.FindByNameAsync(loginDataDto.UserName);
             if (user == null)
-                throw new Exception("Wrong User Name! Please check user details and try again.");
+                throw new NotFoundException("Wrong User Name! Please check user details and try again.");
 
             var passwordCorrect = await _userManager.CheckPasswordAsync(user, loginDataDto.PasswordHash);
             if (!passwordCorrect)
-                throw new Exception("Wrong Password! Please check user details and try again.");
+                throw new NotFoundException("Wrong Password! Please check user details and try again.");
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["JwtToken:Key"]);

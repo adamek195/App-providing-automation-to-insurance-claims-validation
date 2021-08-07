@@ -1,5 +1,6 @@
 ﻿using InsuranceApp.Application.Dto;
 using InsuranceApp.Application.Interfaces;
+using InsuranceApp.WebApi.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 namespace InsuranceApp.WebApi.Controllers
 {
     [Route("api/[controller]")]
+    [GlobalExceptionFilter]
     [ApiController]
     public class AccountController : ControllerBase
     {

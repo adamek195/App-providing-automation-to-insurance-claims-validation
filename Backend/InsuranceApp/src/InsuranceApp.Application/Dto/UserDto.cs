@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System.Threading.Tasks;
 
-namespace Application.Dto
+namespace InsuranceApp.Application.Dto
 {
     public class UserDto
     {

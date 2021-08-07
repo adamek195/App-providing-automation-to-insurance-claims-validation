@@ -1,18 +1,17 @@
-﻿using Application.Dto;
-using Application.Interfaces;
-using Domain.Entities;
+﻿using InsuranceApp.Application.Dto;
+using InsuranceApp.Application.Interfaces;
+using InsuranceApp.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
+using System.Text;
+using System;
+using InsuranceApp.Application.Exceptions;
 
-namespace Application.Services
+namespace InsuranceApp.Application.Services
 {
     public class TokenService : ITokenService
     {
@@ -29,11 +28,11 @@ namespace Application.Services
         {
             var user = await _userManager.FindByNameAsync(loginDataDto.UserName);
             if (user == null)
-                throw new Exception("Wrong User Name! Please check user details and try again.");
+                throw new NotFoundException("Wrong User Name! Please check user details and try again.");
 
             var passwordCorrect = await _userManager.CheckPasswordAsync(user, loginDataDto.PasswordHash);
             if (!passwordCorrect)
-                throw new Exception("Wrong Password! Please check user details and try again.");
+                throw new NotFoundException("Wrong Password! Please check user details and try again.");
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["JwtToken:Key"]);

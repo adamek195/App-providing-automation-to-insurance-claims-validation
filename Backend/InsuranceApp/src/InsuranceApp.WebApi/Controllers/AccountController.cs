@@ -1,23 +1,14 @@
-﻿using Application.Dto;
-using Application.Interfaces;
-using Domain.Entities;
+﻿using InsuranceApp.Application.Dto;
+using InsuranceApp.Application.Interfaces;
+using InsuranceApp.WebApi.Filters;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace WebAPI.Controllers
+namespace InsuranceApp.WebApi.Controllers
 {
     [Route("api/[controller]")]
+    [GlobalExceptionFilter]
     [ApiController]
     public class AccountController : ControllerBase
     {

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Domain.Entities;
-using Domain.Interfaces;
-using Infrastructure.Data;
+using InsuranceApp.Domain.Entities;
+using InsuranceApp.Domain.Interfaces;
+using InsuranceApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 
-namespace Infrastructure.Repositories
+namespace InsuranceApp.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {

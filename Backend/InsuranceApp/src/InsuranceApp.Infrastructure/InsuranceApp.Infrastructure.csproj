@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InsuranceApp.Services\InsuranceApp.Services.csproj" />
+    <ProjectReference Include="..\InsuranceApp.Application\InsuranceApp.Application.csproj" />
   </ItemGroup>
 
 </Project>

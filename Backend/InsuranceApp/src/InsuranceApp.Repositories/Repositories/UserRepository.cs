@@ -7,7 +7,7 @@ using InsuranceApp.Core.Interfaces;
 using InsuranceApp.Repositories.Data;
 using Microsoft.AspNetCore.Identity;
 
-namespace InsuranceApp.Repositories.Repositories
+namespace InsuranceApp.Repositories
 {
     public class UserRepository : IUserRepository
     {

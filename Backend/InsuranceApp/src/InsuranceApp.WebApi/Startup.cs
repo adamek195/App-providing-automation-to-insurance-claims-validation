@@ -1,10 +1,10 @@
 using InsuranceApp.Core.Entities;
 using InsuranceApp.Core.Interfaces;
 using InsuranceApp.Repositories.Data;
-using InsuranceApp.Repositories.Repositories;
+using InsuranceApp.Repositories;
 using InsuranceApp.Services.Interfaces;
 using InsuranceApp.Services.Mappings;
-using InsuranceApp.Services.Services;
+using InsuranceApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 
-namespace InsuranceApp.Services.Services
+namespace InsuranceApp.Services
 {
     public class UserService : IUserService
     {

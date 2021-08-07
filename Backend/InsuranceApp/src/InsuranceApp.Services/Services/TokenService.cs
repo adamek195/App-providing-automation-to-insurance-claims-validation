@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Text;
 using System;
 
-namespace InsuranceApp.Services.Services
+namespace InsuranceApp.Services
 {
     public class TokenService : ITokenService
     {

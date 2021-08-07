@@ -1,14 +1,14 @@
-﻿using InsuranceApp.Services.Dto;
-using InsuranceApp.Services.Interfaces;
+﻿using InsuranceApp.Application.Dto;
+using InsuranceApp.Application.Interfaces;
 using AutoMapper;
-using InsuranceApp.Core.Entities;
-using InsuranceApp.Core.Interfaces;
+using InsuranceApp.Domain.Entities;
+using InsuranceApp.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 
-namespace InsuranceApp.Services
+namespace InsuranceApp.Application.Services
 {
     public class UserService : IUserService
     {

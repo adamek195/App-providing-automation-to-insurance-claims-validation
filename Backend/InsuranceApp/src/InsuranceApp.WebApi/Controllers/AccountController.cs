@@ -1,5 +1,5 @@
-﻿using InsuranceApp.Services.Dto;
-using InsuranceApp.Services.Interfaces;
+﻿using InsuranceApp.Application.Dto;
+using InsuranceApp.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

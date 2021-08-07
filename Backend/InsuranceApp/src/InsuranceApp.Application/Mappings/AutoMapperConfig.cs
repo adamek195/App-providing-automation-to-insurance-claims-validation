@@ -1,8 +1,8 @@
-﻿using InsuranceApp.Services.Dto;
+﻿using InsuranceApp.Domain.Entities;
+using InsuranceApp.Application.Dto;
 using AutoMapper;
-using InsuranceApp.Core.Entities;
 
-namespace InsuranceApp.Services.Mappings
+namespace InsuranceApp.Application.Mappings
 {
     public static class AutoMapperConfig
     {

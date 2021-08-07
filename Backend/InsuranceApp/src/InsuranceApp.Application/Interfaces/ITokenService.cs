@@ -1,7 +1,7 @@
-﻿using InsuranceApp.Services.Dto;
+﻿using InsuranceApp.Application.Dto;
 using System.Threading.Tasks;
 
-namespace InsuranceApp.Services.Interfaces
+namespace InsuranceApp.Application.Interfaces
 {
     public interface ITokenService
     {

@@ -1,8 +1,8 @@
-﻿using InsuranceApp.Core.Entities;
+﻿using InsuranceApp.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace InsuranceApp.Core.Interfaces
+namespace InsuranceApp.Domain.Interfaces
 {
     public interface IUserRepository
     {

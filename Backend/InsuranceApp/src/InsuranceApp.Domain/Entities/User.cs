@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InsuranceApp.Core.Entities
+namespace InsuranceApp.Domain.Entities
 {
     public class User: IdentityUser<Guid>
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InsuranceApp.Services.Dto
+namespace InsuranceApp.Application.Dto
 {
     public class UserDto
     {

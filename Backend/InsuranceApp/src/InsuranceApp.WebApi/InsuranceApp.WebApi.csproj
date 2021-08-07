@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InsuranceApp.Services\InsuranceApp.Services.csproj" />
-    <ProjectReference Include="..\InsuranceApp.Repositories\InsuranceApp.Repositories.csproj" />
+    <ProjectReference Include="..\InsuranceApp.Application\InsuranceApp.Application.csproj" />
+    <ProjectReference Include="..\InsuranceApp.Infrastructure\InsuranceApp.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C8F623A1-475B-490D-8B9A-6CB7350E1555}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceApp.Core", "src\InsuranceApp.Core\InsuranceApp.Core.csproj", "{C59ECB39-6310-4CCE-9B1A-262DB51F52D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceApp.Domain", "src\InsuranceApp.Domain\InsuranceApp.Domain.csproj", "{C59ECB39-6310-4CCE-9B1A-262DB51F52D9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceApp.Services", "src\InsuranceApp.Services\InsuranceApp.Services.csproj", "{CE4EA34D-A63E-4BCC-9B09-588CCD18B191}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceApp.Application", "src\InsuranceApp.Application\InsuranceApp.Application.csproj", "{CE4EA34D-A63E-4BCC-9B09-588CCD18B191}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceApp.Repositories", "src\InsuranceApp.Repositories\InsuranceApp.Repositories.csproj", "{3DE34B6E-6D2B-49CC-905F-8FE8477049A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceApp.Infrastructure", "src\InsuranceApp.Infrastructure\InsuranceApp.Infrastructure.csproj", "{3DE34B6E-6D2B-49CC-905F-8FE8477049A5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsuranceApp.WebApi", "src\InsuranceApp.WebApi\InsuranceApp.WebApi.csproj", "{913E651A-7265-4129-885B-8DF4C2460506}"
 EndProject

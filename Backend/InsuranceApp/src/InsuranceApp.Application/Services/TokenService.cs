@@ -1,6 +1,6 @@
-﻿using InsuranceApp.Services.Dto;
-using InsuranceApp.Services.Interfaces;
-using InsuranceApp.Core.Entities;
+﻿using InsuranceApp.Application.Dto;
+using InsuranceApp.Application.Interfaces;
+using InsuranceApp.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Text;
 using System;
 
-namespace InsuranceApp.Services
+namespace InsuranceApp.Application.Services
 {
     public class TokenService : ITokenService
     {

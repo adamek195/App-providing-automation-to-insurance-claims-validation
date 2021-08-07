@@ -1,10 +1,10 @@
-﻿using InsuranceApp.Core.Entities;
+﻿using InsuranceApp.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace InsuranceApp.Repositories.Data
+namespace InsuranceApp.Infrastructure.Data
 {
     public class InsuranceAppContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     {

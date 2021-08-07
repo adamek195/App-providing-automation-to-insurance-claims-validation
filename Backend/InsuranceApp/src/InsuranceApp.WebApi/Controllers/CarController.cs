@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-namespace WebAPI.Controllers
+namespace InsuranceApp.WebApi.Controllers
 {   
     [Route("api/[controller]")]
     [ApiController]

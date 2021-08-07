@@ -1,11 +1,8 @@
-﻿using Application.Dto;
-using System;
+﻿using InsuranceApp.Services.Dto;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interfaces
+namespace InsuranceApp.Services.Interfaces
 {
     public interface IUserService
     {

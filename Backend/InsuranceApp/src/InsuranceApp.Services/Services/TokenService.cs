@@ -1,18 +1,16 @@
-﻿using Application.Dto;
-using Application.Interfaces;
-using Domain.Entities;
+﻿using InsuranceApp.Services.Dto;
+using InsuranceApp.Services.Interfaces;
+using InsuranceApp.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
+using System.Text;
+using System;
 
-namespace Application.Services
+namespace InsuranceApp.Services.Services
 {
     public class TokenService : ITokenService
     {

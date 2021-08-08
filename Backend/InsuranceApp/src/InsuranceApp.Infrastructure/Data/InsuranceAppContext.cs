@@ -12,7 +12,7 @@ namespace InsuranceApp.Infrastructure.Data
         {
         }
 
-        public DbSet<Accident> Accidents { get; set; }
+        public DbSet<Policy> Policies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

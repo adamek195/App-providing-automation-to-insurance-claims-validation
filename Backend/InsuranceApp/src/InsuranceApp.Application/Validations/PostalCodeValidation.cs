@@ -34,7 +34,6 @@ namespace InsuranceApp.Application.Validations
                     }
                 }
             }
-
             return isValid;
         }
     }

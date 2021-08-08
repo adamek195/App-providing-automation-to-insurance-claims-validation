@@ -12,19 +12,19 @@ namespace InsuranceApp.WebApi.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUsersService _usersService;
         private readonly ITokenService _tokenService;
 
-        public AccountController(IUserService userService, ITokenService tokenService)
+        public AccountController(IUsersService userService, ITokenService tokenService)
         {
-            _userService = userService;
+            _usersService = userService;
             _tokenService = tokenService;
         }
 
         [HttpGet]
         public IActionResult GetAllUsers()
         {
-            var users = _userService.GetAllUsers();
+            var users = _usersService.GetAllUsers();
             return Ok(users);
         }
 
@@ -33,7 +33,7 @@ namespace InsuranceApp.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] CreateUserDto newUserDto)
         {
-            var user = await _userService.CreateUser(newUserDto);
+            var user = await _usersService.CreateUser(newUserDto);
 
             return Created($"api/users/{user.Id}", user);
         }
@@ -43,7 +43,7 @@ namespace InsuranceApp.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
         {
-            var result = await _userService.SignIn(loginUserDto);
+            var result = await _usersService.SignIn(loginUserDto);
 
             if (result)
                 return Ok("You have signed in!");

@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InsuranceApp.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UsersRepository : IUsersRepository
     {
         private readonly InsuranceAppContext _context;
         private readonly UserManager<User> _userManager;
 
-        public UserRepository(InsuranceAppContext context, UserManager<User> userManager)
+        public UsersRepository(InsuranceAppContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsuranceApp.Infrastructure.Migrations
 {
     [DbContext(typeof(InsuranceAppContext))]
-    [Migration("20210808104055_Add-PersonalIdentityNumber")]
-    partial class AddPersonalIdentityNumber
+    [Migration("20210808142640_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,23 +21,29 @@ namespace InsuranceApp.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("InsuranceApp.Domain.Entities.Accident", b =>
+            modelBuilder.Entity("InsuranceApp.Domain.Entities.Policy", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<string>("Company")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mark")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PolicyCreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("PolicyExpireDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("InsurancePolicyNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
+                    b.Property<string>("PolicyNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RegistrationNumber")
@@ -46,9 +52,14 @@ namespace InsuranceApp.Infrastructure.Migrations
                     b.Property<string>("TypeOfInsurance")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Accidents");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Policies");
                 });
 
             modelBuilder.Entity("InsuranceApp.Domain.Entities.User", b =>
@@ -264,6 +275,17 @@ namespace InsuranceApp.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("InsuranceApp.Domain.Entities.Policy", b =>
+                {
+                    b.HasOne("InsuranceApp.Domain.Entities.User", "User")
+                        .WithMany("Policies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -313,6 +335,11 @@ namespace InsuranceApp.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("InsuranceApp.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Policies");
                 });
 #pragma warning restore 612, 618
         }

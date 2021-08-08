@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace InsuranceApp.Application.Interfaces
 {
-    public interface IUserService
+    public interface IUsersService
     {
         List<UserDto> GetAllUsers();
 

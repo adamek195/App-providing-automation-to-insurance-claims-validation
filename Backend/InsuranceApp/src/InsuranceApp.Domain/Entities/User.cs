@@ -17,5 +17,7 @@ namespace InsuranceApp.Domain.Entities
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string Address { get; set; }
+
+        public virtual ICollection<Policy> Policies { get; set; }
     }
 }

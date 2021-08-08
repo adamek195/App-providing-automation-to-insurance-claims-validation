@@ -1,12 +1,27 @@
-﻿using System;
+﻿using InsuranceApp.Domain.Entities;
+using InsuranceApp.Domain.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
+using InsuranceApp.Infrastructure.Data;
+using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace InsuranceApp.Infrastructure.Repositories
 {
-    class PoliciesRepository
+    public class PoliciesRepository : IPoliciesRepository
     {
+        private readonly InsuranceAppContext _context;
+
+        public PoliciesRepository(InsuranceAppContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<List<Policy>> GetUserPolicies(Guid userId)
+        {
+            var userPolicies = await _context.Policies.Where(p => p.UserId == userId).ToListAsync();
+            return userPolicies;
+        }
     }
 }

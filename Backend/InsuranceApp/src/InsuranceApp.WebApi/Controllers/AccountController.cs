@@ -15,9 +15,9 @@ namespace InsuranceApp.WebApi.Controllers
         private readonly IUsersService _usersService;
         private readonly ITokenService _tokenService;
 
-        public AccountController(IUsersService userService, ITokenService tokenService)
+        public AccountController(IUsersService usersService, ITokenService tokenService)
         {
-            _usersService = userService;
+            _usersService = usersService;
             _tokenService = tokenService;
         }
 

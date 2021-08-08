@@ -17,9 +17,9 @@ namespace InsuranceApp.Application.Services
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
 
-        public UsersService(IUsersRepository userRepository, IMapper mapper, UserManager<User> userManager)
+        public UsersService(IUsersRepository usersRepository, IMapper mapper, UserManager<User> userManager)
         {
-            _usersRepository = userRepository;
+            _usersRepository = usersRepository;
             _mapper = mapper;
             _userManager = userManager;
         }

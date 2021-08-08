@@ -14,6 +14,8 @@ namespace InsuranceApp.Application.Mappings
                 cfg.CreateMap<UserDto, User>();
                 cfg.CreateMap<CreateUserDto, User>()
                     .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
+                cfg.CreateMap<Policy, PolicyDto>();
+                cfg.CreateMap<PolicyDto, Policy>();
             })
             .CreateMapper();
     }

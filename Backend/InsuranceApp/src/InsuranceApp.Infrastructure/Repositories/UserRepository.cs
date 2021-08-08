@@ -36,7 +36,7 @@ namespace InsuranceApp.Infrastructure.Repositories
 
         public async Task<bool> SignIn(User loginUser)
         {
-            var user = await _userManager.FindByNameAsync(loginUser.UserName);
+            var user = await _userManager.FindByEmailAsync(loginUser.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, loginUser.PasswordHash))
                 return true;
             else

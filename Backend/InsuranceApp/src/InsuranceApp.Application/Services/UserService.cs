@@ -32,9 +32,9 @@ namespace InsuranceApp.Application.Services
 
         public async Task<UserDto> CreateUser(CreateUserDto newUserDto)
         {
-            var userExists = await _userManager.FindByNameAsync(newUserDto.UserName);
+            var userExists = await _userManager.FindByEmailAsync(newUserDto.Email);
             if (userExists != null)
-                throw new ConflictException("User already exists!");
+                throw new ConflictException("User with the same email already exists!");
 
             var newUser = _mapper.Map<User>(newUserDto);
             await _userRepository.AddUser(newUser);
@@ -48,7 +48,7 @@ namespace InsuranceApp.Application.Services
             if (result)
                 return true;
             else
-                throw new NotFoundException("Wrong User Name or Password! Please check user details and try again.");
+                throw new NotFoundException("Wrong Email or Password! Please check user details and try again.");
 
         }
     }

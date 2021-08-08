@@ -12,6 +12,8 @@ namespace InsuranceApp.Infrastructure.Data
         {
         }
 
+        public DbSet<Accident> Accidents { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

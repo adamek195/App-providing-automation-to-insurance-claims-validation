@@ -8,7 +8,7 @@ namespace InsuranceApp.Application.Interfaces
     {
         List<UserDto> GetAllUsers();
 
-        Task<UserDto> CreateUser(CreateUserDto createUserDto);
+        Task<UserDto> CreateUser(CreateUserDto newUserDto);
 
         Task<bool> SignIn(LoginUserDto loginUserDto);
 

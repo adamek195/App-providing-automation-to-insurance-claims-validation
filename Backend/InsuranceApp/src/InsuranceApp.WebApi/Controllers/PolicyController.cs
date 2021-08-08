@@ -1,4 +1,5 @@
-﻿using InsuranceApp.Application.Interfaces;
+﻿using InsuranceApp.Application.Dto;
+using InsuranceApp.Application.Interfaces;
 using InsuranceApp.WebApi.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -32,9 +33,11 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePolicy()
+        public async Task<IActionResult> CreatePolicy(CreatePolicyDto newPolicyDto)
         {
-            return Ok(User.GetId());
+            var newPolicy = await _policiesService.CreatePolicy(newPolicyDto, User.GetId());
+
+            return Created($"api/policies/{newPolicy.Id}", newPolicy);
         }
     }
 }

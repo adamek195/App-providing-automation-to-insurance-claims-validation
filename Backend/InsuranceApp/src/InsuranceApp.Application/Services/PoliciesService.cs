@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InsuranceApp.Application.Dto;
 using InsuranceApp.Application.Interfaces;
+using InsuranceApp.Domain.Entities;
 using InsuranceApp.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,14 @@ namespace InsuranceApp.Application.Services
         {
             var userPolicies = await _policiesRepository.GetUserPolicies(Guid.Parse(userId));
             return _mapper.Map<List<PolicyDto>>(userPolicies);
+        }
+
+        public async Task<PolicyDto> CreatePolicy(CreatePolicyDto newPolicyDto, string userId)
+        {
+            var newPolicy = _mapper.Map<Policy>(newPolicyDto);
+            newPolicy.UserId = Guid.Parse(userId);
+            await _policiesRepository.AddPolicy(newPolicy);
+            return _mapper.Map<PolicyDto>(newPolicy);
         }
     }
 }

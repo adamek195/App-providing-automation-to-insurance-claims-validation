@@ -23,5 +23,12 @@ namespace InsuranceApp.Infrastructure.Repositories
             var userPolicies = await _context.Policies.Where(p => p.UserId == userId).ToListAsync();
             return userPolicies;
         }
+
+        public async Task<Policy> AddPolicy(Policy newPolicy)
+        {
+            _context.Policies.Add(newPolicy);
+            await _context.SaveChangesAsync();
+            return newPolicy;
+        }
     }
 }

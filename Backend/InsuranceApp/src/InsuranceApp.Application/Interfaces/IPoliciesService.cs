@@ -10,5 +10,7 @@ namespace InsuranceApp.Application.Interfaces
     public interface IPoliciesService
     {
         Task<List<PolicyDto>> GetUserPolicies(string userId);
+
+        Task<PolicyDto> CreatePolicy(CreatePolicyDto newPolicyDto, string userId);
     }
 }

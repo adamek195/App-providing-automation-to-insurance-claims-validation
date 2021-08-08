@@ -33,9 +33,9 @@ namespace InsuranceApp.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] CreateUserDto newUserDto)
         {
-            var user = await _usersService.CreateUser(newUserDto);
+            var newUser = await _usersService.CreateUser(newUserDto);
 
-            return Created($"api/users/{user.Id}", user);
+            return Created($"api/users/{newUser.Id}", newUser);
         }
 
         [HttpPost]

@@ -24,11 +24,28 @@ namespace InsuranceApp.Infrastructure.Repositories
             return userPolicies;
         }
 
+        public async Task<Policy> GetUserPolicy(int policyId, Guid userId)
+        {
+            var userPolicy = await _context.Policies.SingleOrDefaultAsync(p => p.Id == policyId && p.UserId == userId);
+
+            return userPolicy;
+        }
+
         public async Task<Policy> AddPolicy(Policy newPolicy)
         {
             _context.Policies.Add(newPolicy);
             await _context.SaveChangesAsync();
             return newPolicy;
+        }
+
+        public async Task DeletePolicy(int policyId, Guid userId)
+        {
+            var policyToDelete = await _context.Policies.SingleOrDefaultAsync(p => p.Id == policyId && p.UserId == userId);
+
+            if (policyToDelete != null)
+                _context.Policies.Remove(policyToDelete);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

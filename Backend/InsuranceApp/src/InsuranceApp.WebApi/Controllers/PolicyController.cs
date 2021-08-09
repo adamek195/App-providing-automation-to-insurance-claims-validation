@@ -28,7 +28,7 @@ namespace InsuranceApp.WebApi.Controllers
         public async Task<IActionResult> GetUserPolicies()
         {
             var userPolicies = await _policiesService.GetUserPolicies(User.GetId());
-           
+
             return Ok(userPolicies);
         }
 
@@ -38,6 +38,14 @@ namespace InsuranceApp.WebApi.Controllers
             var newPolicy = await _policiesService.CreatePolicy(newPolicyDto, User.GetId());
 
             return Created($"api/policies/{newPolicy.Id}", newPolicy);
+        }
+
+        [HttpDelete("{policyId}")]
+        public async Task<IActionResult> DeletePolicy([FromRoute]int policyId)
+        {
+            await _policiesService.DeletePolicy(policyId, User.GetId());
+
+            return NoContent();
         }
     }
 }

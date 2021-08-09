@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InsuranceApp.Application.Dto;
+using InsuranceApp.Application.Exceptions;
 using InsuranceApp.Application.Interfaces;
 using InsuranceApp.Domain.Entities;
 using InsuranceApp.Domain.Interfaces;
@@ -33,6 +34,16 @@ namespace InsuranceApp.Application.Services
             newPolicy.UserId = Guid.Parse(userId);
             await _policiesRepository.AddPolicy(newPolicy);
             return _mapper.Map<PolicyDto>(newPolicy);
+        }
+
+        public async Task DeletePolicy(int policyId, string userId)
+        {
+            var policyToDelete = await _policiesRepository.GetUserPolicy(policyId, Guid.Parse(userId));
+
+            if (policyToDelete == null)
+                throw new NotFoundException($"Policy of this user with this id: {policyId} does not exist.");
+
+            await _policiesRepository.DeletePolicy(policyId, Guid.Parse(userId));
         }
     }
 }

@@ -47,5 +47,24 @@ namespace InsuranceApp.Infrastructure.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdatePolicy(int policyId, Policy updatedPolicy)
+        {
+            var policyToUpdate = await _context.Policies.SingleOrDefaultAsync(p => p.Id == policyId && p.UserId == updatedPolicy.UserId);
+
+            if(policyToUpdate != null)
+            {
+                policyToUpdate.PolicyNumber = updatedPolicy.PolicyNumber;
+                policyToUpdate.PolicyCreationDate = updatedPolicy.PolicyCreationDate;
+                policyToUpdate.PolicyExpireDate = updatedPolicy.PolicyExpireDate;
+                policyToUpdate.Company = updatedPolicy.Company;
+                policyToUpdate.TypeOfInsurance = updatedPolicy.TypeOfInsurance;
+                policyToUpdate.RegistrationNumber = updatedPolicy.RegistrationNumber;
+                policyToUpdate.Mark = updatedPolicy.Mark;
+                policyToUpdate.Model = updatedPolicy.Model;
+            }
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -28,12 +28,12 @@ namespace InsuranceApp.Application.Services
             return _mapper.Map<List<PolicyDto>>(userPolicies);
         }
 
-        public async Task<PolicyDto> CreatePolicy(CreatePolicyDto newPolicyDto, string userId)
+        public async Task<PolicyDto> CreatePolicy(RequestPolicyDto newPolicyDto, string userId)
         {
-            var newPolicy = _mapper.Map<Policy>(newPolicyDto);
-            newPolicy.UserId = Guid.Parse(userId);
-            await _policiesRepository.AddPolicy(newPolicy);
-            return _mapper.Map<PolicyDto>(newPolicy);
+            var policyToAdd = _mapper.Map<Policy>(newPolicyDto);
+            policyToAdd.UserId = Guid.Parse(userId);
+            await _policiesRepository.AddPolicy(policyToAdd);
+            return _mapper.Map<PolicyDto>(policyToAdd);
         }
 
         public async Task DeletePolicy(int policyId, string userId)
@@ -41,9 +41,22 @@ namespace InsuranceApp.Application.Services
             var policyToDelete = await _policiesRepository.GetUserPolicy(policyId, Guid.Parse(userId));
 
             if (policyToDelete == null)
-                throw new NotFoundException($"Policy of this user with this id: {policyId} does not exist.");
+                throw new NotFoundException($"Policy with this id does not exist.");
 
             await _policiesRepository.DeletePolicy(policyId, Guid.Parse(userId));
+        }
+
+        public async Task UpdatePolicy(int policyId, string userId, RequestPolicyDto updatedPolicyDto)
+        {
+            var policyToUpdate = await _policiesRepository.GetUserPolicy(policyId, Guid.Parse(userId));
+
+            if (policyToUpdate == null)
+                throw new NotFoundException($"Policy with this id does not exist.");
+
+            policyToUpdate = _mapper.Map<Policy>(updatedPolicyDto);
+            policyToUpdate.UserId = Guid.Parse(userId);
+
+            await _policiesRepository.UpdatePolicy(policyId, policyToUpdate);
         }
     }
 }

@@ -1,14 +1,10 @@
 ﻿using InsuranceApp.Application.Validations;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace InsuranceApp.Application.Dto
 {
-    public class CreatePolicyDto
+    public class RequestPolicyDto
     {
         [Required(ErrorMessage = "Policy Number is required.")]
         public string PolicyNumber { get; set; }

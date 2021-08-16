@@ -6,8 +6,6 @@ using InsuranceApp.Domain.Entities;
 using InsuranceApp.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace InsuranceApp.Application.Services
@@ -22,9 +20,11 @@ namespace InsuranceApp.Application.Services
             _policiesRepository = policiesRepository;
             _mapper = mapper;
         }
+
         public async Task<List<PolicyDto>> GetUserPolicies(string userId)
         {
             var userPolicies = await _policiesRepository.GetUserPolicies(Guid.Parse(userId));
+
             return _mapper.Map<List<PolicyDto>>(userPolicies);
         }
 
@@ -32,7 +32,9 @@ namespace InsuranceApp.Application.Services
         {
             var policyToAdd = _mapper.Map<Policy>(newPolicyDto);
             policyToAdd.UserId = Guid.Parse(userId);
+
             await _policiesRepository.AddPolicy(policyToAdd);
+
             return _mapper.Map<PolicyDto>(policyToAdd);
         }
 
@@ -41,7 +43,7 @@ namespace InsuranceApp.Application.Services
             var policyToDelete = await _policiesRepository.GetUserPolicy(policyId, Guid.Parse(userId));
 
             if (policyToDelete == null)
-                throw new NotFoundException($"Policy with this id does not exist.");
+                throw new NotFoundException("Policy with this id does not exist.");
 
             await _policiesRepository.DeletePolicy(policyId, Guid.Parse(userId));
         }
@@ -51,7 +53,7 @@ namespace InsuranceApp.Application.Services
             var policyToUpdate = await _policiesRepository.GetUserPolicy(policyId, Guid.Parse(userId));
 
             if (policyToUpdate == null)
-                throw new NotFoundException($"Policy with this id does not exist.");
+                throw new NotFoundException("Policy with this id does not exist.");
 
             policyToUpdate = _mapper.Map<Policy>(updatedPolicyDto);
             policyToUpdate.UserId = Guid.Parse(userId);

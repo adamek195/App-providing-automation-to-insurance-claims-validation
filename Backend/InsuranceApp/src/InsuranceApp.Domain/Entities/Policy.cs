@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,5 +24,7 @@ namespace InsuranceApp.Domain.Entities
         public string RegistrationNumber { get; set; }
         public string Mark { get; set; }
         public string Model { get; set; }
+
+        public virtual ICollection<Accident> Accidents { get; set; }
     }
 }

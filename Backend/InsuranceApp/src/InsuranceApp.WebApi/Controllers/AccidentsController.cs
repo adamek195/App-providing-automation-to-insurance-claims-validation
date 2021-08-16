@@ -9,14 +9,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using InsuranceApp.Application.Interfaces;
+using InsuranceApp.WebApi.Helpers;
+using InsuranceApp.WebApi.Filters;
 
 namespace InsuranceApp.WebApi.Controllers
 {   
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+    [GlobalExceptionFilter]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class CarController : ControllerBase
+    public class AccidentsController : ControllerBase
     {
+        private readonly IAccidentsService _accidentsService;
+
+        public AccidentsController(IAccidentsService accidentsService)
+        {
+            _accidentsService = accidentsService;
+        }
+
+        [HttpGet("{policyId}")]
+        public async Task<IActionResult> GetAccidents(int policyId)
+        {
+            var accidents = await _accidentsService.GetAccidents(policyId, User.GetId());
+
+            return Ok(accidents);
+        }
 
         public class CarPhoto
         {

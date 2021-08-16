@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace InsuranceApp.WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [GlobalExceptionFilter]
     [ApiController]
+    [GlobalExceptionFilter]
+    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly IUsersService _usersService;

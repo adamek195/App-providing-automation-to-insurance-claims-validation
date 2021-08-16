@@ -1,5 +1,6 @@
 ﻿using InsuranceApp.Application.Dto;
 using InsuranceApp.Application.Interfaces;
+using InsuranceApp.WebApi.Filters;
 using InsuranceApp.WebApi.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -14,12 +15,13 @@ namespace InsuranceApp.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [GlobalExceptionFilter]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class PolicyController : ControllerBase
+    public class PoliciesController : ControllerBase
     {
         private readonly IPoliciesService _policiesService;
 
-        public PolicyController(IPoliciesService policiesService)
+        public PoliciesController(IPoliciesService policiesService)
         {
             _policiesService = policiesService;
         }

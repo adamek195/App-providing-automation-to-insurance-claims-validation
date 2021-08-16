@@ -38,7 +38,7 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpPost("{policyId}")]
-        public async Task<IActionResult> CreateAccident([FromBody] RequestAccidentDto requestAccidentDto,
+        public async Task<IActionResult> CreateAccident([FromForm] RequestAccidentDto requestAccidentDto,
             [FromForm] AccidentImageDto accidentImageDto, [FromRoute] int policyId)
         {
             var newAccident = await _accidentsService.CreateAccident(policyId, User.GetId(), requestAccidentDto, accidentImageDto);

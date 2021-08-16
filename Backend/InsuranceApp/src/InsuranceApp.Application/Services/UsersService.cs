@@ -32,8 +32,8 @@ namespace InsuranceApp.Application.Services
 
         public async Task<UserDto> CreateUser(CreateUserDto newUserDto)
         {
-            var userExists = await _userManager.FindByEmailAsync(newUserDto.Email);
-            if (userExists != null)
+            var user = await _userManager.FindByEmailAsync(newUserDto.Email);
+            if (user != null)
                 throw new ConflictException("User with the same email already exists!");
 
             var newUser = _mapper.Map<User>(newUserDto);

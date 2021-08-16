@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using InsuranceApp.Application.Interfaces;
 using InsuranceApp.WebApi.Helpers;
 using InsuranceApp.WebApi.Filters;
+using InsuranceApp.Application.Dto;
 
 namespace InsuranceApp.WebApi.Controllers
 {   
@@ -29,32 +30,21 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpGet("{policyId}")]
-        public async Task<IActionResult> GetAccidents(int policyId)
+        public async Task<IActionResult> GetAccidents([FromRoute] int policyId)
         {
             var accidents = await _accidentsService.GetAccidents(policyId, User.GetId());
 
             return Ok(accidents);
         }
 
-        public class CarPhoto
+        [HttpPost("{policyId}")]
+        public async Task<IActionResult> CreateAccident([FromBody] RequestAccidentDto requestAccidentDto,
+            [FromForm] AccidentImageDto accidentImageDto, [FromRoute] int policyId)
         {
-            public IFormFile photoFile { get; set; }
+            var newAccident = await _accidentsService.CreateAccident(policyId, User.GetId(), requestAccidentDto, accidentImageDto);
+
+            return Created($"api/policies/{newAccident.Id}", newAccident);
         }
 
-        [HttpPost]
-        public IActionResult CarPhotoUpload([FromForm] CarPhoto carPhoto)
-        {
-            if (carPhoto.photoFile.ContentType.ToLower() != "image/jpeg" &&
-                carPhoto.photoFile.ContentType.ToLower() != "image/jpg" &&
-                carPhoto.photoFile.ContentType.ToLower() != "image/png")
-            {
-                return BadRequest("You dont upload photo");
-            }
-            else
-            {
-                long photoLength = carPhoto.photoFile.Length;
-                return Ok(photoLength);
-            }
-        }
     }
 }

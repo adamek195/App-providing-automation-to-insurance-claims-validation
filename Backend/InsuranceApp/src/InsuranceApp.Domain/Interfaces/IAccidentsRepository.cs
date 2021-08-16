@@ -9,5 +9,6 @@ namespace InsuranceApp.Domain.Interfaces
     {
         Task<List<Accident>> GetAccidents(int policyId);
         Task<Accident> GetAccident(int id);
+        Task<Accident> AddAccident(Accident newAccident, byte[] accidentImage);
     }
 }

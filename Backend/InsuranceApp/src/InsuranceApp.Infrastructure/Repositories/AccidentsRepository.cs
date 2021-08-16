@@ -31,5 +31,15 @@ namespace InsuranceApp.Infrastructure.Repositories
 
             return accident;
         }
+
+        public async Task<Accident> AddAccident(Accident newAccident, byte[] accidentImage)
+        {
+            newAccident.AccidentImage = accidentImage;
+
+            _context.Accidents.Add(newAccident);
+            await _context.SaveChangesAsync();
+
+            return newAccident;
+        }
     }
 }

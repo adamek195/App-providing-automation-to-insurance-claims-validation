@@ -18,6 +18,8 @@ namespace InsuranceApp.Application.Mappings
                 cfg.CreateMap<PolicyDto, Policy>();
                 cfg.CreateMap<RequestPolicyDto, Policy>();
                 cfg.CreateMap<AccidentDto, Accident>();
+                cfg.CreateMap<Accident, AccidentDto>();
+                cfg.CreateMap<RequestAccidentDto, Accident>();
             })
             .CreateMapper();
     }

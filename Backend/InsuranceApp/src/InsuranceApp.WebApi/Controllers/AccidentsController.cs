@@ -38,13 +38,29 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpPost("{policyId}")]
-        public async Task<IActionResult> CreateAccident([FromForm] RequestAccidentDto requestAccidentDto,
-            [FromForm] AccidentImageDto accidentImageDto, [FromRoute] int policyId)
+        public async Task<IActionResult> CreateAccident([FromRoute] int policyId, [FromForm] RequestAccidentDto requestAccidentDto,
+            [FromForm] AccidentImageDto accidentImageDto)
         {
             var newAccident = await _accidentsService.CreateAccident(policyId, User.GetId(), requestAccidentDto, accidentImageDto);
 
             return Created($"api/policies/{newAccident.Id}", newAccident);
         }
 
+        [HttpDelete("{policyId}/{accidentId}")]
+        public async Task<IActionResult> DeleteAccident([FromRoute] int policyId,[FromRoute] int accidentId)
+        {
+            await _accidentsService.DeleteAccident(accidentId, policyId, User.GetId());
+
+            return NoContent();
+        }
+
+        [HttpPut("{policyId}/{accidentId}")]
+        public async Task<IActionResult> UpdateAccident([FromRoute] int policyId, [FromRoute] int accidentId,
+            [FromForm] RequestAccidentDto requestAccidentDto, [FromForm] AccidentImageDto accidentImageDto)
+        {
+            await _accidentsService.UpdateAccident(accidentId, policyId, User.GetId(), requestAccidentDto, accidentImageDto);
+
+            return NoContent();
+        }
     }
 }

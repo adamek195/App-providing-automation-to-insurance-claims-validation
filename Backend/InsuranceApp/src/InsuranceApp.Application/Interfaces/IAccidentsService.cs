@@ -12,5 +12,7 @@ namespace InsuranceApp.Application.Interfaces
     {
         Task<List<AccidentDto>> GetAccidents(int policyId, string userId);
         Task<AccidentDto> CreateAccident(int policyId, string userId, RequestAccidentDto newAccidentDto, AccidentImageDto accidentImageDto);
+        Task DeleteAccident(int accidentId, int policyId, string userId);
+        Task UpdateAccident(int accidentId, int policyId, string userId, RequestAccidentDto newAccidentDto, AccidentImageDto accidentImageDto);
     }
 }

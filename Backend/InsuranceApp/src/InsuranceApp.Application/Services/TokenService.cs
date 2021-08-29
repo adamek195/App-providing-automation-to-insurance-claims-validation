@@ -43,7 +43,7 @@ namespace InsuranceApp.Application.Services
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(
-                    _configuration.GetValue<int>("JwtToken:ExpirationMinutes")),
+                    _configuration.GetValue<int>("JwtToken:TokenLifeTime")),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
             };

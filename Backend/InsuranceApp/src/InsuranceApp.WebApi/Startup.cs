@@ -5,6 +5,7 @@ using InsuranceApp.Infrastructure.Repositories;
 using InsuranceApp.Application.Interfaces;
 using InsuranceApp.Application.Mappings;
 using InsuranceApp.Application.Services;
+using InsuranceApp.WebApi.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,7 +16,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using InsuranceApp.WebApi.Filters;
 
 namespace InsuranceApp.WebApi
 {
@@ -31,9 +31,13 @@ namespace InsuranceApp.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IUsersRepository, UsersRepository>();
             services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<IPoliciesService, PoliciesService>();
+            services.AddTransient<IPoliciesRepository, PoliciesRepository>();
+            services.AddTransient<IAccidentsService, AccidentsService>();
+            services.AddTransient<IAccidentsRepository, AccidentsRepository>();
 
             services.AddSingleton(AutoMapperConfig.Initialize());
 
@@ -83,16 +87,15 @@ namespace InsuranceApp.WebApi
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
-                          new OpenApiSecurityScheme
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
                             {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                }
-                            },
-                            new string[] {}
-
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
                     }
                 });
             });

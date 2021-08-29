@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace InsuranceApp.Application.Interfaces
 {
-    public interface IUserService
+    public interface IUsersService
     {
         List<UserDto> GetAllUsers();
 
-        Task<UserDto> CreateUser(CreateUserDto createUserDto);
+        Task<UserDto> CreateUser(CreateUserDto newUserDto);
 
         Task<bool> SignIn(LoginUserDto loginUserDto);
 

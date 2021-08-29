@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InsuranceApp.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UsersRepository : IUsersRepository
     {
         private readonly InsuranceAppContext _context;
         private readonly UserManager<User> _userManager;
 
-        public UserRepository(InsuranceAppContext context, UserManager<User> userManager)
+        public UsersRepository(InsuranceAppContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -36,7 +36,7 @@ namespace InsuranceApp.Infrastructure.Repositories
 
         public async Task<bool> SignIn(User loginUser)
         {
-            var user = await _userManager.FindByNameAsync(loginUser.UserName);
+            var user = await _userManager.FindByEmailAsync(loginUser.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, loginUser.PasswordHash))
                 return true;
             else

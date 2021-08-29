@@ -26,9 +26,9 @@ namespace InsuranceApp.Application.Services
 
         public async Task<string> GetToken(LoginUserDto loginDataDto)
         {
-            var user = await _userManager.FindByNameAsync(loginDataDto.UserName);
+            var user = await _userManager.FindByEmailAsync(loginDataDto.Email);
             if (user == null)
-                throw new NotFoundException("Wrong User Name! Please check user details and try again.");
+                throw new NotFoundException("Wrong Email! Please check user details and try again.");
 
             var passwordCorrect = await _userManager.CheckPasswordAsync(user, loginDataDto.PasswordHash);
             if (!passwordCorrect)

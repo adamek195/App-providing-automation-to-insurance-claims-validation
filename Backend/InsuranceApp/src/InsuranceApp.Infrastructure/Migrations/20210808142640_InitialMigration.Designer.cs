@@ -4,52 +4,22 @@ using InsuranceApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InsuranceApp.Infrastructure.Migrations
 {
     [DbContext(typeof(InsuranceAppContext))]
-    partial class InsuranceAppContextModelSnapshot : ModelSnapshot
+    [Migration("20210808142640_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("InsuranceApp.Domain.Entities.Accident", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("AccidentDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AccidentDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("AccidentImage")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("GuiltyPartyPolicyNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GuiltyPartyRegistrationNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PolicyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PolicyId");
-
-                    b.ToTable("Accidents");
-                });
 
             modelBuilder.Entity("InsuranceApp.Domain.Entities.Policy", b =>
                 {
@@ -305,17 +275,6 @@ namespace InsuranceApp.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("InsuranceApp.Domain.Entities.Accident", b =>
-                {
-                    b.HasOne("InsuranceApp.Domain.Entities.Policy", "Policy")
-                        .WithMany("Accidents")
-                        .HasForeignKey("PolicyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Policy");
-                });
-
             modelBuilder.Entity("InsuranceApp.Domain.Entities.Policy", b =>
                 {
                     b.HasOne("InsuranceApp.Domain.Entities.User", "User")
@@ -376,11 +335,6 @@ namespace InsuranceApp.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("InsuranceApp.Domain.Entities.Policy", b =>
-                {
-                    b.Navigation("Accidents");
                 });
 
             modelBuilder.Entity("InsuranceApp.Domain.Entities.User", b =>

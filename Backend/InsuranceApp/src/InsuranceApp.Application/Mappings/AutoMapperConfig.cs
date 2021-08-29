@@ -12,7 +12,14 @@ namespace InsuranceApp.Application.Mappings
                 cfg.CreateMap<User, UserDto>();
                 cfg.CreateMap<LoginUserDto, User>();
                 cfg.CreateMap<UserDto, User>();
-                cfg.CreateMap<CreateUserDto, User>();
+                cfg.CreateMap<CreateUserDto, User>()
+                    .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
+                cfg.CreateMap<Policy, PolicyDto>();
+                cfg.CreateMap<PolicyDto, Policy>();
+                cfg.CreateMap<RequestPolicyDto, Policy>();
+                cfg.CreateMap<AccidentDto, Accident>();
+                cfg.CreateMap<Accident, AccidentDto>();
+                cfg.CreateMap<RequestAccidentDto, Accident>();
             })
             .CreateMapper();
     }

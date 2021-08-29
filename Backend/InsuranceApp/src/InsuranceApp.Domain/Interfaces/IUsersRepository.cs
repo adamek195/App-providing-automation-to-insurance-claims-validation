@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace InsuranceApp.Domain.Interfaces
 {
-    public interface IUserRepository
+    public interface IUsersRepository
     {
         List<User> GetAllUsers();
         Task<User> AddUser(User newUser);

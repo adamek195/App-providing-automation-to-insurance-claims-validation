@@ -4,12 +4,11 @@ namespace InsuranceApp.Application.Dto
 {
     public class LoginUserDto
     {
-        [Required(ErrorMessage = "Name of the user is required")]
-        [StringLength(100, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
-        public string UserName { get; set; }
+        [EmailAddress]
+        [Required(ErrorMessage = "Email of the user is required")]
+        public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password of the user is required")]
-        [DataType(DataType.Password)]
+        [Required]
         public string PasswordHash { get; set; }
     }
 }

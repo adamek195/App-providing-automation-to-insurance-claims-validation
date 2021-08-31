@@ -24,12 +24,6 @@ namespace InsuranceApp.Application.Services
             _userManager = userManager;
         }
 
-        public List<UserDto> GetAllUsers()
-        {
-            var users = _usersRepository.GetAllUsers();
-            return _mapper.Map<List<UserDto>>(users);
-        }
-
         public async Task<UserDto> CreateUser(CreateUserDto newUserDto)
         {
             var user = await _userManager.FindByEmailAsync(newUserDto.Email);

@@ -21,13 +21,6 @@ namespace InsuranceApp.WebApi.Controllers
             _tokenService = tokenService;
         }
 
-        [HttpGet]
-        public IActionResult GetAllUsers()
-        {
-            var users = _usersService.GetAllUsers();
-            return Ok(users);
-        }
-
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]

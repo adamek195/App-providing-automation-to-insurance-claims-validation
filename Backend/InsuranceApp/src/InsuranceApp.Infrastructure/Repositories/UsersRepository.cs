@@ -20,11 +20,6 @@ namespace InsuranceApp.Infrastructure.Repositories
             _userManager = userManager;
         }
 
-        public List<User> GetAllUsers()
-        {
-            return _context.Users.ToList();
-        }
-
         public async Task<User> AddUser(User newUser)
         {
             var result = await _userManager.CreateAsync(newUser, newUser.PasswordHash);

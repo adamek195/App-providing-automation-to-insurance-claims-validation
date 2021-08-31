@@ -21,7 +21,7 @@ namespace InsuranceApp.Domain.Entities
         public DateTime AccidentDateTime { get; set; }
         public string AccidentDescription {get; set;}
         public string GuiltyPartyPolicyNumber { get; set; }
-        public string GuiltyPartyPolicyNumber { get; set; }
+        public string GuiltyPartyRegistrationNumber { get; set; }
         public byte[] AccidentImage { get; set; }
     }
 }

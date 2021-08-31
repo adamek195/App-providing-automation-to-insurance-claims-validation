@@ -6,11 +6,8 @@ namespace InsuranceApp.Application.Interfaces
 {
     public interface IUsersService
     {
-        List<UserDto> GetAllUsers();
-
         Task<UserDto> CreateUser(CreateUserDto newUserDto);
 
         Task<bool> SignIn(LoginUserDto loginUserDto);
-
     }
 }

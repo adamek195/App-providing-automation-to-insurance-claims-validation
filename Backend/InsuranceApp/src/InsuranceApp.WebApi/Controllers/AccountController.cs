@@ -1,6 +1,8 @@
 ﻿using InsuranceApp.Application.Dto;
 using InsuranceApp.Application.Interfaces;
 using InsuranceApp.WebApi.Filters;
+using InsuranceApp.WebApi.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -21,6 +23,16 @@ namespace InsuranceApp.WebApi.Controllers
             _tokenService = tokenService;
         }
 
+        [HttpGet]
+        [Route("user")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> GetUser()
+        {
+            var user = await _usersService.GetUser(User.GetId());
+
+            return Ok(user);
+        }
+
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
@@ -29,20 +41,6 @@ namespace InsuranceApp.WebApi.Controllers
             var newUser = await _usersService.CreateUser(newUserDto);
 
             return Created($"api/users/{newUser.Id}", newUser);
-        }
-
-        [HttpPost]
-        [Route("login")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
-        {
-            var result = await _usersService.SignIn(loginUserDto);
-
-            if (result)
-                return Ok("You have signed in!");
-            else
-                return Unauthorized();
-            
         }
 
         [HttpPost]

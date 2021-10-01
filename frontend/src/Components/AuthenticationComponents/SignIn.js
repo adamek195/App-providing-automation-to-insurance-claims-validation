@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import { authenticateUrl } from "../../constUrls"
 import menu from '../../Images/menu-logo.jpg';
 import { toast } from "react-toastify";
 
@@ -16,7 +17,6 @@ class SignIn extends Component {
             password: false,
         }
     }
-
 
     messages = {
         email_incorrect: 'Brak @ w emailu',
@@ -35,19 +35,15 @@ class SignIn extends Component {
         let email = false;
         let password = false;
         let correct = false;
-
         if (this.state.email.indexOf('@') !== -1) {
           email = true;
         }
-
         if (this.state.password.length >= 8) {
             password = true;
         }
-
         if (email && password) {
           correct = true
         }
-
         return ({
           correct,
           email,
@@ -55,17 +51,18 @@ class SignIn extends Component {
         })
       }
 
-      handleSubmit = (e) => {
+    handleSubmit = (e) => {
         e.preventDefault()
         const validation = this.formValidation()
         if (validation.correct) {
-            console.log("Jest dobrze w chuj")
+            this.handleSigningIn();
+
             this.setState({
                 errors: {
                     email: false,
                     pass: false,
                 }
-            })
+            });
         } else {
             this.setState({
               errors: {
@@ -76,19 +73,28 @@ class SignIn extends Component {
         }
       }
 
-      /*authenticateUser = () => {
+    handleSigningIn = () => {
+        this.authenticateUser()
+            .then((response) => {
+               console.log(response)
+            })
+            .then(() => {
+                console.log("nie zalogowales sie")
+            });
+    }
+
+    authenticateUser = () => {
         let credentials = {
             email: this.state.email,
-            password: this.state.token
+            passwordHash: this.state.password
         }
-
         return axios.post(authenticateUrl, credentials)
             .then((response) => {return response.data})
             .catch(() => {
                 toast.error("Nieprawidłowe dane do logowania")
-                history.push("/unauthorized")
+                //history.push("/unauthorized")
             })
-      }*/
+      }
 
     render() {
       return(
@@ -108,7 +114,7 @@ class SignIn extends Component {
                     </div>
                     <br />
                     <div className="form-group p-mx-5">
-                        <label>Password</label>
+                        <label>Hasło</label>
                         <input name="password"
                             type="password"
                             className="form-control"
@@ -121,7 +127,7 @@ class SignIn extends Component {
                     <div>
                         <button type="submit"
                             className="btn btn-primary"
-                            onClick={this.handleSubmit}>Sign in
+                            onClick={this.handleSubmit}>Zaloguj się
                         </button>
                     </div>
                 </div>

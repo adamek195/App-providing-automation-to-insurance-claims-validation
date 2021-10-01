@@ -45,6 +45,7 @@ namespace InsuranceApp.WebApi
                 options.Filters.Add(new GlobalExceptionFilter());
             });
 
+            services.AddCors();
             services.AddControllers();
 
             services.AddDbContext<InsuranceAppContext>(options =>
@@ -113,6 +114,12 @@ namespace InsuranceApp.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
 
             app.UseAuthentication();
             app.UseAuthorization();

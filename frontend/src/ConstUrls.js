@@ -1,5 +1,5 @@
 // Base
-export const BASE_URL = "https://localhost:44313/api/";
+export const BASE_URL = "https://localhost:5001/api/";
 
 // Authentication
 export const registerUrl = BASE_URL + "Account/register";

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import history from '../../History.js';
 import { authenticateUrl } from "../../ConstUrls"
 import menu from '../../Images/menu-logo.jpg';
 import { toast } from "react-toastify";
@@ -11,7 +12,6 @@ class SignIn extends Component {
         email: "",
         password: "",
         accept: false,
-        correct: false,
         token: "",
 
         errors: {
@@ -62,7 +62,7 @@ class SignIn extends Component {
             this.setState({
                 errors: {
                     email: false,
-                    pass: false,
+                    password: false,
                 }
             });
         } else {

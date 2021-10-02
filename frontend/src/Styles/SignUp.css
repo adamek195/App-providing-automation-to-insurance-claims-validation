@@ -1,0 +1,17 @@
+.register-wrapper {
+  margin-top:  80px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 80px;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+  display: inline-block;
+  width: 40%;
+}
+
+.register-wrapper h3 {
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+}

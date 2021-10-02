@@ -1,0 +1,19 @@
+.auth-wrapper {
+  margin-top:  80px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+  width: 40%;
+  height: 100%;
+}
+
+#menu-logo{
+  width: 200px;
+  height: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+}

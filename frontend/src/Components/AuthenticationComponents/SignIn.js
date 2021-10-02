@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import { authenticateUrl } from "../../ConstUrls"
 import menu from '../../Images/menu-logo.jpg';
 import { toast } from "react-toastify";
+import '../../Styles/SignIn.css';
 
 class SignIn extends Component {
     state = {
@@ -129,6 +131,11 @@ class SignIn extends Component {
                             className="btn btn-primary"
                             onClick={this.handleSubmit}>Zaloguj się
                         </button>
+                    </div>
+                    <br />
+                    <div className="d-flex">
+                        <p className="p-2">Nie masz konta?</p>
+                        <Link className="nav-link p-2" to={"/sign-up"}>Zarejestruj się</Link>
                     </div>
                 </div>
           </div>

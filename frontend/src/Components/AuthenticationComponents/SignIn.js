@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import { authenticateUrl } from "../../constUrls"
+import { authenticateUrl } from "../../ConstUrls"
 import menu from '../../Images/menu-logo.jpg';
 import { toast } from "react-toastify";
 

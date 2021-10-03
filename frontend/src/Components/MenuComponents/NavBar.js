@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import history from '../../History.js';
+import { removeToken } from "../../Helpers";
 
 class NavBar extends Component {
     render() {
@@ -11,7 +11,7 @@ class NavBar extends Component {
                             <button
                                 type="submit"
                                 className="btn btn-primary btn-block"
-                                onClick={() => { history.push("/sign-in") }}>Wyloguj się
+                                onClick={() => { removeToken() }}>Wyloguj się
                             </button>
                         </li>
                     </ul>

@@ -19,6 +19,7 @@ class SignUp extends Component {
         password: "",
         repeatPassword: "",
         correct: false,
+        registerError: false,
 
         errors: {
             firstName: false,
@@ -45,13 +46,15 @@ class SignUp extends Component {
         address_incorrect: 'Adres zamieszkania jest wymagany',
         password_incorrect: 'Hasło musi mieć przynajmniej 8 znaków',
         repeatPassword_incorrect: 'Hasła nie są takie same',
+        register_incorrect: 'Wystąpił błąd podczas rejestracji',
     }
 
     handleChange = (event) => {
         const value = event.target.value;
         const name = event.target.name;
         this.setState({
-            [name]: value
+            [name]: value,
+            registerError: false
         });
     }
 
@@ -168,7 +171,9 @@ class SignUp extends Component {
         }
         axios.post(registerUrl, postData)
             .catch(() => {
-                console.log("Błąd w rejestracji sprawdź dane do rjestracji");
+                this.setState({
+                    registerError: true
+                })
             })
     }
 
@@ -186,7 +191,7 @@ class SignUp extends Component {
                               placeholder="Wprowadź swoje imię"
                               value={this.state.firstName}
                               onChange={this.handleChange}/>
-                              {this.state.errors.firstName && <span>{this.messages.firstName_incorrect}</span>}
+                              {this.state.errors.firstName && <span style={{ fontSize: '15px'}}>{this.messages.firstName_incorrect}</span>}
                       </div>
                       <br />
                       <div className="form-group p-mx-5">
@@ -197,7 +202,7 @@ class SignUp extends Component {
                               placeholder="Wprowadź swoje nazwisko"
                               value={this.state.lastName}
                               onChange={this.handleChange}/>
-                              {this.state.errors.lastName && <span>{this.messages.lastName_incorrect}</span>}
+                              {this.state.errors.lastName && <span style={{ fontSize: '15px'}}>{this.messages.lastName_incorrect}</span>}
                       </div>
                       <br />
                       <div className="form-group p-mx-5">
@@ -208,7 +213,7 @@ class SignUp extends Component {
                               placeholder="Wprowadź swój email"
                               value={this.state.email}
                               onChange={this.handleChange}/>
-                              {this.state.errors.email && <span>{this.messages.email_incorrect}</span>}
+                              {this.state.errors.email && <span style={{ fontSize: '15px'}}>{this.messages.email_incorrect}</span>}
                       </div>
                       <br />
                       <div className="form-group p-mx-5">
@@ -219,7 +224,7 @@ class SignUp extends Component {
                               placeholder="Wprowadź swój pesel"
                               value={this.state.personalIdentityNumber}
                               onChange={this.handleChange}/>
-                              {this.state.errors.personalIdentityNumber && <span>{this.messages.personalIdentityNumber_incorrect}</span>}
+                              {this.state.errors.personalIdentityNumber && <span style={{ fontSize: '15px'}}>{this.messages.personalIdentityNumber_incorrect}</span>}
                       </div>
                       <br />
                       <div className="form-group p-mx-5">
@@ -230,7 +235,7 @@ class SignUp extends Component {
                               placeholder="Wprowadź swój numer telefonu"
                               value={this.state.phoneNumber}
                               onChange={this.handleChange}/>
-                              {this.state.errors.phoneNumber && <span>{this.messages.phoneNumber_incorrect}</span>}
+                              {this.state.errors.phoneNumber && <span style={{ fontSize: '15px'}}>{this.messages.phoneNumber_incorrect}</span>}
                       </div>
                       <br />
                       <div className="form-group p-mx-5">
@@ -241,7 +246,7 @@ class SignUp extends Component {
                               placeholder="Wprowadź miasto zamieszkania"
                               value={this.state.city}
                               onChange={this.handleChange}/>
-                              {this.state.errors.city && <span>{this.messages.city_incorrect}</span>}
+                              {this.state.errors.city && <span style={{ fontSize: '15px'}}>{this.messages.city_incorrect}</span>}
                       </div>
                       <br />
                       <div className="form-group p-mx-5">
@@ -252,7 +257,7 @@ class SignUp extends Component {
                               placeholder="Wprowadź kod pocztowy"
                               value={this.state.postalCode}
                               onChange={this.handleChange}/>
-                              {this.state.errors.postalCode && <span>{this.messages.postalCode_incorrect}</span>}
+                              {this.state.errors.postalCode && <span style={{ fontSize: '15px'}}>{this.messages.postalCode_incorrect}</span>}
                       </div>
                       <br />
                       <div className="form-group p-mx-5">
@@ -263,7 +268,7 @@ class SignUp extends Component {
                               placeholder="Wprowadź swój adres zamieszkania"
                               value={this.state.address}
                               onChange={this.handleChange}/>
-                              {this.state.errors.address && <span>{this.messages.address_incorrect}</span>}
+                              {this.state.errors.address && <span style={{ fontSize: '15px'}}>{this.messages.address_incorrect}</span>}
                       </div>
                       <br />
                       <div className="form-group p-mx-5">
@@ -274,7 +279,7 @@ class SignUp extends Component {
                               placeholder="Wprowadź swoje hasło"
                               value={this.state.password}
                               onChange={this.handleChange}/>
-                              {this.state.errors.password && <span>{this.messages.password_incorrect}</span>}
+                              {this.state.errors.password && <span style={{ fontSize: '15px'}}>{this.messages.password_incorrect}</span>}
                           </div>
                       <br />
                       <div className="form-group p-mx-5">
@@ -285,7 +290,7 @@ class SignUp extends Component {
                               placeholder="Wprowadź swoje hasło jeszcze raz"
                               value={this.state.repeatPassword}
                               onChange={this.handleChange}/>
-                              {this.state.errors.repeatPassword && <span>{this.messages.repeatPassword_incorrect}</span>}
+                              {this.state.errors.repeatPassword && <span style={{ fontSize: '15px'}}>{this.messages.repeatPassword_incorrect}</span>}
                           </div>
                       <br />
                       <div>
@@ -294,8 +299,8 @@ class SignUp extends Component {
                               onClick={this.handleSubmit}>Zarejestruj się
                           </button>
                       </div>
-                      <br />
-                      <div className="d-flex">
+                      {this.state.registerError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.register_incorrect}</span>}
+                      <div className="d-flex justify-content-center">
                         <p className="p-2">Jesteś już zarejestrowany?</p>
                         <Link className="nav-link p-2" to={"/sign-in"}>Zaloguj się</Link>
                       </div>

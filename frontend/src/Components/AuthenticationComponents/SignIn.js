@@ -8,9 +8,11 @@ import menu from '../../Images/menu-logo.jpg';
 import '../../Styles/SignIn.css';
 
 class SignIn extends Component {
+
     state = {
         email: "",
         password: "",
+        incorrectCredentials: false,
 
         errors: {
             email: false,
@@ -21,13 +23,15 @@ class SignIn extends Component {
     messages = {
         email_incorrect: 'Brak @ w emailu',
         password_incorrect: 'Hasło musi mieć przynajmniej 8 znaków',
+        credentials_incorrect: 'Niepoprawna nazwa użytkownika lub hasło'
     }
 
     handleChange = (event) => {
         const value = event.target.value;
         const name = event.target.name;
         this.setState({
-            [name]: value
+            [name]: value,
+            incorrectCredentials: false
         });
     }
 
@@ -95,7 +99,9 @@ class SignIn extends Component {
             .then((response) => {
                 return response.data})
             .catch(() => {
-                history.push("/unauthorized");
+                this.setState({
+                    incorrectCredentials: true
+                })
             });
       }
 
@@ -113,7 +119,7 @@ class SignIn extends Component {
                             placeholder="Wprowadź swój email"
                             value={this.state.email}
                             onChange={this.handleChange}/>
-                            {this.state.errors.email && <span>{this.messages.email_incorrect}</span>}
+                            {this.state.errors.email && <span style={{ fontSize: '15px'}}>{this.messages.email_incorrect}</span>}
                     </div>
                     <br />
                     <div className="form-group p-mx-5">
@@ -124,7 +130,7 @@ class SignIn extends Component {
                             placeholder="Wprowadź swoje hasło"
                             value={this.state.password}
                             onChange={this.handleChange} />
-                            {this.state.errors.password && <span>{this.messages.password_incorrect}</span>}
+                            {this.state.errors.password && <span style={{ fontSize: '15px'}}>{this.messages.password_incorrect}</span>}
                         </div>
                     <br />
                     <div>
@@ -133,8 +139,8 @@ class SignIn extends Component {
                             onClick={this.handleSubmit}>Zaloguj się
                         </button>
                     </div>
-                    <br />
-                    <div className="d-flex">
+                    {this.state.incorrectCredentials && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.credentials_incorrect}</span>}
+                    <div className="d-flex justify-content-center">
                         <p className="p-2">Nie masz konta?</p>
                         <Link className="nav-link p-2" to={"/sign-up"}>Zarejestruj się</Link>
                     </div>

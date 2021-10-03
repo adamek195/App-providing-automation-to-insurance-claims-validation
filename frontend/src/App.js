@@ -56,7 +56,7 @@ class App extends Component {
     })
 
     let jwtToken = getJwtTokenFromLocalStorage();
-    if (jwtToken !== undefined && jwtToken !== null) {
+    if (jwtToken !== 'undefined' && jwtToken !== null) {
       setAuthorizationToken(jwtToken);
     }
   }

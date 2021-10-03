@@ -2,17 +2,15 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import history from '../../History.js';
+import { isUserSignedIn, setAuthorizationToken, jwtToLocalStorage } from "../../Helpers.js";
 import { authenticateUrl } from "../../ConstUrls"
 import menu from '../../Images/menu-logo.jpg';
-import { toast } from "react-toastify";
 import '../../Styles/SignIn.css';
 
 class SignIn extends Component {
     state = {
         email: "",
         password: "",
-        accept: false,
-        token: "",
 
         errors: {
             email: false,
@@ -78,10 +76,13 @@ class SignIn extends Component {
     handleSigningIn = () => {
         this.authenticateUser()
             .then((response) => {
-               console.log(response)
+                jwtToLocalStorage(response)
+                setAuthorizationToken(response)
             })
             .then(() => {
-                console.log("nie zalogowales sie")
+                if (isUserSignedIn()) {
+                    history.push("/menu");
+                }
             });
     }
 
@@ -91,11 +92,11 @@ class SignIn extends Component {
             passwordHash: this.state.password
         }
         return axios.post(authenticateUrl, credentials)
-            .then((response) => {return response.data})
+            .then((response) => {
+                return response.data})
             .catch(() => {
-                toast.error("Nieprawidłowe dane do logowania")
-                //history.push("/unauthorized")
-            })
+                history.push("/unauthorized");
+            });
       }
 
     render() {

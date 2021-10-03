@@ -3,7 +3,7 @@ import history from './History.js';
 
 export const isUserSignedIn = () => {
     let jwtToken = localStorage.getItem("JWT");
-    if (jwtToken !== undefined && jwtToken !== null) {
+    if (jwtToken !== 'undefined' && jwtToken !== null) {
         return true;
     }
     else {

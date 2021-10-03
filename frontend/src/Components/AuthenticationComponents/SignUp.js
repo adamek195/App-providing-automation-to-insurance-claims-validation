@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import history from '../../History.js';
 import { registerUrl } from "../../ConstUrls"
-import { toast } from "react-toastify";
 import '../../Styles/SignUp.css';
 
 class SignUp extends Component {
@@ -169,7 +168,7 @@ class SignUp extends Component {
         }
         axios.post(registerUrl, postData)
             .catch(() => {
-                toast.error("Wystapił problem z rejestracją", { position: toast.POSITION.TOP_CENTER });
+                console.log("Błąd w rejestracji sprawdź dane do rjestracji");
             })
     }
 
@@ -177,7 +176,7 @@ class SignUp extends Component {
         return(
           <form>
               <div className="register-wrapper">
-                  <div className="auth-inner">
+                  <div className="register-inner">
                       <h3>Zarejestruj się</h3>
                       <div className="form-group p-mx-5">
                           <label>Imię</label>

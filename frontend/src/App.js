@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { setAuthorizationToken, getJwtTokenFromLocalStorage } from "./Helpers";
 import SignIn from "./Components/AuthenticationComponents/SignIn";
 import SignUp from "./Components/AuthenticationComponents/SignUp";
-import Spinner from "./Components/ErrorComponents/Spinner";
+import Spinner from "./Components/ErrorComponents/LoaderSpinner";
 import Unauthorized from "./Components/ErrorComponents/Unauthorized";
 import InternalServerError from "./Components/ErrorComponents/InternalServerError";
 import Menu from "./Components/PolicyComponents/Menu";

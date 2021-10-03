@@ -10,7 +10,7 @@ import SignUp from "./Components/AuthenticationComponents/SignUp";
 import Spinner from "./Components/ErrorComponents/LoaderSpinner";
 import Unauthorized from "./Components/ErrorComponents/Unauthorized";
 import InternalServerError from "./Components/ErrorComponents/InternalServerError";
-import Menu from "./Components/PolicyComponents/Menu";
+import Menu from "./Components/MenuComponents/Menu";
 
 class App extends Component {
 

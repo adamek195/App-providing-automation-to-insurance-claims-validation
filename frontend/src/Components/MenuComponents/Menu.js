@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import NavBar from './NavBar';
+import UserNavBar from './UserNavBar';
 
 class Menu extends Component {
     render() {
         return(
             <div>
-                <NavBar />
+                <UserNavBar />
                 <h1>MENU</h1>
             </div>
         );

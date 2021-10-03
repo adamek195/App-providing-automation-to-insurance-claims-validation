@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { removeToken } from "../../Helpers";
 
-class NavBar extends Component {
+class UserNavBar extends Component {
     render() {
         return(
             <nav className="navbar navbar-expand-sm bg-light" >
@@ -21,4 +21,4 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+export default UserNavBar;

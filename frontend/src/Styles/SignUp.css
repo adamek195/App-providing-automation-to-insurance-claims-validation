@@ -1,0 +1,25 @@
+.register-wrapper {
+  margin-top:  80px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 80px;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+  display: inline-block;
+  width: 40%;
+}
+
+.register-inner {
+  background: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all .3s;
+}
+
+.register-wrapper h3 {
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+}

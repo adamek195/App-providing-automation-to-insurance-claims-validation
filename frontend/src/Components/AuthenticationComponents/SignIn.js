@@ -85,7 +85,7 @@ class SignIn extends Component {
             })
             .then(() => {
                 if (isUserSignedIn()) {
-                    history.push("/menu");
+                    history.push("/home");
                 }
             });
     }

@@ -10,7 +10,10 @@ import SignUp from "./Components/AuthenticationComponents/SignUp";
 import Spinner from "./Components/ErrorComponents/LoaderSpinner";
 import Unauthorized from "./Components/ErrorComponents/Unauthorized";
 import InternalServerError from "./Components/ErrorComponents/InternalServerError";
-import Menu from "./Components/MenuComponents/Menu";
+import Home from "./Components/MenuComponents/Home";
+import NewAccident from './Components/AccidentComponents/NewAccident';
+import Accidents from './Components/AccidentComponents/Accidents';
+import Policies from './Components/PolicyComponents/Policies'
 
 class App extends Component {
 
@@ -71,7 +74,10 @@ class App extends Component {
             <Route path="/sign-up" component={SignUp} />
             <Route path="/unauthorized" component={Unauthorized} />
             <Route path="/internal-server-error" component={InternalServerError} />
-            <Route path="/menu" component={Menu} />
+            <Route path="/home" component={Home} />
+            <Route path="/policies" component={Policies} />
+            <Route path="/accidents" component={Accidents} />
+            <Route path="/new-accident" component={NewAccident} />
           </Switch>
           <Spinner loading={this.state.loading} />
         </div>

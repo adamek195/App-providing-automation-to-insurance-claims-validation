@@ -46,7 +46,7 @@ class SignUp extends Component {
         address_incorrect: 'Adres zamieszkania jest wymagany',
         password_incorrect: 'Hasło musi mieć przynajmniej 8 znaków',
         repeatPassword_incorrect: 'Hasła nie są takie same',
-        register_incorrect: 'Wystąpił błąd podczas rejestracji',
+        register_incorrect: 'Użytkownik o takim emailu już istnieje lub wystąpił błąd podczas rejestracji',
     }
 
     handleChange = (event) => {
@@ -123,7 +123,6 @@ class SignUp extends Component {
         const validation = this.formValidation();
         if (validation.correct) {
             this.registerUser();
-            history.push('/sign-in');
 
             this.setState({
                 errors: {
@@ -170,6 +169,12 @@ class SignUp extends Component {
             passwordHash: this.state.password
         }
         axios.post(registerUrl, postData)
+            .then((response) => {
+                if(response.status === 201)
+                    history.push("/sign-in");
+                if(response.status === 500)
+                history.push("/internal-server-error");
+            })
             .catch(() => {
                 this.setState({
                     registerError: true

@@ -14,6 +14,8 @@ import Home from "./Components/MenuComponents/Home";
 import NewAccident from './Components/AccidentComponents/NewAccident';
 import Accidents from './Components/AccidentComponents/Accidents';
 import Policies from './Components/PolicyComponents/Policies'
+import NewPolicy from './Components/PolicyComponents/NewPolicy'
+import PdfGenerator from './Components/AccidentComponents/PdfGenerator'
 
 class App extends Component {
 
@@ -76,8 +78,10 @@ class App extends Component {
             <Route path="/internal-server-error" component={InternalServerError} />
             <Route path="/home" component={Home} />
             <Route path="/policies" component={Policies} />
+            <Route path="/new-policy" component={NewPolicy} />
             <Route path="/accidents" component={Accidents} />
             <Route path="/new-accident" component={NewAccident} />
+            <Route path="/pdf" component={PdfGenerator} />
           </Switch>
           <Spinner loading={this.state.loading} />
         </div>

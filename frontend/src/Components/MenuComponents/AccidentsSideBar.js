@@ -13,6 +13,9 @@ class AccidentsSideBar extends Component {
                     if(selected === 'home'){
                         history.push("/home")
                     }
+                    if(selected === 'newPolicy'){
+                        history.push("/new-policy")
+                    }
                     if(selected === 'policies'){
                         history.push("/policies")
                     }
@@ -21,6 +24,9 @@ class AccidentsSideBar extends Component {
                     }
                     if(selected === 'accidents'){
                         history.push("/accidents")
+                    }
+                    if(selected === 'pdf'){
+                        history.push("/pdf")
                     }
             }}>
                 <SideNav.Toggle id="sideBarMenuToggle"/>
@@ -33,9 +39,17 @@ class AccidentsSideBar extends Component {
                             Strona głowna
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="policies">
+                    <NavItem eventKey="newPolicy">
                         <NavIcon>
                             <i className="fa fa-fw fa-file" style={{color: 'black', fontSize: '1.75em' }} />
+                        </NavIcon>
+                        <NavText style={{color: 'black'}} >
+                            Dodaj polisę
+                        </NavText>
+                    </NavItem>
+                    <NavItem eventKey="policies">
+                        <NavIcon>
+                            <i className="fa fa-fw fa-file-text" style={{color: 'black', fontSize: '1.75em' }} />
                         </NavIcon>
                         <NavText style={{color: 'black'}} >
                             Polisy
@@ -43,7 +57,7 @@ class AccidentsSideBar extends Component {
                     </NavItem>
                     <NavItem eventKey="newAccident">
                         <NavIcon>
-                            <i className="fa fa-fw fa-car" style={{color: 'black', fontSize: '1.75em' }} />
+                            <i className="fa fa-fw fa-taxi" aria-hidden="true" style={{color: 'black', fontSize: '1.75em' }} />
                         </NavIcon>
                         <NavText style={{color: 'black'}} >
                             Zgłoś szkodę
@@ -51,10 +65,18 @@ class AccidentsSideBar extends Component {
                     </NavItem>
                     <NavItem eventKey="accidents">
                         <NavIcon>
-                            <i className="fa fa-fw fa-exclamation" style={{color: 'black', fontSize: '1.75em' }} />
+                            <i className="fa fa-fw fa-car" style={{color: 'black', fontSize: '1.75em' }} />
                         </NavIcon>
                         <NavText style={{color: 'black'}} >
                             Zgłoszone szkody
+                        </NavText>
+                    </NavItem>
+                    <NavItem eventKey="pdf">
+                        <NavIcon>
+                            <i className="fa fa-fw fa-file-pdf-o" style={{color: 'black', fontSize: '1.75em' }} />
+                        </NavIcon>
+                        <NavText style={{color: 'black'}} >
+                            Wygeneruj dokument
                         </NavText>
                     </NavItem>
             </SideNav.Nav>

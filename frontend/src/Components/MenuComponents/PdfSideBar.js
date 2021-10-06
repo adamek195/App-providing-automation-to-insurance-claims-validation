@@ -4,7 +4,7 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import '../../Styles/SideBarMenu.css';
 import history from '../../History';
 
-class PoliciesSideBar extends Component {
+class PdfSideBar extends Component {
     render() {
         return(
         <div>
@@ -30,7 +30,7 @@ class PoliciesSideBar extends Component {
                     }
             }}>
                 <SideNav.Toggle id="sideBarMenuToggle"/>
-                <SideNav.Nav defaultSelected="policies">
+                <SideNav.Nav defaultSelected="pdf">
                     <NavItem eventKey="home">
                         <NavIcon>
                             <i className="fa fa-fw fa-home" style={{color: 'black', fontSize: '1.75em' }} />
@@ -86,4 +86,4 @@ class PoliciesSideBar extends Component {
     }
 }
 
-export default PoliciesSideBar;
+export default PdfSideBar;

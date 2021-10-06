@@ -1,0 +1,12 @@
+#policies-table{
+    background-color: white;
+    margin-top:  40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    height: auto;
+}
+
+.table-inner{
+    margin-left: 80px;
+}

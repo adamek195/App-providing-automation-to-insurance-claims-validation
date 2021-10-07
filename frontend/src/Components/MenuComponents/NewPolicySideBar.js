@@ -8,7 +8,7 @@ class NewPolicySideBar extends Component {
     render() {
         return(
         <div>
-            <SideNav id="sideBarMenu"
+            <SideNav id="sideBarMenu" style={{position: 'fixed'}}
                 onSelect={(selected) => {
                     if(selected === 'home'){
                         history.push("/home")

@@ -48,6 +48,7 @@ class SignIn extends Component {
         if (email && password) {
           correct = true
         }
+
         return ({
           correct,
           email,

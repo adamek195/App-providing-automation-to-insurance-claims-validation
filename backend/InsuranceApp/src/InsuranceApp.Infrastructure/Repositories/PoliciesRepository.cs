@@ -32,6 +32,13 @@ namespace InsuranceApp.Infrastructure.Repositories
             return userPolicy;
         }
 
+        public async Task<Policy> GetUserPolicyByPolicyNumber(string policyNumber)
+        {
+            var userPolicy = await _context.Policies.SingleOrDefaultAsync(p => p.PolicyNumber == policyNumber);
+
+            return userPolicy;
+        }
+
         public async Task<Policy> AddPolicy(Policy newPolicy)
         {
             _context.Policies.Add(newPolicy);

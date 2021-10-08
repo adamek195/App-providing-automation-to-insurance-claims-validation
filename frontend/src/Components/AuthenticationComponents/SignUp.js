@@ -172,7 +172,7 @@ class SignUp extends Component {
                 if(response.status === 201)
                     history.push("/sign-in");
                 if(response.status === 500)
-                history.push("/internal-server-error");
+                    history.push("/internal-server-error");
             })
             .catch(() => {
                 this.setState({

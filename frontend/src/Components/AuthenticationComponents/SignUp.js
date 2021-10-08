@@ -18,7 +18,6 @@ class SignUp extends Component {
         address: "",
         password: "",
         repeatPassword: "",
-        correct: false,
         registerError: false,
 
         errors: {

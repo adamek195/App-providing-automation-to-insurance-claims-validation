@@ -12,6 +12,7 @@ class Policies extends Component {
     state = {
         policies: [],
         policyNumber: "",
+        policyId: "",
         policyNavigator: "policies",
         policyNumberError: false,
         deleteServerError: false,
@@ -84,6 +85,7 @@ class Policies extends Component {
             })
         else{
             this.setState({
+                policyId: policy.id,
                 policyNavigator: 'update-policy',
             })
         }
@@ -162,7 +164,7 @@ class Policies extends Component {
                     </div>
                 </div>
                 )}
-                {this.state.policyNavigator === "update-policy" && <UpdatePolicy />}
+                {this.state.policyNavigator === "update-policy" && <UpdatePolicy policyId={this.state.policyId} />}
             </div>
         );
     }

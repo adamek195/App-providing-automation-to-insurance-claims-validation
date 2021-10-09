@@ -33,6 +33,10 @@ namespace InsuranceApp.Application.Services
             var policyToAdd = _mapper.Map<Policy>(newPolicyDto);
             policyToAdd.UserId = Guid.Parse(userId);
 
+            var checkPolicy = await _policiesRepository.GetUserPolicyByPolicyNumber(policyToAdd.PolicyNumber);
+            if (checkPolicy != null)
+                throw new ConflictException("Policy with the same number already exist");
+
             await _policiesRepository.AddPolicy(policyToAdd);
 
             return _mapper.Map<PolicyDto>(policyToAdd);
@@ -54,6 +58,10 @@ namespace InsuranceApp.Application.Services
 
             if (policyToUpdate == null)
                 throw new NotFoundException("Policy with this id does not exist.");
+
+            var checkPolicy = await _policiesRepository.GetUserPolicyByPolicyNumber(updatedPolicyDto.PolicyNumber);
+            if (checkPolicy != null && checkPolicy.Id != policyToUpdate?.Id)
+                throw new ConflictException("Policy with the same number already exist");
 
             policyToUpdate = _mapper.Map<Policy>(updatedPolicyDto);
             policyToUpdate.UserId = Guid.Parse(userId);

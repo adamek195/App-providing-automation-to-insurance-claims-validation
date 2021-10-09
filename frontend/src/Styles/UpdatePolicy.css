@@ -1,32 +1,22 @@
-.home-wrapper {
+.update-policy-wrapper {
     margin-top:  30px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 80px;
     justify-content: center;
     flex-direction: column;
+    text-align: left;
     display: inline-block;
+    width: 50%;
 }
 
-.home-inner {
+.update-policy-inner {
     background: #ffffff;
+    padding: 40px 55px 40px 55px;
     border-radius: 15px;
     transition: all .3s;
-    width: 700px;
-    height: 450px;
-    padding: 10px;
 }
 
-.home-wrapper h3{
-    text-align: left;
-}
-
-.home-wrapper h4{
+.update-policy-inner h3{
     text-align: center;
-}
-
-#home-image {
- width: 575px;
- height: 350px;
- border-radius: 20px;
- padding: 10px;
 }

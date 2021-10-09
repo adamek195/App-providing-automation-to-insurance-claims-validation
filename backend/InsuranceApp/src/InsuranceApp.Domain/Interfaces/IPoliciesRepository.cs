@@ -9,6 +9,7 @@ namespace InsuranceApp.Domain.Interfaces
     {
         Task<List<Policy>> GetUserPolicies(Guid userId);
         Task<Policy> GetUserPolicy(int policyId, Guid userdId);
+        Task<Policy> GetUserPolicyByPolicyNumber(string policyNumber);
         Task<Policy> AddPolicy(Policy newPolicy);
         Task DeletePolicy(int policyId, Guid userdId);
         Task UpdatePolicy(int policyId, Policy updatedPolicy);

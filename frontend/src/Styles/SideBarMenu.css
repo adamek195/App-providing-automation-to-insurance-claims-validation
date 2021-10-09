@@ -1,5 +1,6 @@
 #sideBarMenu{
     background-color: white;
+    position: 'fixed',
 }
 
 #sideBarMenuToggle{

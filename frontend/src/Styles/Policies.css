@@ -1,0 +1,32 @@
+#policies-table{
+    background-color: white;
+    margin-top:  40px;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+
+.table-inner{
+    margin-left: 80px;
+}
+
+.policies-manager-wrapper {
+    margin-top:  40px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    flex-direction: column;
+    width: 700px;
+    height: 100%;
+}
+
+.policies-manager-inner {
+    background: #ffffff;
+    padding: 40px 55px 40px 55px;
+    border-radius: 15px;
+    transition: all .3s;
+  }

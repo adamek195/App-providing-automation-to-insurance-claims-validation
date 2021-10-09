@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import UserNavBar from '../MenuComponents/UserNavBar';
-import NewPolicySideBar from '../MenuComponents/NewPolicySideBar';
+import '../../Styles/UpdatePolicy.css';
 import history from '../../History';
 import axios from 'axios';
-import '../../Styles/NewPolicy.css';
 import { policiesUrl } from "../../ConstUrls"
 
-class NewPolicy extends Component {
+class UpdatePolicy extends Component {
 
-    state ={
+    state = {
+        policyId: this.props.policyId,
         policyNumber: "",
         policyCreationDate: "",
         policyExpireDate: "",
@@ -107,7 +106,7 @@ class NewPolicy extends Component {
         e.preventDefault()
         const validation = this.formValidation();
         if (validation.correct) {
-            this.addPolicy();
+            this.updatePolicy();
 
             this.setState({
                 errors: {
@@ -137,8 +136,9 @@ class NewPolicy extends Component {
         }
     }
 
-    addPolicy = () => {
-        let postData = {
+    updatePolicy = () => {
+        let updateRequest = `${policiesUrl}/${this.state.policyId}`
+        let putData = {
             policyNumber: this.state.policyNumber,
             policyCreationDate: this.state.policyCreationDate,
             policyExpireDate: this.state.policyExpireDate,
@@ -148,14 +148,15 @@ class NewPolicy extends Component {
             mark: this.state.mark,
             model: this.state.model,
         }
-        axios.post(policiesUrl, postData)
-            .then((response) =>{
-                if(response.status === 201)
-                    history.push("/policies")
+        axios.put(updateRequest, putData)
+            .then((response) => {
                 if(response.status === 500)
                     history.push("/internal-server-error");
                 if(response.status === 401)
                     history.push("/unauthorized");
+            })
+            .then(() => {
+                window.location.reload(false);
             })
             .catch(() => {
                 this.setState({
@@ -164,15 +165,14 @@ class NewPolicy extends Component {
             })
     }
 
+
     render() {
         return(
             <div>
-                <UserNavBar />
-                <NewPolicySideBar />
                 <form>
-                    <div className="new-policy-wrapper">
-                        <div className="new-policy-inner">
-                            <i className="fa fa-fw fa-file" id="new-policy-icon" style={{color: 'black' , fontSize: '3.5em' }} />
+                    <div className="update-policy-wrapper">
+                        <div className="update-policy-inner">
+                            <h3>Edytuj wybraną polisę</h3>
                             <div className="form-group p-mx-5">
                             <label>Numer polisy</label>
                             <input name="policyNumber"
@@ -264,7 +264,7 @@ class NewPolicy extends Component {
                             <div className="text-center">
                                 <button type="submit"
                                     className="btn btn-primary"
-                                    onClick={this.handleSubmit}>Dodaj polisę
+                                    onClick={this.handleSubmit}>Edytuj polisę
                                 </button>
                             </div>
                         </div>
@@ -275,4 +275,4 @@ class NewPolicy extends Component {
     }
 }
 
-export default NewPolicy;
+export default UpdatePolicy;

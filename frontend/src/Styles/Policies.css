@@ -1,8 +1,11 @@
 #policies-table{
     background-color: white;
     margin-top:  40px;
+    margin-bottom: 40px;
     margin-left: auto;
     margin-right: auto;
+    justify-content: center;
+    display: inline-block;
     width: auto;
     height: auto;
 }
@@ -17,7 +20,7 @@
     margin-right: auto;
     justify-content: center;
     flex-direction: column;
-    width: 60%;
+    width: 700px;
     height: 100%;
 }
 

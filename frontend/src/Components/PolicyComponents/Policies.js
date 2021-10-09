@@ -28,6 +28,10 @@ class Policies extends Component {
         })
     }
 
+    show (policy){
+
+    }
+
     renderPolicy(policy){
         let creationDate = new Date(policy.policyCreationDate)
         let parseCreationDate = creationDate.getFullYear() + "-" + ('0' + (creationDate.getMonth()+1)).slice(-2) + "-" + ('0' + creationDate.getDate()).slice(-2);
@@ -53,6 +57,22 @@ class Policies extends Component {
             <div>
                 <UserNavBar />
                 <PoliciesSideBar />
+                <div className="policies-manager-wrapper">
+                    <div className="policies-manager-inner">
+                        <h3 style={{textAlign: 'center'}}>Zarządzaj polisami</h3>
+                        <div className="d-flex justify-content-center">
+                            <label style={{margin: '15px'}}>Numer wybranej polisy:</label>
+                            <button type="submit" style={{margin: '10px'}}
+                                className="btn btn-primary p-2"
+                                onClick={this.handleSubmit}>Edytuj polisę
+                            </button>
+                            <button type="submit" style={{margin: '10px'}}
+                                className="btn btn-primary p-2"
+                                onClick={this.handleSubmit}>Usuń polisę
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div className="table-inner">
                     <table class="table table-bordered" id="policies-table">
                         <thead class="thead-light">

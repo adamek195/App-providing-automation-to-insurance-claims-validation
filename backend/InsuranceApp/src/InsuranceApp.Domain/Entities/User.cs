@@ -19,5 +19,6 @@ namespace InsuranceApp.Domain.Entities
         public string Address { get; set; }
 
         public virtual ICollection<Policy> Policies { get; set; }
+        public virtual ICollection<GuiltyPartyAccident> GuiltyPartyAccidents { get; set; }
     }
 }

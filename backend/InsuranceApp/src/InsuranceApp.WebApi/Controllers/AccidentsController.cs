@@ -15,7 +15,7 @@ using InsuranceApp.WebApi.Filters;
 using InsuranceApp.Application.Dto;
 
 namespace InsuranceApp.WebApi.Controllers
-{   
+{
     [ApiController]
     [Route("api/[controller]")]
     [GlobalExceptionFilter]

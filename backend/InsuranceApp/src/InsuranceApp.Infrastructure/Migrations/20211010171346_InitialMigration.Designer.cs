@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsuranceApp.Infrastructure.Migrations
 {
     [DbContext(typeof(InsuranceAppContext))]
-    [Migration("20210816095809_Add-Accident")]
-    partial class AddAccident
+    [Migration("20211010171346_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,38 +20,6 @@ namespace InsuranceApp.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("InsuranceApp.Domain.Entities.Accident", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("AccidentDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AccidentDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("AccidentImage")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("GuiltyPartyPolicyNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GuiltyPartyRegistrationNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PolicyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PolicyId");
-
-                    b.ToTable("Accidents");
-                });
 
             modelBuilder.Entity("InsuranceApp.Domain.Entities.Policy", b =>
                 {
@@ -176,6 +144,41 @@ namespace InsuranceApp.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("InsuranceApp.Domain.Entities.UserAccident", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AccidentDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AccidentDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("AccidentImage")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("PolicyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VictimFirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VictimLastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VictimRegistrationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PolicyId");
+
+                    b.ToTable("UserAccidents");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -307,17 +310,6 @@ namespace InsuranceApp.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("InsuranceApp.Domain.Entities.Accident", b =>
-                {
-                    b.HasOne("InsuranceApp.Domain.Entities.Policy", "Policy")
-                        .WithMany("Accidents")
-                        .HasForeignKey("PolicyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Policy");
-                });
-
             modelBuilder.Entity("InsuranceApp.Domain.Entities.Policy", b =>
                 {
                     b.HasOne("InsuranceApp.Domain.Entities.User", "User")
@@ -327,6 +319,17 @@ namespace InsuranceApp.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("InsuranceApp.Domain.Entities.UserAccident", b =>
+                {
+                    b.HasOne("InsuranceApp.Domain.Entities.Policy", "Policy")
+                        .WithMany("UserAccidents")
+                        .HasForeignKey("PolicyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Policy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -382,7 +385,7 @@ namespace InsuranceApp.Infrastructure.Migrations
 
             modelBuilder.Entity("InsuranceApp.Domain.Entities.Policy", b =>
                 {
-                    b.Navigation("Accidents");
+                    b.Navigation("UserAccidents");
                 });
 
             modelBuilder.Entity("InsuranceApp.Domain.Entities.User", b =>

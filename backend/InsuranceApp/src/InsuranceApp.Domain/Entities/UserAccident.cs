@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InsuranceApp.Domain.Entities
 {
-    public class Accident
+    public class UserAccident
     {
         [Key]
         public int Id { get; set; }
@@ -16,8 +16,9 @@ namespace InsuranceApp.Domain.Entities
 
         public DateTime AccidentDateTime { get; set; }
         public string AccidentDescription {get; set;}
-        public string GuiltyPartyPolicyNumber { get; set; }
-        public string GuiltyPartyRegistrationNumber { get; set; }
+        public string VictimRegistrationNumber { get; set; }
+        public string VictimFirstName { get; set; }
+        public string VictimLastName { get; set; }
         public byte[] AccidentImage { get; set; }
     }
 }

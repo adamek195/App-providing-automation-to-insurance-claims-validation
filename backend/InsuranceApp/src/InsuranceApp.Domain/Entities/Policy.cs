@@ -25,6 +25,6 @@ namespace InsuranceApp.Domain.Entities
         public string Mark { get; set; }
         public string Model { get; set; }
 
-        public virtual ICollection<Accident> Accidents { get; set; }
+        public virtual ICollection<UserAccident> UserAccidents { get; set; }
     }
 }

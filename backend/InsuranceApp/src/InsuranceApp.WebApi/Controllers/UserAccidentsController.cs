@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Drawing;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,28 +13,28 @@ namespace InsuranceApp.WebApi.Controllers
     [Route("api/[controller]")]
     [GlobalExceptionFilter]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class AccidentsController : ControllerBase
+    public class UserAccidentsController : ControllerBase
     {
-        private readonly IAccidentsService _accidentsService;
+        private readonly IUserAccidentsService _userAccidentsService;
 
-        public AccidentsController(IAccidentsService accidentsService)
+        public UserAccidentsController(IUserAccidentsService userAccidentsService)
         {
-            _accidentsService = accidentsService;
+            _userAccidentsService = userAccidentsService;
         }
 
         [HttpGet("{policyId}")]
         public async Task<IActionResult> GetAccidents([FromRoute] int policyId)
         {
-            var accidents = await _accidentsService.GetAccidents(policyId, User.GetId());
+            var accidents = await _userAccidentsService.GetUserAccidents(policyId, User.GetId());
 
             return Ok(accidents);
         }
 
         [HttpPost("{policyId}")]
-        public async Task<IActionResult> CreateAccident([FromRoute] int policyId, [FromForm] RequestAccidentDto requestAccidentDto,
+        public async Task<IActionResult> CreateAccident([FromRoute] int policyId, [FromForm] RequestUserAccidentDto requestAccidentDto,
             [FromForm] AccidentImageDto accidentImageDto)
         {
-            var newAccident = await _accidentsService.CreateAccident(policyId, User.GetId(), requestAccidentDto, accidentImageDto);
+            var newAccident = await _userAccidentsService.CreateUserAccident(policyId, User.GetId(), requestAccidentDto, accidentImageDto);
 
             return Created($"api/policies/{newAccident.Id}", newAccident);
         }
@@ -49,16 +42,16 @@ namespace InsuranceApp.WebApi.Controllers
         [HttpDelete("{policyId}/{accidentId}")]
         public async Task<IActionResult> DeleteAccident([FromRoute] int policyId,[FromRoute] int accidentId)
         {
-            await _accidentsService.DeleteAccident(accidentId, policyId, User.GetId());
+            await _userAccidentsService.DeleteUserAccident(accidentId, policyId, User.GetId());
 
             return NoContent();
         }
 
         [HttpPut("{policyId}/{accidentId}")]
         public async Task<IActionResult> UpdateAccident([FromRoute] int policyId, [FromRoute] int accidentId,
-            [FromForm] RequestAccidentDto requestAccidentDto, [FromForm] AccidentImageDto accidentImageDto)
+            [FromForm] RequestUserAccidentDto requestAccidentDto, [FromForm] AccidentImageDto accidentImageDto)
         {
-            await _accidentsService.UpdateAccident(accidentId, policyId, User.GetId(), requestAccidentDto, accidentImageDto);
+            await _userAccidentsService.UpdateUserAccident(accidentId, policyId, User.GetId(), requestAccidentDto, accidentImageDto);
 
             return NoContent();
         }

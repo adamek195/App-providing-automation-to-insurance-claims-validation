@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InsuranceApp.Application.Dto
 {
-    public class RequestAccidentDto
+    public class RequestUserAccidentDto
     {
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "The accident date is required.")]
@@ -12,8 +12,8 @@ namespace InsuranceApp.Application.Dto
         [Required(ErrorMessage = "A description of the accident is required.")]
         public string AccidentDescription { get; set; }
 
-        public string GuiltyPartyPolicyNumber { get; set; }
-
-        public string GuiltyPartyRegistrationNumber { get; set; }
+        public string VictimRegistrationNumber { get; set; }
+        public string VictimFirstName { get; set; }
+        public string VictimLastName { get; set; }
     }
 }

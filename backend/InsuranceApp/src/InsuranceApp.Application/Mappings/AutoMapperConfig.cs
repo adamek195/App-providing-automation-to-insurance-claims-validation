@@ -22,6 +22,7 @@ namespace InsuranceApp.Application.Mappings
                 cfg.CreateMap<RequestUserAccidentDto, UserAccident>();
                 cfg.CreateMap<GuiltyPartyAccidentDto, GuiltyPartyAccident>();
                 cfg.CreateMap<GuiltyPartyAccident, GuiltyPartyAccidentDto>();
+                cfg.CreateMap<RequestGuiltyPartyAccidentDto, GuiltyPartyAccident>();
             })
             .CreateMapper();
     }

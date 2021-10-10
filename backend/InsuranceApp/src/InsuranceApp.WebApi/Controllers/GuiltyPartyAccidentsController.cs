@@ -1,4 +1,5 @@
-﻿using InsuranceApp.Application.Interfaces;
+﻿using InsuranceApp.Application.Dto;
+using InsuranceApp.Application.Interfaces;
 using InsuranceApp.WebApi.Filters;
 using InsuranceApp.WebApi.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -27,6 +28,15 @@ namespace InsuranceApp.WebApi.Controllers
             var accidents = await _guiltyPartyAccidentsService.GetGuiltyPartyAccidents(User.GetId());
 
             return Ok(accidents);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateGuiltyPartyAccident([FromForm] RequestGuiltyPartyAccidentDto requestAccidentDto,
+            [FromForm] AccidentImageDto accidentImageDto)
+        {
+            var newAccident = await _guiltyPartyAccidentsService.CreateGuiltyPartyAccident(User.GetId(), requestAccidentDto, accidentImageDto);
+
+            return Created($"api/policies/{newAccident.Id}", newAccident);
         }
     }
 }

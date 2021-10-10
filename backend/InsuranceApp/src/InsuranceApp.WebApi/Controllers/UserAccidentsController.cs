@@ -23,7 +23,7 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpGet("{policyId}")]
-        public async Task<IActionResult> GetAccidents([FromRoute] int policyId)
+        public async Task<IActionResult> GetUserAccidents([FromRoute] int policyId)
         {
             var accidents = await _userAccidentsService.GetUserAccidents(policyId, User.GetId());
 
@@ -31,7 +31,7 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpPost("{policyId}")]
-        public async Task<IActionResult> CreateAccident([FromRoute] int policyId, [FromForm] RequestUserAccidentDto requestAccidentDto,
+        public async Task<IActionResult> CreateUserAccident([FromRoute] int policyId, [FromForm] RequestUserAccidentDto requestAccidentDto,
             [FromForm] AccidentImageDto accidentImageDto)
         {
             var newAccident = await _userAccidentsService.CreateUserAccident(policyId, User.GetId(), requestAccidentDto, accidentImageDto);
@@ -40,7 +40,7 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpDelete("{policyId}/{accidentId}")]
-        public async Task<IActionResult> DeleteAccident([FromRoute] int policyId,[FromRoute] int accidentId)
+        public async Task<IActionResult> DeleteUserAccident([FromRoute] int policyId,[FromRoute] int accidentId)
         {
             await _userAccidentsService.DeleteUserAccident(accidentId, policyId, User.GetId());
 
@@ -48,7 +48,7 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpPut("{policyId}/{accidentId}")]
-        public async Task<IActionResult> UpdateAccident([FromRoute] int policyId, [FromRoute] int accidentId,
+        public async Task<IActionResult> UpdateUserAccident([FromRoute] int policyId, [FromRoute] int accidentId,
             [FromForm] RequestUserAccidentDto requestAccidentDto, [FromForm] AccidentImageDto accidentImageDto)
         {
             await _userAccidentsService.UpdateUserAccident(accidentId, policyId, User.GetId(), requestAccidentDto, accidentImageDto);

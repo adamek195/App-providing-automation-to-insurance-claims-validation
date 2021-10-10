@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using InsuranceApp.Application.Dto;
+using InsuranceApp.Application.Exceptions;
 using InsuranceApp.Application.Interfaces;
+using InsuranceApp.Domain.Entities;
 using InsuranceApp.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace InsuranceApp.Application.Services
@@ -26,6 +27,33 @@ namespace InsuranceApp.Application.Services
             var accidents = await _guiltyPartyAccidentsRepository.GetGuiltyPartyAccidents(Guid.Parse(userId));
 
             return _mapper.Map<List<GuiltyPartyAccidentDto>>(accidents);
+        }
+
+        public async Task<GuiltyPartyAccidentDto> CreateGuiltyPartyAccident(string userId, RequestGuiltyPartyAccidentDto newAccidentDto,
+            AccidentImageDto accidentImageDto)
+        {
+            byte[] accidentImage;
+
+            if (accidentImageDto.AccidentImage == null || accidentImageDto.AccidentImage.Length == 0)
+                throw new BadRequestException("You do not upload photo.");
+
+            if (accidentImageDto.AccidentImage.ContentType.ToLower() != "image/jpeg" &&
+                accidentImageDto.AccidentImage.ContentType.ToLower() != "image/jpg" &&
+                accidentImageDto.AccidentImage.ContentType.ToLower() != "image/png")
+                throw new BadRequestException("You do not upload photo.");
+
+            var accidentToAdd = _mapper.Map<GuiltyPartyAccident>(newAccidentDto);
+            accidentToAdd.UserId = Guid.Parse(userId);
+
+            using (var memoryStream = new MemoryStream())
+            {
+                await accidentImageDto.AccidentImage.CopyToAsync(memoryStream);
+                accidentImage = memoryStream.ToArray();
+            }
+
+            await _guiltyPartyAccidentsRepository.AddGuiltyPartyAccident(accidentToAdd, accidentImage);
+
+            return _mapper.Map<GuiltyPartyAccidentDto>(accidentToAdd);
         }
     }
 }

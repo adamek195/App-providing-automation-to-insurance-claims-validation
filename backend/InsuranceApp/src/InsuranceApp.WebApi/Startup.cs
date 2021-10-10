@@ -37,6 +37,8 @@ namespace InsuranceApp.WebApi
             services.AddTransient<IPoliciesRepository, PoliciesRepository>();
             services.AddTransient<IUserAccidentsService, UserAccidentsService>();
             services.AddTransient<IUserAccidentsRepository, UserAccidentsRepository>();
+            services.AddTransient<IGuiltyPartyAccidentsRepository, GuiltyPartyAccidentsRepository>();
+            services.AddTransient<IGuiltyPartyAccidentsService, GuiltyPartyAccidentsService>();
 
             services.AddSingleton(AutoMapperConfig.Initialize());
 

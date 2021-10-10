@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import UserNavBar from '../MenuComponents/UserNavBar';
-import PoliciesSideBar from '../MenuComponents/PoliciesSideBar';
 import axios from 'axios';
 import { policiesUrl } from "../../ConstUrls"
 import history from '../../History';
-import '../../Styles/Policies.css';
 import UpdatePolicy from './UpdatePolicy';
+import UserNavBar from '../MenuComponents/UserNavBar';
+import PoliciesSideBar from '../MenuComponents/PoliciesSideBar';
+import '../../Styles/Policies.css';
 
 class Policies extends Component {
 

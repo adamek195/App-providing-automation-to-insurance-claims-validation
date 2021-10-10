@@ -173,6 +173,7 @@ class NewPolicy extends Component {
                     <div className="new-policy-wrapper">
                         <div className="new-policy-inner">
                             <i className="fa fa-fw fa-file" id="new-policy-icon" style={{color: 'black' , fontSize: '3.5em' }} />
+                            <h3 style={{textAlign: 'center'}}>Dodaj polisę</h3>
                             <div className="form-group p-mx-5">
                             <label>Numer polisy</label>
                             <input name="policyNumber"

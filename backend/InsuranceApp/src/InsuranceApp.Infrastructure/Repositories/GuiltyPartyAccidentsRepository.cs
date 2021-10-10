@@ -25,6 +25,13 @@ namespace InsuranceApp.Infrastructure.Repositories
             return accidents;
         }
 
+        public async Task<GuiltyPartyAccident> GetGuiltyPartyAccident(int accidentId, Guid userId)
+        {
+            var accident = await _context.GuiltyPartyAccidents.SingleOrDefaultAsync(a => a.Id == accidentId && a.UserId == userId);
+
+            return accident;
+        }
+
         public async Task<GuiltyPartyAccident> AddGuiltyPartyAccident(GuiltyPartyAccident newAccident, byte[] accidentImage)
         {
             newAccident.AccidentImage = accidentImage;
@@ -33,6 +40,16 @@ namespace InsuranceApp.Infrastructure.Repositories
             await _context.SaveChangesAsync();
 
             return newAccident;
+        }
+
+        public async Task DeleteGuiltyPartyAccident(int accidentId, Guid userId)
+        {
+            var accidentToDelete = await _context.GuiltyPartyAccidents.SingleOrDefaultAsync(a => a.Id == accidentId && a.UserId == userId);
+
+            if (accidentToDelete != null)
+                _context.GuiltyPartyAccidents.Remove(accidentToDelete);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

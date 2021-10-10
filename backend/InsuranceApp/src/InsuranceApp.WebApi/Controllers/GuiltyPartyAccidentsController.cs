@@ -38,5 +38,13 @@ namespace InsuranceApp.WebApi.Controllers
 
             return Created($"api/policies/{newAccident.Id}", newAccident);
         }
+
+        [HttpDelete("{accidentId}")]
+        public async Task<IActionResult> DeleteGuiltyPartyAccident([FromRoute] int accidentId)
+        {
+            await _guiltyPartyAccidentsService.DeleteGuiltyPartyAccident(accidentId, User.GetId());
+
+            return NoContent();
+        }
     }
 }

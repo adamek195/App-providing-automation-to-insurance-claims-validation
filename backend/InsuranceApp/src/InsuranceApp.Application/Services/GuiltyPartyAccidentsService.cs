@@ -55,5 +55,15 @@ namespace InsuranceApp.Application.Services
 
             return _mapper.Map<GuiltyPartyAccidentDto>(accidentToAdd);
         }
+
+        public async Task DeleteGuiltyPartyAccident(int accidentId, string userId)
+        {
+            var accidentToDelete = await _guiltyPartyAccidentsRepository.GetGuiltyPartyAccident(accidentId, Guid.Parse(userId));
+
+            if (accidentToDelete == null)
+                throw new NotFoundException("Accident with this id does not exist.");
+
+            await _guiltyPartyAccidentsRepository.DeleteGuiltyPartyAccident(accidentId, Guid.Parse(userId));
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace InsuranceApp.Application.Interfaces
     {
         Task<List<GuiltyPartyAccidentDto>> GetGuiltyPartyAccidents(string userId);
         Task<GuiltyPartyAccidentDto> CreateGuiltyPartyAccident(string userId, RequestGuiltyPartyAccidentDto newAccidentDto, AccidentImageDto accidentImageDto);
+        Task DeleteGuiltyPartyAccident(int accidentId, string userId);
     }
 }

@@ -240,6 +240,7 @@ class Accidents extends Component {
                                     <Link className="nav-link p-2" to={"/policies"}>Zobacz polisy</Link>
                             </div>
                             {this.state.policyNumberError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.policyNumber_notFind}</span>}
+                            <hr style={{color: 'black', backgroundColor: 'black',height: 3}}/>
                             <div className="d-flex justify-content-center">
                                 <input name="userAccidentId" style={{margin: '10px', width:'310px'}}
                                         type="number"

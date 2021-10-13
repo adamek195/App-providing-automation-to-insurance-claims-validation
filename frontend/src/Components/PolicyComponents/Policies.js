@@ -52,7 +52,7 @@ class Policies extends Component {
     deletePolicy = (e) => {
         e.preventDefault()
         let policy = this.state.policies.find(policy => policy.policyNumber === this.state.policyNumber)
-        if(policy === undefined || null)
+        if((policy === undefined) || (policy === null))
             this.setState({
                 policyNumberError: true,
             })
@@ -79,7 +79,7 @@ class Policies extends Component {
     changeToUpdatePolicy = (e) => {
         e.preventDefault()
         let policy = this.state.policies.find(policy => policy.policyNumber === this.state.policyNumber)
-        if(policy === undefined || null)
+        if((policy === undefined) || (policy === null))
             this.setState({
                 policyNumberError: true,
             })

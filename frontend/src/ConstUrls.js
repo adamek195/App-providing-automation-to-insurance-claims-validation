@@ -9,5 +9,8 @@ export const userUrl = BASE_URL + "Account/user";
 // Policies
 export const policiesUrl = BASE_URL + "Policies";
 
-// Accidents
-export const accidentsUrl = BASE_URL + "Accidents";
+// UserAccidents
+export const userAccidentsUrl = BASE_URL + "UserAccidents";
+
+// GuiltyPartyAccidents
+export const guiltyPartyAccidentsUrl = BASE_URL + "GuiltyPartyAccidents";

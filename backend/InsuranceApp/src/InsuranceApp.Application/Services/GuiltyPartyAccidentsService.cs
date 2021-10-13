@@ -65,5 +65,34 @@ namespace InsuranceApp.Application.Services
 
             await _guiltyPartyAccidentsRepository.DeleteGuiltyPartyAccident(accidentId, Guid.Parse(userId));
         }
+
+        public async Task UpdateGuiltyPartyAccident(int accidentId, string userId, RequestGuiltyPartyAccidentDto updatedAccidentDto, AccidentImageDto accidentImageDto)
+        {
+            byte[] accidentImage;
+
+            if (accidentImageDto.AccidentImage == null || accidentImageDto.AccidentImage.Length == 0)
+                throw new BadRequestException("You do not upload photo.");
+
+            if (accidentImageDto.AccidentImage.ContentType.ToLower() != "image/jpeg" &&
+                accidentImageDto.AccidentImage.ContentType.ToLower() != "image/jpg" &&
+                accidentImageDto.AccidentImage.ContentType.ToLower() != "image/png")
+                throw new BadRequestException("You do not upload photo.");
+
+            var accidentToUpdate = await _guiltyPartyAccidentsRepository.GetGuiltyPartyAccident(accidentId, Guid.Parse(userId));
+
+            if (accidentToUpdate == null)
+                throw new NotFoundException("Accident with this id does not exist.");
+
+            accidentToUpdate = _mapper.Map<GuiltyPartyAccident>(updatedAccidentDto);
+            accidentToUpdate.UserId = Guid.Parse(userId);
+
+            using (var memoryStream = new MemoryStream())
+            {
+                await accidentImageDto.AccidentImage.CopyToAsync(memoryStream);
+                accidentImage = memoryStream.ToArray();
+            }
+
+            await _guiltyPartyAccidentsRepository.UpdateGuiltyPartyAccident(accidentId, accidentToUpdate, accidentImage);
+        }
     }
 }

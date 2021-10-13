@@ -11,5 +11,6 @@ namespace InsuranceApp.Domain.Interfaces
         Task<GuiltyPartyAccident> GetGuiltyPartyAccident(int accidentId, Guid userdId);
         Task<GuiltyPartyAccident> AddGuiltyPartyAccident(GuiltyPartyAccident newAccident, byte[] accidentImage);
         Task DeleteGuiltyPartyAccident(int accidentId, Guid userId);
+        Task UpdateGuiltyPartyAccident(int accidentId, GuiltyPartyAccident updatedAccident, byte[] accidentImage);
     }
 }

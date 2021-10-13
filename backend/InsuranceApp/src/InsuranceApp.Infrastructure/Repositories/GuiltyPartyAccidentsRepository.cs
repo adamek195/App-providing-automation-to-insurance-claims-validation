@@ -51,5 +51,21 @@ namespace InsuranceApp.Infrastructure.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateGuiltyPartyAccident(int accidentId, GuiltyPartyAccident updatedAccident, byte[] accidentImage)
+        {
+            var accidentToUpdate = await _context.GuiltyPartyAccidents.SingleOrDefaultAsync(a => a.Id == accidentId && a.UserId == updatedAccident.UserId);
+
+            if (accidentToUpdate != null)
+            {
+                accidentToUpdate.AccidentDateTime = updatedAccident.AccidentDateTime;
+                accidentToUpdate.AccidentDescription = updatedAccident.AccidentDescription;
+                accidentToUpdate.GuiltyPartyPolicyNumber = updatedAccident.GuiltyPartyPolicyNumber;
+                accidentToUpdate.GuiltyPartyRegistrationNumber = updatedAccident.GuiltyPartyRegistrationNumber;
+                accidentToUpdate.AccidentImage = accidentImage;
+            }
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

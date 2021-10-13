@@ -31,10 +31,10 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpPost("{policyId}")]
-        public async Task<IActionResult> CreateUserAccident([FromRoute] int policyId, [FromForm] RequestUserAccidentDto requestAccidentDto,
+        public async Task<IActionResult> CreateUserAccident([FromRoute] int policyId, [FromForm] RequestUserAccidentDto newAccidentDto,
             [FromForm] AccidentImageDto accidentImageDto)
         {
-            var newAccident = await _userAccidentsService.CreateUserAccident(policyId, User.GetId(), requestAccidentDto, accidentImageDto);
+            var newAccident = await _userAccidentsService.CreateUserAccident(policyId, User.GetId(), newAccidentDto, accidentImageDto);
 
             return Created($"api/policies/{newAccident.Id}", newAccident);
         }
@@ -49,9 +49,9 @@ namespace InsuranceApp.WebApi.Controllers
 
         [HttpPut("{policyId}/{accidentId}")]
         public async Task<IActionResult> UpdateUserAccident([FromRoute] int policyId, [FromRoute] int accidentId,
-            [FromForm] RequestUserAccidentDto requestAccidentDto, [FromForm] AccidentImageDto accidentImageDto)
+            [FromForm] RequestUserAccidentDto updatedAccidentDto, [FromForm] AccidentImageDto accidentImageDto)
         {
-            await _userAccidentsService.UpdateUserAccident(accidentId, policyId, User.GetId(), requestAccidentDto, accidentImageDto);
+            await _userAccidentsService.UpdateUserAccident(accidentId, policyId, User.GetId(), updatedAccidentDto, accidentImageDto);
 
             return NoContent();
         }

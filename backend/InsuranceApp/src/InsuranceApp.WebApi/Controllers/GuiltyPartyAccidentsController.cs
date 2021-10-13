@@ -31,10 +31,10 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGuiltyPartyAccident([FromForm] RequestGuiltyPartyAccidentDto requestAccidentDto,
+        public async Task<IActionResult> CreateGuiltyPartyAccident([FromForm] RequestGuiltyPartyAccidentDto newAccidentDto,
             [FromForm] AccidentImageDto accidentImageDto)
         {
-            var newAccident = await _guiltyPartyAccidentsService.CreateGuiltyPartyAccident(User.GetId(), requestAccidentDto, accidentImageDto);
+            var newAccident = await _guiltyPartyAccidentsService.CreateGuiltyPartyAccident(User.GetId(), newAccidentDto, accidentImageDto);
 
             return Created($"api/policies/{newAccident.Id}", newAccident);
         }
@@ -43,6 +43,15 @@ namespace InsuranceApp.WebApi.Controllers
         public async Task<IActionResult> DeleteGuiltyPartyAccident([FromRoute] int accidentId)
         {
             await _guiltyPartyAccidentsService.DeleteGuiltyPartyAccident(accidentId, User.GetId());
+
+            return NoContent();
+        }
+
+        [HttpPut("{accidentId}")]
+        public async Task<IActionResult> UpdateGuiltyPartyAccident([FromRoute] int accidentId,
+            [FromForm] RequestGuiltyPartyAccidentDto updatedAccidentDto, [FromForm] AccidentImageDto accidentImageDto)
+        {
+            await _guiltyPartyAccidentsService.UpdateGuiltyPartyAccident(accidentId, User.GetId(), updatedAccidentDto, accidentImageDto);
 
             return NoContent();
         }

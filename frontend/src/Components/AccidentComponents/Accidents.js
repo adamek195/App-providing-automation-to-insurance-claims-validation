@@ -16,6 +16,7 @@ class Accidents extends Component {
         guiltyPartyAccidents: [],
         policies: [],
         policyNumber: "",
+        typeOfInsurance: "",
         guiltyPartyAccidentId: "",
         userAccidentId: "",
         policyNumberError: false,
@@ -74,7 +75,8 @@ class Accidents extends Component {
     getUserAccidents = (e) => {
         e.preventDefault()
         let policy = this.state.policies.find(policy => policy.policyNumber === this.state.policyNumber)
-        if(policy === undefined || null){
+        console.log(policy)
+        if((policy === undefined) ||(policy === null)){
             this.setState({
                 userAccidents: [],
                 policyNumberError: true,
@@ -86,6 +88,7 @@ class Accidents extends Component {
             .then((response) => {
                 this.setState({
                     userAccidents: response.data,
+                    typeOfInsurance: policy.typeOfInsurance,
                 })
             })
             .catch(() => {
@@ -154,18 +157,32 @@ class Accidents extends Component {
         }
     }
 
-    renderUserAccident = (accident) => {
+    renderUserAccidentOC = (accident) => {
         let accidentDate = new Date(accident.accidentDateTime)
         let parseAccidentDate = accidentDate.getFullYear() + "-" + ('0' + (accidentDate.getMonth()+1)).slice(-2) + "-" + ('0' + accidentDate.getDate()).slice(-2);
         let victim = accident.victimFirstName + " " + accident.victimLastName;
+        let victimRegistrationNumber = accident.victimRegistrationNumber
         return (
             <tr key={accident.id}>
               <i className="fa fa-fw fa-car" style={{color: 'black', marginRight:'10px', fontSize: '1.5em' }}/>
               <td>{accident.id}</td>
               <td>{parseAccidentDate}</td>
               <td>{accident.accidentDescription}</td>
-              <td>{accident.victimRegistrationNumber}</td>
+              <td>{victimRegistrationNumber}</td>
               <td>{victim}</td>
+            </tr>
+        )
+    }
+
+    renderUserAccidentAC = (accident) => {
+        let accidentDate = new Date(accident.accidentDateTime)
+        let parseAccidentDate = accidentDate.getFullYear() + "-" + ('0' + (accidentDate.getMonth()+1)).slice(-2) + "-" + ('0' + accidentDate.getDate()).slice(-2);
+        return (
+            <tr key={accident.id}>
+              <i className="fa fa-fw fa-car" style={{color: 'black', marginRight:'10px', fontSize: '1.5em' }}/>
+              <td>{accident.id}</td>
+              <td>{parseAccidentDate}</td>
+              <td>{accident.accidentDescription}</td>
             </tr>
         )
     }
@@ -261,6 +278,7 @@ class Accidents extends Component {
                             {this.state.accidentIdError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.accidentId_notFind}</span>}
                         </div>
                     </div>
+                    {this.state.typeOfInsurance === "OC" &&
                     <div className="table-inner">
                         <table class="table table-bordered" id="accidents-table">
                             <thead class="thead-light">
@@ -274,10 +292,26 @@ class Accidents extends Component {
                             </tr>
                             </thead>
                             <tbody>
-                                {this.state.userAccidents.map(this.renderUserAccident)}
+                                {this.state.userAccidents.map(this.renderUserAccidentOC)}
                             </tbody>
                         </table>
-                    </div>
+                    </div>}
+                    {this.state.typeOfInsurance === "AC" &&
+                    <div className="table-inner">
+                        <table class="table table-bordered" id="accidents-table">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Numer szkody</th>
+                                <th scope="col">Data wypadku</th>
+                                <th scope="col">Opis</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.userAccidents.map(this.renderUserAccidentAC)}
+                            </tbody>
+                        </table>
+                    </div>}
                 </div>}
                 {this.state.selectedPolicy === "GuiltyPartyPolicy" &&
                 <div>

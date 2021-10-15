@@ -15,12 +15,14 @@ class Accidents extends Component {
         userAccidents: [],
         guiltyPartyAccidents: [],
         policies: [],
+        policyId: "",
         policyNumber: "",
         typeOfInsurance: "",
         guiltyPartyAccidentId: "",
         userAccidentId: "",
         policyNumberError: false,
         accidentIdError: false,
+        deleteServerError: false,
     }
 
     messages = {
@@ -48,6 +50,7 @@ class Accidents extends Component {
             [name]: value,
             policyNumberError: false,
             accidentIdError: false,
+            deleteServerError: false,
         });
     }
 
@@ -57,6 +60,7 @@ class Accidents extends Component {
         this.setState({
             [name]: value,
             accidentIdError: false,
+            deleteServerError: false,
         });
     }
 
@@ -87,6 +91,7 @@ class Accidents extends Component {
             .then((response) => {
                 this.setState({
                     userAccidents: response.data,
+                    policyId: policy.id,
                     typeOfInsurance: policy.typeOfInsurance,
                 })
             })
@@ -116,7 +121,24 @@ class Accidents extends Component {
                 accidentIdError: true,
             })
         else{
-            console.log("Tu będzie usunięcie");
+            let deleteRequest = `${userAccidentsUrl}/${this.state.policyId}/${accident.id}`
+            console.log(deleteRequest)
+            axios.delete(deleteRequest)
+            .then((response) => {
+                if(response.status === 500)
+                    history.push("/internal-server-error");
+                if(response.status === 401)
+                    history.push("/unauthorized");
+                })
+            .then(() => {
+                window.location.reload(false);
+            })
+            .catch((error) => {
+                console.log(error)
+                this.setState({
+                    deleteServerError: true
+                })
+            })
         }
     }
 
@@ -152,7 +174,22 @@ class Accidents extends Component {
                 accidentIdError: true,
             })
         else{
-            console.log("Tu będzie usunięcie");
+            let deleteRequest = `${guiltyPartyAccidentsUrl}/${accident.id}`
+            axios.delete(deleteRequest)
+            .then((response) => {
+                if(response.status === 500)
+                    history.push("/internal-server-error");
+                if(response.status === 401)
+                    history.push("/unauthorized");
+                })
+            .then(() => {
+                window.location.reload(false);
+            })
+            .catch(() => {
+                this.setState({
+                    deleteServerError: true
+                })
+            })
         }
     }
 
@@ -279,6 +316,7 @@ class Accidents extends Component {
                                 <br />
                             </div>
                             {this.state.accidentIdError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.accidentId_notFind}</span>}
+                            {this.state.deleteServerError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.server_error}</span>}
                         </div>
                     </div>
                     {this.state.typeOfInsurance === "OC" &&
@@ -339,6 +377,7 @@ class Accidents extends Component {
                                 <br />
                             </div>
                             {this.state.accidentIdError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.accidentId_notFind}</span>}
+                            {this.state.deleteServerError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.server_error}</span>}
                         </div>
                     </div>
                     <div className="table-inner">

@@ -219,6 +219,117 @@ class NewAccident extends Component {
                         </div>
                     </form>
                 </div>}
+                {this.state.selectedPolicy === "UserPolicy" &&
+                <div className="d-flex justify-content-center">
+                    <div className="accidents-manager-user">
+                        <div className="accidents-inner-user">
+                            <h5 style={{textAlign: 'center'}}>Moje ubezpieczenie (AC)</h5>
+                            <i className="fa fa-fw fa-taxi" id="new-policy-icon" style={{color: 'black' , fontSize: '3em' }} />
+                            <div className="form-group p-mx-5">
+                                <label>Numer polisy</label>
+                                <input name="userPolicyNumber"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Wprowadź numer swojej polisy"
+                                    />
+                            </div>
+                            <br/>
+                            <div className="form-group p-mx-5">
+                                <label>Data zdarzenia</label>
+                                <input name="userAccidentDateTime"
+                                    type="date"
+                                    className="form-control"
+                                    placeholder="Wprowadź datę zdarzenia"
+                                    />
+                            </div>
+                            <br/>
+                            <div className="form-group p-mx-5">
+                                <label>Opis zdarzenia</label>
+                                <textarea name="userAccidentDescription"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Wprowadź opis zdarzenia"
+                                    />
+                            </div>
+                            <br />
+                            <div className="form-group p-mx-5">
+                                <label>Zdjęcie</label>
+                                <input name="accidentImage"
+                                    type="file"
+                                    className="form-control"
+                                    />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="accidents-manager-user">
+                        <div className="accidents-inner-user">
+                            <h5 style={{textAlign: 'center'}}>Moje ubezpieczenie (OC)</h5>
+                            <i className="fa fa-fw fa-taxi" id="new-policy-icon" style={{color: 'black' , fontSize: '3em' }} />
+                            <div className="form-group p-mx-5">
+                                <label>Numer polisy</label>
+                                <input name="userPolicyNumber"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Wprowadź numer swojej polisy"
+                                    />
+                            </div>
+                            <br/>
+                            <div className="form-group p-mx-5">
+                                <label>Data zdarzenia</label>
+                                <input name="userAccidentDateTime"
+                                    type="date"
+                                    className="form-control"
+                                    placeholder="Wprowadź datę zdarzenia"
+                                    />
+                            </div>
+                            <br/>
+                            <div className="form-group p-mx-5">
+                                <label>Opis zdarzenia</label>
+                                <textarea name="userAccidentDescription"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Wprowadź opis zdarzenia"
+                                    />
+                            </div>
+                            <br/>
+                            <div className="form-group p-mx-5">
+                                <label>Numer rejestracyjny poszkodowanego</label>
+                                <input name="victimRegistrationNumber"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Wprowadź numer rejestracyjny poszkodowanego"
+                                    />
+                            </div>
+                            <br/>
+                            <div className="form-group p-mx-5">
+                                <label>Imię poszkodowanego</label>
+                                <input name="victimFirstName"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Wprowadź imię poszkodowanego"
+                                    />
+                            </div>
+                            <br/>
+                            <div className="form-group p-mx-5">
+                                <label>Naziwsko poszkodowanego</label>
+                                <input name="victimLastName"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Wprowadź nazwisko poszkodowanego"
+                                    />
+                            </div>
+                            <br/>
+                            <div className="form-group p-mx-5">
+                                <label>Zdjęcie</label>
+                                <input name="accidentImage"
+                                    type="file"
+                                    className="form-control"
+                                    />
+                            </div>
+                            <br/>
+                        </div>
+                    </div>
+                </div>}
             </div>
         );
     }

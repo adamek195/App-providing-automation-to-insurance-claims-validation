@@ -34,6 +34,26 @@
     transition: all .3s;
 }
 
+.accidents-manager-user {
+    margin-top:  30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 80px;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
+    display: inline-block;
+    width: 40%;
+}
+
+.accidents-inner-user {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 40px 55px 40px 55px;
+    transition: all .3s;
+}
+
 #new-accident-icon{
     width: 100%;
+    text-align: center;
 }

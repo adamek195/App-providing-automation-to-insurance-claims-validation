@@ -591,7 +591,7 @@ class NewAccident extends Component {
                                     type="text"
                                     className="form-control"
                                     placeholder="Wprowadź nazwisko poszkodowanego"
-                                    value={this.state.VictimLastName}
+                                    value={this.state.victimLastName}
                                     onChange={this.handleChangeUserAccidentOC}/>
                             </div>
                             <br/>

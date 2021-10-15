@@ -159,6 +159,10 @@ class Accidents extends Component {
     renderUserAccidentOC = (accident) => {
         let accidentDate = new Date(accident.accidentDateTime)
         let parseAccidentDate = accidentDate.getFullYear() + "-" + ('0' + (accidentDate.getMonth()+1)).slice(-2) + "-" + ('0' + accidentDate.getDate()).slice(-2);
+        if(accident.victimFirstName === null)
+            accident.victimFirstName = "";
+        if(accident.victimLastName === null)
+            accident.victimLastName = "";
         let victim = accident.victimFirstName + " " + accident.victimLastName;
         let victimRegistrationNumber = accident.victimRegistrationNumber
         return (

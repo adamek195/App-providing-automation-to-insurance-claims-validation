@@ -13,6 +13,7 @@ class NewAccident extends Component {
     state = {
         selectedPolicy: "",
         policyNumberErrorAC: "",
+        policyNumberErrorOC: "",
         policies: [],
         policyId: "",
 
@@ -29,10 +30,22 @@ class NewAccident extends Component {
         userAccidentImageAC: "",
         userAccidentACError: false,
 
+        userPolicyNumberOC: "",
+        userAccidentDateTimeOC: "",
+        userAccidentDescriptionOC: "",
+        userAccidentImageOC: "",
+        victimRegistrationNumber: "",
+        victimFirstName: "",
+        VictimLastName: "",
+        userAccidentOCError: false,
+
         errors: {
             userPolicyTypeOfInsuranceAC: false,
             userAccidentDateTimeAC: false,
             userAccidentDescriptionAC: false,
+            userPolicyTypeOfInsuranceOC: false,
+            userAccidentDateTimeOC: false,
+            userAccidentDescriptionOC: false,
             guiltyPartyAccidentDateTime: false,
             guiltyPartyAccidentDescription: false,
         }
@@ -40,9 +53,9 @@ class NewAccident extends Component {
 
     messages = {
         policyNumber_notFind: 'Nie posiadasz polisy o takim numerze ',
-        userPolicyTypeOfInsuranceAC_incorrect: 'Zły rodzaj polisy',
-        userAccidentDateTimeAC_incorrect: 'Data zdarzenia jest wymagana',
-        userAccidentDescriptionAC_incorrect: 'Opis zdarzenia  jest wymagany',
+        userPolicyTypeOfInsurance_incorrect: 'Zły rodzaj polisy',
+        userAccidentDateTime_incorrect: 'Data zdarzenia jest wymagana',
+        userAccidentDescription_incorrect: 'Opis zdarzenia  jest wymagany',
         guiltyPartyAccidentDateTime_incorrect: 'Data zdarzenia jest wymagana',
         guiltyPartyAccidentDescription_incorrect: 'Opis zdarzenia jest wymagany',
         server_error: "Wprowadzone dane o szkodzie są nieprawidłowe. Spróbuj jeszcze raz"
@@ -89,6 +102,15 @@ class NewAccident extends Component {
         });
     }
 
+    handleChangeUserAccidentOC = (event) => {
+        const value = event.target.value;
+        const name = event.target.name;
+        this.setState({
+            [name]: value,
+            userAccidentOCError: false,
+        });
+    }
+
     handleChangeGuiltyPartyAccidentImage = (event) => {
         this.setState({
             guiltyPartyAccidentImage: event.target.files[0]
@@ -98,6 +120,12 @@ class NewAccident extends Component {
     handleUserAccidentImageAC = (event) => {
         this.setState({
             userAccidentImageAC: event.target.files[0]
+          })
+    }
+
+    handleUserAccidentImageOC = (event) => {
+        this.setState({
+            userAccidentImageOC: event.target.files[0]
           })
     }
 
@@ -145,13 +173,50 @@ class NewAccident extends Component {
         if(this.state.userAccidentDescriptionAC.length > 0){
             userAccidentDescriptionAC = true;
         }
-        if(this.state.userAccidentDescriptionAC.length > 0){
-            userAccidentDescriptionAC = true;
+        if(userPolicyTypeOfInsuranceAC && userAccidentDateTimeAC &&
+            userAccidentDescriptionAC){
+            correct = true;
         }
         return ({
             userPolicyTypeOfInsuranceAC,
             userAccidentDateTimeAC,
             userAccidentDescriptionAC,
+            correct,
+        })
+    }
+
+    formValidationUserAccidentOC() {
+        let userAccidentDateTimeOC =  false;
+        let userAccidentDescriptionOC = false;
+        let userPolicyTypeOfInsuranceOC = false;
+        let correct = false;
+        let policy = this.state.policies.find(policy => policy.policyNumber === this.state.userPolicyNumberOC)
+        if((policy === undefined) ||(policy === null)){
+            this.setState({
+                policyNumberErrorOC: true,
+            })
+        }else {
+            this.setState({
+               policyId: policy.id,
+            })
+            if(policy.typeOfInsurance === "OC"){
+                userPolicyTypeOfInsuranceOC = true;
+            }
+        }
+        if(this.state.userAccidentDateTimeOC !== ''){
+            userAccidentDateTimeOC = true;
+        }
+        if(this.state.userAccidentDescriptionOC.length > 0){
+            userAccidentDescriptionOC = true;
+        }
+        if(userPolicyTypeOfInsuranceOC && userAccidentDateTimeOC &&
+            userAccidentDescriptionOC){
+            correct = true;
+        }
+        return ({
+            userPolicyTypeOfInsuranceOC,
+            userAccidentDateTimeOC,
+            userAccidentDescriptionOC,
             correct,
         })
     }
@@ -205,6 +270,33 @@ class NewAccident extends Component {
         }
     }
 
+    handleSubmitUserAccidentOC = (e) => {
+        e.preventDefault()
+        this.setState({
+            policyNumberErrorOC: false
+        })
+        const validation = this.formValidationUserAccidentOC();
+        if (validation.correct){
+            this.addUserAccidentOC()
+
+            this.setState({
+                errors: {
+                    userPolicyTypeOfInsuranceOC: false,
+                    userAccidentDateTimeOC: false,
+                    userAccidentDescriptionOC: false,
+                }
+            });
+        }else {
+            this.setState({
+                errors: {
+                    userPolicyTypeOfInsuranceOC: !validation.userPolicyTypeOfInsuranceOC,
+                    userAccidentDateTimeOC: !validation.userAccidentDateTimeOC,
+                    userAccidentDescriptionOC: !validation.userAccidentDescriptionOC,
+              },
+            })
+        }
+    }
+
     addGuiltyPartyAccident = () => {
         const data = new FormData()
         data.append('AccidentDateTime', this.state.guiltyPartyAccidentDateTime.toString());
@@ -248,6 +340,30 @@ class NewAccident extends Component {
             .catch(() => {
                 this.setState({
                     userAccidentACError: true
+                })
+            })
+    }
+
+    addUserAccidentOC = () => {
+        const data = new FormData()
+        data.append('AccidentDateTime', this.state.userAccidentDateTimeOC.toString());
+        data.append('AccidentDescription', this.state.userAccidentDescriptionOC);
+        data.append('AccidentImage', this.state.userAccidentImageOC);
+
+        let postRequest = `${userAccidentsUrl}/${this.state.policyId}`
+        console.log(postRequest)
+        axios.post(postRequest, data)
+            .then((response) => {
+                if(response.status === 201)
+                    history.push("/accidents")
+                if(response.status === 500)
+                    history.push("/internal-server-error");
+                if(response.status === 401)
+                    history.push("/unauthorized");
+            })
+            .catch(() => {
+                this.setState({
+                    userAccidentOCError: true
                 })
             })
     }
@@ -370,7 +486,7 @@ class NewAccident extends Component {
                                     onChange={this.handleChangeUserAccidentAC}/>
                             </div>
                             {this.state.policyNumberErrorAC &&  <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.policyNumber_notFind}</span>}
-                            {this.state.errors.userPolicyTypeOfInsuranceAC && <span style={{ fontSize: '15px' , color: 'red'}}>{this.messages.userPolicyTypeOfInsuranceAC_incorrect}</span>}
+                            {this.state.errors.userPolicyTypeOfInsuranceAC && <span style={{ fontSize: '15px' , color: 'red'}}>{this.messages.userPolicyTypeOfInsurance_incorrect}</span>}
                             <br/>
                             <div className="form-group p-mx-5">
                                 <label>Data zdarzenia</label>
@@ -381,7 +497,7 @@ class NewAccident extends Component {
                                     value={this.state.userAccidentDateTimeAC}
                                     onChange={this.handleChangeUserAccidentAC}/>
                             </div>
-                            {this.state.errors.userAccidentDateTimeAC && <span style={{ fontSize: '15px'}}>{this.messages.userAccidentDateTimeAC_incorrect}</span>}
+                            {this.state.errors.userAccidentDateTimeAC && <span style={{ fontSize: '15px'}}>{this.messages.userAccidentDateTime_incorrect}</span>}
                             <br/>
                             <div className="form-group p-mx-5">
                                 <label>Opis zdarzenia</label>
@@ -392,7 +508,7 @@ class NewAccident extends Component {
                                     value={this.state.userAccidentDescriptionAC}
                                     onChange={this.handleChangeUserAccidentAC}/>
                             </div>
-                            {this.state.errors.userAccidentDescriptionAC && <span style={{ fontSize: '15px'}}>{this.messages.userAccidentDescriptionAC_incorrect}</span>}
+                            {this.state.errors.userAccidentDescriptionAC && <span style={{ fontSize: '15px'}}>{this.messages.userAccidentDescription_incorrect}</span>}
                             <br />
                             <div className="form-group p-mx-5">
                                 <label>Zdjęcie</label>
@@ -421,8 +537,11 @@ class NewAccident extends Component {
                                     type="text"
                                     className="form-control"
                                     placeholder="Wprowadź numer swojej polisy"
-                                    />
+                                    value={this.state.userPolicyNumberOC}
+                                    onChange={this.handleChangeUserAccidentOC}/>
                             </div>
+                            {this.state.policyNumberErrorOC &&  <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.policyNumber_notFind}</span>}
+                            {this.state.errors.userPolicyTypeOfInsuranceOC && <span style={{ fontSize: '15px' , color: 'red'}}>{this.messages.userPolicyTypeOfInsurance_incorrect}</span>}
                             <br/>
                             <div className="form-group p-mx-5">
                                 <label>Data zdarzenia</label>
@@ -430,8 +549,10 @@ class NewAccident extends Component {
                                     type="date"
                                     className="form-control"
                                     placeholder="Wprowadź datę zdarzenia"
-                                    />
+                                    value={this.state.userAccidentDateTimeOC}
+                                    onChange={this.handleChangeUserAccidentOC}/>
                             </div>
+                            {this.state.errors.userAccidentDateTimeOC && <span style={{ fontSize: '15px'}}>{this.messages.userAccidentDateTime_incorrect}</span>}
                             <br/>
                             <div className="form-group p-mx-5">
                                 <label>Opis zdarzenia</label>
@@ -439,34 +560,39 @@ class NewAccident extends Component {
                                     type="text"
                                     className="form-control"
                                     placeholder="Wprowadź opis zdarzenia"
-                                    />
+                                    value={this.state.userAccidentDescriptionOC}
+                                    onChange={this.handleChangeUserAccidentOC}/>
                             </div>
+                            {this.state.errors.userAccidentDescriptionOC && <span style={{ fontSize: '15px'}}>{this.messages.userAccidentDescription_incorrect}</span>}
                             <br/>
                             <div className="form-group p-mx-5">
                                 <label>Numer rejestracyjny poszkodowanego</label>
-                                <input name="victimRegistrationNumberOC"
+                                <input name="victimRegistrationNumber"
                                     type="text"
                                     className="form-control"
                                     placeholder="Wprowadź numer rejestracyjny poszkodowanego"
-                                    />
+                                    value={this.state.victimRegistrationNumber}
+                                    onChange={this.handleChangeUserAccidentOC}/>
                             </div>
                             <br/>
                             <div className="form-group p-mx-5">
                                 <label>Imię poszkodowanego</label>
-                                <input name="victimFirstNameOC"
+                                <input name="victimFirstName"
                                     type="text"
                                     className="form-control"
                                     placeholder="Wprowadź imię poszkodowanego"
-                                    />
+                                    value={this.state.victimFirstName}
+                                    onChange={this.handleChangeUserAccidentOC}/>
                             </div>
                             <br/>
                             <div className="form-group p-mx-5">
                                 <label>Naziwsko poszkodowanego</label>
-                                <input name="victimLastNameOC"
+                                <input name="victimLastName"
                                     type="text"
                                     className="form-control"
                                     placeholder="Wprowadź nazwisko poszkodowanego"
-                                    />
+                                    value={this.state.VictimLastName}
+                                    onChange={this.handleChangeUserAccidentOC}/>
                             </div>
                             <br/>
                             <div className="form-group p-mx-5">
@@ -474,9 +600,16 @@ class NewAccident extends Component {
                                 <input name="userAccidentImageOC"
                                     type="file"
                                     className="form-control"
-                                    />
+                                    onChange={this.handleUserAccidentImageOC}/>
                             </div>
                             <br/>
+                            {this.state.userAccidentOCError && <span style={{ fontSize: '15px', color: 'red'}}>{this.messages.server_error}</span>}
+                            <div className="text-center">
+                                <button type="submit"
+                                    className="btn btn-primary"
+                                    onClick={this.handleSubmitUserAccidentOC}>Zgłoś szkodę
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>}

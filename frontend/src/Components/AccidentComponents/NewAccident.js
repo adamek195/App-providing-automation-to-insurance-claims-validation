@@ -3,6 +3,7 @@ import UserNavBar from '../MenuComponents/UserNavBar';
 import NewAccidentSideBar from '../MenuComponents/NewAccidentSideBar';
 import axios from 'axios';
 import '../../Styles/NewAccident.css';
+import history from '../../History';
 import { guiltyPartyAccidentsUrl } from "../../ConstUrls"
 
 class NewAccident extends Component {
@@ -14,6 +15,18 @@ class NewAccident extends Component {
         guiltyPartyPolicyNumber: "",
         guiltyPartyRegistrationNumber: "",
         accidentImage: "",
+        guiltyPartyAccidentError: false,
+
+        errors: {
+            guiltyPartyAccidentDatetime: false,
+            guiltyPartyAccidentDescription: false,
+        }
+    }
+
+    messages = {
+        guiltyPartyAccidentDatetime_incorrect: 'Data zdarzenia jest wymagana',
+        guiltyPartyAccidentDescription_incorrect: 'Opis zdarzenia jest wymagany',
+        server_error: "Wprowadzone dane o szkodzie są nieprawidłowe. Spróbuj jeszcze raz"
     }
 
     handleChangeRadioButton = (event) => {
@@ -27,7 +40,8 @@ class NewAccident extends Component {
         const value = event.target.value;
         const name = event.target.name;
         this.setState({
-            [name]: value
+            [name]: value,
+            guiltyPartyAccidentError: false
         });
     }
 
@@ -37,9 +51,46 @@ class NewAccident extends Component {
           })
     }
 
+    formValidationGuiltyPartyAccident() {
+        let guiltyPartyAccidentDatetime =  false;
+        let guiltyPartyAccidentDescription = false;
+        let correct = false;
+        if(this.state.guiltyPartyAccidentDatetime !== ''){
+            guiltyPartyAccidentDatetime = true;
+        }
+        if(this.state.guiltyPartyAccidentDescription.length > 0){
+            guiltyPartyAccidentDescription = true;
+        }
+        if (guiltyPartyAccidentDatetime && guiltyPartyAccidentDescription) {
+          correct = true
+        }
+        return ({
+            guiltyPartyAccidentDatetime,
+            guiltyPartyAccidentDescription,
+            correct,
+        })
+    }
+
     handleSubmitGuiltyPartyAccident = (e) => {
         e.preventDefault()
-        this.addGuiltyPartyAccident();
+        const validation = this.formValidationGuiltyPartyAccident();
+        if (validation.correct){
+            this.addGuiltyPartyAccident();
+
+            this.setState({
+                errors: {
+                    guiltyPartyAccidentDatetime: false,
+                    guiltyPartyAccidentDescription: false,
+                }
+            });
+        }else {
+            this.setState({
+                errors: {
+                    guiltyPartyAccidentDatetime: !validation.guiltyPartyAccidentDatetime,
+                    guiltyPartyAccidentDescription: !validation.guiltyPartyAccidentDescription,
+              }
+            })
+        }
     }
 
     addGuiltyPartyAccident = () => {
@@ -52,9 +103,18 @@ class NewAccident extends Component {
 
         axios.post(guiltyPartyAccidentsUrl, data)
             .then((response) => {
-                console.warn(response);
+                if(response.status === 201)
+                    history.push("/accidents")
+                if(response.status === 500)
+                    history.push("/internal-server-error");
+                if(response.status === 401)
+                    history.push("/unauthorized");
             })
-
+            .catch(() => {
+                this.setState({
+                    guiltyPartyAccidentError: true
+                })
+            })
     }
 
     render() {
@@ -107,6 +167,7 @@ class NewAccident extends Component {
                                         placeholder="Wprowadź datę wypadku"
                                         value={this.state.guiltyPartyAccidentDatetime}
                                         onChange={this.handleChangeGuiltyPartyAccident}/>
+                                    {this.state.errors.guiltyPartyAccidentDatetime && <span style={{ fontSize: '15px'}}>{this.messages.guiltyPartyAccidentDatetime_incorrect}</span>}
                                 </div>
                                 <br/>
                                 <div className="form-group p-mx-5">
@@ -116,6 +177,7 @@ class NewAccident extends Component {
                                         placeholder="Wprowadź opis zdarzenia"
                                         value={this.state.guiltyPartyAccidentDescription}
                                         onChange={this.handleChangeGuiltyPartyAccident}/>
+                                        {this.state.errors.guiltyPartyAccidentDescription && <span style={{ fontSize: '15px'}}>{this.messages.guiltyPartyAccidentDescription_incorrect}</span>}
                                 </div>
                                 <br/>
                                 <div className="form-group p-mx-5">
@@ -146,7 +208,8 @@ class NewAccident extends Component {
                                         onChange={this.handleChangeGuiltyPartyAccidentImage}/>
                                 </div>
                                 <br/>
-                                <div>
+                                {this.state.guiltyPartyAccidentError && <span style={{ fontSize: '15px', color: 'red'}}>{this.messages.server_error}</span>}
+                                <div className="text-center">
                                     <button type="submit"
                                         className="btn btn-primary"
                                         onClick={this.handleSubmitGuiltyPartyAccident}>Zgłoś szkodę

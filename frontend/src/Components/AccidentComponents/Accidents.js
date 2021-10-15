@@ -75,7 +75,6 @@ class Accidents extends Component {
     getUserAccidents = (e) => {
         e.preventDefault()
         let policy = this.state.policies.find(policy => policy.policyNumber === this.state.policyNumber)
-        console.log(policy)
         if((policy === undefined) ||(policy === null)){
             this.setState({
                 userAccidents: [],

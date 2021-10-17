@@ -35,7 +35,7 @@ class NewAccident extends Component {
         userAccidentImageOC: "",
         victimRegistrationNumber: "",
         victimFirstName: "",
-        VictimLastName: "",
+        victimLastName: "",
         userAccidentOCError: false,
 
         errors: {
@@ -347,6 +347,9 @@ class NewAccident extends Component {
         const data = new FormData()
         data.append('AccidentDateTime', this.state.userAccidentDateTimeOC.toString());
         data.append('AccidentDescription', this.state.userAccidentDescriptionOC);
+        data.append('VictimRegistrationNumber', this.state.victimRegistrationNumber);
+        data.append('VictimFirstName', this.state.victimFirstName);
+        data.append('VictimLastName', this.state.victimLastName);
         data.append('AccidentImage', this.state.userAccidentImageOC);
 
         let postRequest = `${userAccidentsUrl}/${policyId}`

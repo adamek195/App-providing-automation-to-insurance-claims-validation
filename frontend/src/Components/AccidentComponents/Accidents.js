@@ -7,8 +7,9 @@ import { userAccidentsUrl } from "../../ConstUrls"
 import { guiltyPartyAccidentsUrl } from "../../ConstUrls"
 import UserNavBar from '../MenuComponents/UserNavBar';
 import AccidentsSideBar from '../MenuComponents/AccidentsSideBar';
-import '../../Styles/Accidents.css';
+import UpdateUserAccident from './UpdateUserAccident.js';
 import UpdateGuiltyPartyAccident from './UpdateGuiltyPartyAccident.js';
+import '../../Styles/Accidents.css';
 
 class Accidents extends Component {
     state = {
@@ -98,7 +99,7 @@ class Accidents extends Component {
                 })
             })
             .catch(() => {
-                console.log("błąd wypadek")
+                history.push("/unauthorized");
             })
         }
     }
@@ -111,7 +112,9 @@ class Accidents extends Component {
                 accidentIdError: true,
             })
         else{
-            console.log("Tu bedzie update");
+            this.setState({
+                accidentNavigator: 'update-userAccident'
+            })
         }
     }
 
@@ -124,7 +127,6 @@ class Accidents extends Component {
             })
         else{
             let deleteRequest = `${userAccidentsUrl}/${this.state.policyId}/${accident.id}`
-            console.log(deleteRequest)
             axios.delete(deleteRequest)
             .then((response) => {
                 if(response.status === 500)
@@ -135,8 +137,7 @@ class Accidents extends Component {
             .then(() => {
                 window.location.reload(false);
             })
-            .catch((error) => {
-                console.log(error)
+            .catch(() => {
                 this.setState({
                     deleteServerError: true
                 })
@@ -200,12 +201,16 @@ class Accidents extends Component {
     renderUserAccidentOC = (accident) => {
         let accidentDate = new Date(accident.accidentDateTime)
         let parseAccidentDate = accidentDate.getFullYear() + "-" + ('0' + (accidentDate.getMonth()+1)).slice(-2) + "-" + ('0' + accidentDate.getDate()).slice(-2);
-        if(accident.victimFirstName === null)
+        console.log(accident.victimFirstName)
+        console.log(accident.victimLastName)
+        if((accident.victimFirstName === null) || (accident.victimFirstName === 'undefined'))
             accident.victimFirstName = "";
-        if(accident.victimLastName === null)
+        if((accident.victimLastName === null) || (accident.victimLastName === 'undefined'))
             accident.victimLastName = "";
+        if((accident.victimRegistrationNumber === null) || (accident.victimRegistrationNumber === 'undefined'))
+            accident.victimRegistrationNumber = "";
         let victim = accident.victimFirstName + " " + accident.victimLastName;
-        let victimRegistrationNumber = accident.victimRegistrationNumber
+        let victimRegistrationNumber = accident.victimRegistrationNumber;
         return (
             <tr key={accident.id}>
               <i className="fa fa-fw fa-car" style={{color: 'black', marginRight:'10px', fontSize: '1.5em' }}/>
@@ -407,6 +412,7 @@ class Accidents extends Component {
                 </div>
                 )}
                 {this.state.accidentNavigator === "update-guiltyPartyAccident" && <UpdateGuiltyPartyAccident guiltyPartyAccidentId={this.state.guiltyPartyAccidentId} />}
+                {this.state.accidentNavigator === "update-userAccident" && <UpdateUserAccident policyId={this.state.policyId} userAccidentId={this.state.userAccidentId} typeOfInsurance={this.state.typeOfInsurance} />}
             </div>
         );
     }

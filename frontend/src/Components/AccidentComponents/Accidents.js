@@ -8,6 +8,7 @@ import { guiltyPartyAccidentsUrl } from "../../ConstUrls"
 import UserNavBar from '../MenuComponents/UserNavBar';
 import AccidentsSideBar from '../MenuComponents/AccidentsSideBar';
 import '../../Styles/Accidents.css';
+import UpdateGuiltyPartyAccident from './UpdateGuiltyPartyAccident.js';
 
 class Accidents extends Component {
     state = {
@@ -20,6 +21,7 @@ class Accidents extends Component {
         typeOfInsurance: "",
         guiltyPartyAccidentId: "",
         userAccidentId: "",
+        accidentNavigator: "accidents",
         policyNumberError: false,
         accidentIdError: false,
         deleteServerError: false,
@@ -162,7 +164,9 @@ class Accidents extends Component {
                 accidentIdError: true,
             })
         else{
-            console.log("Tu bedzie update");
+            this.setState({
+                accidentNavigator: 'update-guiltyPartyAccident'
+            })
         }
     }
 
@@ -247,157 +251,162 @@ class Accidents extends Component {
             <div>
                 <UserNavBar />
                 <AccidentsSideBar />
-                <div className="accidents-manager-wrapper">
-                    <div className="accidents-manager-inner">
-                    <h3 style={{textAlign: 'center'}}>Zarządzaj szkodami</h3>
-                    <h4 style={{textAlign: 'center'}}>Właściciel polisy</h4>
-                        <form className="d-flex justify-content-center">
-                            <div className="radio" style={{marginRight: '20px'}}>
-                                <label>
-                                <input
-                                    type="radio"
-                                    value="UserPolicy"
-                                    checked={this.state.selectedPolicy === "UserPolicy"}
-                                    onChange={this.handleChangeRadioButton}
-                                />
-                                Własna polisa
-                                </label>
-                            </div>
-                            <div className="radio" style={{marginLeft: '20px'}}>
-                                <label>
-                                <input
-                                    type="radio"
-                                    value="GuiltyPartyPolicy"
-                                    checked={this.state.selectedPolicy === "GuiltyPartyPolicy"}
-                                    onChange={this.handleChangeRadioButton}
-                                />
-                                Polisa sprawcy
-                                </label>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                {this.state.selectedPolicy === "UserPolicy" &&
+                {this.state.accidentNavigator === "accidents" && (
                 <div>
                     <div className="accidents-manager-wrapper">
                         <div className="accidents-manager-inner">
-                            <h4 style={{textAlign: 'center'}}>Zarządzaj szkodami zgłoszonymi z własnej polisy</h4>
-                            <div className="d-flex justify-content-center">
-                                    <input name="policyNumber" style={{margin: '10px', width:'300px'}}
-                                            type="text"
+                        <h3 style={{textAlign: 'center'}}>Zarządzaj szkodami</h3>
+                        <h4 style={{textAlign: 'center'}}>Właściciel polisy</h4>
+                            <form className="d-flex justify-content-center">
+                                <div className="radio" style={{marginRight: '20px'}}>
+                                    <label>
+                                    <input
+                                        type="radio"
+                                        value="UserPolicy"
+                                        checked={this.state.selectedPolicy === "UserPolicy"}
+                                        onChange={this.handleChangeRadioButton}
+                                    />
+                                    Własna polisa
+                                    </label>
+                                </div>
+                                <div className="radio" style={{marginLeft: '20px'}}>
+                                    <label>
+                                    <input
+                                        type="radio"
+                                        value="GuiltyPartyPolicy"
+                                        checked={this.state.selectedPolicy === "GuiltyPartyPolicy"}
+                                        onChange={this.handleChangeRadioButton}
+                                    />
+                                    Polisa sprawcy
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {this.state.selectedPolicy === "UserPolicy" &&
+                    <div>
+                        <div className="accidents-manager-wrapper">
+                            <div className="accidents-manager-inner">
+                                <h4 style={{textAlign: 'center'}}>Zarządzaj szkodami zgłoszonymi z własnej polisy</h4>
+                                <div className="d-flex justify-content-center">
+                                        <input name="policyNumber" style={{margin: '10px', width:'300px'}}
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Numer polisy ubezpieczeniowej"
+                                                value={this.state.policyNumber}
+                                                onChange={this.handleChangeUserAccidents}/>
+                                        <button type="submit" style={{margin: '10px'}}
+                                            className="btn btn-primary p-2"
+                                            onClick={this.getUserAccidents}>Zobacz szkody
+                                        </button>
+                                        <p className="p-2">Nie pamietasz numer swojej polisy?</p>
+                                        <Link className="nav-link p-2" to={"/policies"}>Zobacz polisy</Link>
+                                </div>
+                                {this.state.policyNumberError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.policyNumber_notFind}</span>}
+                                <hr style={{color: 'black', backgroundColor: 'black',height: 3}}/>
+                                <div className="d-flex justify-content-center">
+                                    <input name="userAccidentId" style={{margin: '10px', width:'310px'}}
+                                            type="number"
                                             className="form-control"
-                                            placeholder="Numer polisy ubezpieczeniowej"
-                                            value={this.state.policyNumber}
+                                            placeholder="Numer szkody do edycji lub usunięcia"
+                                            value={this.state.userAccidentId}
                                             onChange={this.handleChangeUserAccidents}/>
                                     <button type="submit" style={{margin: '10px'}}
                                         className="btn btn-primary p-2"
-                                        onClick={this.getUserAccidents}>Zobacz szkody
+                                        onClick={this.changeToUpdateUserAccident}>Edytuj szkodę
                                     </button>
-                                    <p className="p-2">Nie pamietasz numer swojej polisy?</p>
-                                    <Link className="nav-link p-2" to={"/policies"}>Zobacz polisy</Link>
+                                    <button type="submit" style={{margin: '10px'}}
+                                        className="btn btn-primary p-2"
+                                        onClick={this.deleteUserAccident}>Usuń szkodę
+                                    </button>
+                                    <br />
+                                </div>
+                                {this.state.accidentIdError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.accidentId_notFind}</span>}
+                                {this.state.deleteServerError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.server_error}</span>}
                             </div>
-                            {this.state.policyNumberError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.policyNumber_notFind}</span>}
-                            <hr style={{color: 'black', backgroundColor: 'black',height: 3}}/>
-                            <div className="d-flex justify-content-center">
-                                <input name="userAccidentId" style={{margin: '10px', width:'310px'}}
-                                        type="number"
-                                        className="form-control"
-                                        placeholder="Numer szkody do edycji lub usunięcia"
-                                        value={this.state.userAccidentId}
-                                        onChange={this.handleChangeUserAccidents}/>
-                                <button type="submit" style={{margin: '10px'}}
-                                    className="btn btn-primary p-2"
-                                    onClick={this.changeToUpdateUserAccident}>Edytuj szkodę
-                                </button>
-                                <button type="submit" style={{margin: '10px'}}
-                                    className="btn btn-primary p-2"
-                                    onClick={this.deleteUserAccident}>Usuń szkodę
-                                </button>
-                                <br />
-                            </div>
-                            {this.state.accidentIdError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.accidentId_notFind}</span>}
-                            {this.state.deleteServerError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.server_error}</span>}
                         </div>
-                    </div>
-                    {this.state.typeOfInsurance === "OC" &&
-                    <div className="table-inner">
-                        <table class="table table-bordered" id="accidents-table">
-                            <thead class="thead-light">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Numer szkody</th>
-                                <th scope="col">Data wypadku</th>
-                                <th scope="col">Opis</th>
-                                <th scope="col">Numer rejestracyjny poszkodowanego</th>
-                                <th scope="col">Poszkodowany</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.userAccidents.map(this.renderUserAccidentOC)}
-                            </tbody>
-                        </table>
+                        {this.state.typeOfInsurance === "OC" &&
+                        <div className="table-inner">
+                            <table class="table table-bordered" id="accidents-table">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Numer szkody</th>
+                                    <th scope="col">Data wypadku</th>
+                                    <th scope="col">Opis</th>
+                                    <th scope="col">Numer rejestracyjny poszkodowanego</th>
+                                    <th scope="col">Poszkodowany</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.userAccidents.map(this.renderUserAccidentOC)}
+                                </tbody>
+                            </table>
+                        </div>}
+                        {this.state.typeOfInsurance === "AC" &&
+                        <div className="table-inner">
+                            <table class="table table-bordered" id="accidents-table">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Numer szkody</th>
+                                    <th scope="col">Data wypadku</th>
+                                    <th scope="col">Opis</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.userAccidents.map(this.renderUserAccidentAC)}
+                                </tbody>
+                            </table>
+                        </div>}
                     </div>}
-                    {this.state.typeOfInsurance === "AC" &&
-                    <div className="table-inner">
-                        <table class="table table-bordered" id="accidents-table">
-                            <thead class="thead-light">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Numer szkody</th>
-                                <th scope="col">Data wypadku</th>
-                                <th scope="col">Opis</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.userAccidents.map(this.renderUserAccidentAC)}
-                            </tbody>
-                        </table>
-                    </div>}
-                </div>}
-                {this.state.selectedPolicy === "GuiltyPartyPolicy" &&
-                <div>
-                    <div className="accidents-manager-wrapper">
-                        <div className="accidents-manager-inner">
-                            <h4 style={{textAlign: 'center'}}>Zarządzaj szkodami zgłoszonymi z polisy sprawcy</h4>
-                            <div className="d-flex justify-content-center">
-                                <input name="guiltyPartyAccidentId" style={{margin: '10px', width:'310px'}}
-                                        type="number"
-                                        className="form-control"
-                                        placeholder="Numer szkody do edycji lub usunięcia"
-                                        value={this.state.guiltyPartyAccidentId}
-                                        onChange={this.handleChangeGuiltyPartyAccidents}/>
-                                <button type="submit" style={{margin: '10px'}}
-                                    className="btn btn-primary p-2"
-                                    onClick={this.changeToUpdateGuiltyPartyAccident}>Edytuj szkodę
-                                </button>
-                                <button type="submit" style={{margin: '10px'}}
-                                    className="btn btn-primary p-2"
-                                    onClick={this.deleteGuiltyPartyAccident}>Usuń szkodę
-                                </button>
-                                <br />
+                    {this.state.selectedPolicy === "GuiltyPartyPolicy" &&
+                    <div>
+                        <div className="accidents-manager-wrapper">
+                            <div className="accidents-manager-inner">
+                                <h4 style={{textAlign: 'center'}}>Zarządzaj szkodami zgłoszonymi z polisy sprawcy</h4>
+                                <div className="d-flex justify-content-center">
+                                    <input name="guiltyPartyAccidentId" style={{margin: '10px', width:'310px'}}
+                                            type="number"
+                                            className="form-control"
+                                            placeholder="Numer szkody do edycji lub usunięcia"
+                                            value={this.state.guiltyPartyAccidentId}
+                                            onChange={this.handleChangeGuiltyPartyAccidents}/>
+                                    <button type="submit" style={{margin: '10px'}}
+                                        className="btn btn-primary p-2"
+                                        onClick={this.changeToUpdateGuiltyPartyAccident}>Edytuj szkodę
+                                    </button>
+                                    <button type="submit" style={{margin: '10px'}}
+                                        className="btn btn-primary p-2"
+                                        onClick={this.deleteGuiltyPartyAccident}>Usuń szkodę
+                                    </button>
+                                    <br />
+                                </div>
+                                {this.state.accidentIdError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.accidentId_notFind}</span>}
+                                {this.state.deleteServerError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.server_error}</span>}
                             </div>
-                            {this.state.accidentIdError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.accidentId_notFind}</span>}
-                            {this.state.deleteServerError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.server_error}</span>}
                         </div>
-                    </div>
-                    <div className="table-inner">
-                        <table class="table table-bordered" id="accidents-table">
-                            <thead class="thead-light">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Numer szkody</th>
-                                <th scope="col">Data wypadku</th>
-                                <th scope="col">Opis</th>
-                                <th scope="col">Numer polisy sprawcy</th>
-                                <th scope="col">Numer rejestracyjny sprawcy</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.guiltyPartyAccidents.map(this.renderGuiltyPartyAccident)}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>}
+                        <div className="table-inner">
+                            <table class="table table-bordered" id="accidents-table">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Numer szkody</th>
+                                    <th scope="col">Data wypadku</th>
+                                    <th scope="col">Opis</th>
+                                    <th scope="col">Numer polisy sprawcy</th>
+                                    <th scope="col">Numer rejestracyjny sprawcy</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.guiltyPartyAccidents.map(this.renderGuiltyPartyAccident)}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>}
+                </div>
+                )}
+                {this.state.accidentNavigator === "update-guiltyPartyAccident" && <UpdateGuiltyPartyAccident guiltyPartyAccidentId={this.state.guiltyPartyAccidentId} />}
             </div>
         );
     }

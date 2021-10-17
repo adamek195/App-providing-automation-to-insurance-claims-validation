@@ -15,7 +15,6 @@ class NewAccident extends Component {
         policyNumberErrorAC: "",
         policyNumberErrorOC: "",
         policies: [],
-        policyId: "",
 
         guiltyPartyAccidentDateTime: "",
         guiltyPartyAccidentDescription: "",
@@ -154,15 +153,14 @@ class NewAccident extends Component {
         let userAccidentDescriptionAC = false;
         let userPolicyTypeOfInsuranceAC = false;
         let correct = false;
+        let policyId = "";
         let policy = this.state.policies.find(policy => policy.policyNumber === this.state.userPolicyNumberAC)
         if((policy === undefined) ||(policy === null)){
             this.setState({
                 policyNumberErrorAC: true,
             })
-        }else {
-            this.setState({
-               policyId: policy.id,
-            })
+        }else{
+            policyId = policy.id;
             if(policy.typeOfInsurance === "AC"){
                 userPolicyTypeOfInsuranceAC = true;
             }
@@ -178,6 +176,7 @@ class NewAccident extends Component {
             correct = true;
         }
         return ({
+            policyId,
             userPolicyTypeOfInsuranceAC,
             userAccidentDateTimeAC,
             userAccidentDescriptionAC,
@@ -190,15 +189,14 @@ class NewAccident extends Component {
         let userAccidentDescriptionOC = false;
         let userPolicyTypeOfInsuranceOC = false;
         let correct = false;
+        let policyId = "";
         let policy = this.state.policies.find(policy => policy.policyNumber === this.state.userPolicyNumberOC)
         if((policy === undefined) ||(policy === null)){
             this.setState({
                 policyNumberErrorOC: true,
             })
         }else {
-            this.setState({
-               policyId: policy.id,
-            })
+            policyId = policy.id;
             if(policy.typeOfInsurance === "OC"){
                 userPolicyTypeOfInsuranceOC = true;
             }
@@ -214,6 +212,7 @@ class NewAccident extends Component {
             correct = true;
         }
         return ({
+            policyId,
             userPolicyTypeOfInsuranceOC,
             userAccidentDateTimeOC,
             userAccidentDescriptionOC,
@@ -250,7 +249,7 @@ class NewAccident extends Component {
         })
         const validation = this.formValidationUserAccidentAC();
         if (validation.correct){
-            this.addUserAccidentAC()
+            this.addUserAccidentAC(validation.policyId);
 
             this.setState({
                 errors: {
@@ -277,7 +276,7 @@ class NewAccident extends Component {
         })
         const validation = this.formValidationUserAccidentOC();
         if (validation.correct){
-            this.addUserAccidentOC()
+            this.addUserAccidentOC(validation.policyId)
 
             this.setState({
                 errors: {
@@ -321,13 +320,13 @@ class NewAccident extends Component {
             })
     }
 
-    addUserAccidentAC = () => {
+    addUserAccidentAC = (policyId) => {
         const data = new FormData()
         data.append('AccidentDateTime', this.state.userAccidentDateTimeAC.toString());
         data.append('AccidentDescription', this.state.userAccidentDescriptionAC);
         data.append('AccidentImage', this.state.userAccidentImageAC);
 
-        let postRequest = `${userAccidentsUrl}/${this.state.policyId}`
+        let postRequest = `${userAccidentsUrl}/${policyId}`
         axios.post(postRequest, data)
             .then((response) => {
                 if(response.status === 201)
@@ -344,14 +343,13 @@ class NewAccident extends Component {
             })
     }
 
-    addUserAccidentOC = () => {
+    addUserAccidentOC = (policyId) => {
         const data = new FormData()
         data.append('AccidentDateTime', this.state.userAccidentDateTimeOC.toString());
         data.append('AccidentDescription', this.state.userAccidentDescriptionOC);
         data.append('AccidentImage', this.state.userAccidentImageOC);
 
-        let postRequest = `${userAccidentsUrl}/${this.state.policyId}`
-        console.log(postRequest)
+        let postRequest = `${userAccidentsUrl}/${policyId}`
         axios.post(postRequest, data)
             .then((response) => {
                 if(response.status === 201)

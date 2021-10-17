@@ -66,7 +66,7 @@ class Policies extends Component {
                     history.push("/unauthorized");
                 })
             .then(() => {
-                this.componentDidMount()
+                window.location.reload(false);
             })
             .catch(() => {
                 this.setState({

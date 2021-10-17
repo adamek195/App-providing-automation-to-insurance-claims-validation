@@ -201,8 +201,6 @@ class Accidents extends Component {
     renderUserAccidentOC = (accident) => {
         let accidentDate = new Date(accident.accidentDateTime)
         let parseAccidentDate = accidentDate.getFullYear() + "-" + ('0' + (accidentDate.getMonth()+1)).slice(-2) + "-" + ('0' + accidentDate.getDate()).slice(-2);
-        console.log(accident.victimFirstName)
-        console.log(accident.victimLastName)
         if((accident.victimFirstName === null) || (accident.victimFirstName === 'undefined'))
             accident.victimFirstName = "";
         if((accident.victimLastName === null) || (accident.victimLastName === 'undefined'))

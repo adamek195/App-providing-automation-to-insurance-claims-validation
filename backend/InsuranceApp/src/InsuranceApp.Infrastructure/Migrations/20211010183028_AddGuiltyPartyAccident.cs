@@ -3,17 +3,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsuranceApp.Infrastructure.Migrations
 {
-    public partial class AddAccident : Migration
+    public partial class AddGuiltyPartyAccident : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Accidents",
+                name: "GuiltyPartyAccidents",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PolicyId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AccidentDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AccidentDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GuiltyPartyPolicyNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -22,25 +22,25 @@ namespace InsuranceApp.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Accidents", x => x.Id);
+                    table.PrimaryKey("PK_GuiltyPartyAccidents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Accidents_Policies_PolicyId",
-                        column: x => x.PolicyId,
-                        principalTable: "Policies",
+                        name: "FK_GuiltyPartyAccidents_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Accidents_PolicyId",
-                table: "Accidents",
-                column: "PolicyId");
+                name: "IX_GuiltyPartyAccidents_UserId",
+                table: "GuiltyPartyAccidents",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Accidents");
+                name: "GuiltyPartyAccidents");
         }
     }
 }

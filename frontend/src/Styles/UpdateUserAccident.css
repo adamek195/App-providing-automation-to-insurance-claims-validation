@@ -1,0 +1,18 @@
+.accidents-manager-update-user {
+    margin-top:  30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 80px;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
+    display: inline-block;
+    width: 50%;
+}
+
+.accidents-manager-update-user {
+    background: #ffffff;
+    padding: 40px 55px 40px 55px;
+    border-radius: 15px;
+    transition: all .3s;
+}

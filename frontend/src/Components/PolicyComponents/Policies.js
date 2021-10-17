@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import UserNavBar from '../MenuComponents/UserNavBar';
-import PoliciesSideBar from '../MenuComponents/PoliciesSideBar';
 import axios from 'axios';
 import { policiesUrl } from "../../ConstUrls"
 import history from '../../History';
-import '../../Styles/Policies.css';
 import UpdatePolicy from './UpdatePolicy';
+import UserNavBar from '../MenuComponents/UserNavBar';
+import PoliciesSideBar from '../MenuComponents/PoliciesSideBar';
+import '../../Styles/Policies.css';
 
 class Policies extends Component {
 
@@ -52,7 +52,7 @@ class Policies extends Component {
     deletePolicy = (e) => {
         e.preventDefault()
         let policy = this.state.policies.find(policy => policy.policyNumber === this.state.policyNumber)
-        if(policy === undefined || null)
+        if((policy === undefined) || (policy === null))
             this.setState({
                 policyNumberError: true,
             })
@@ -66,7 +66,7 @@ class Policies extends Component {
                     history.push("/unauthorized");
                 })
             .then(() => {
-                this.componentDidMount()
+                window.location.reload(false);
             })
             .catch(() => {
                 this.setState({
@@ -79,7 +79,7 @@ class Policies extends Component {
     changeToUpdatePolicy = (e) => {
         e.preventDefault()
         let policy = this.state.policies.find(policy => policy.policyNumber === this.state.policyNumber)
-        if(policy === undefined || null)
+        if((policy === undefined) || (policy === null))
             this.setState({
                 policyNumberError: true,
             })

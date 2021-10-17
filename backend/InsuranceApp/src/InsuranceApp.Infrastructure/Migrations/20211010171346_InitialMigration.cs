@@ -185,6 +185,31 @@ namespace InsuranceApp.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UserAccidents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PolicyId = table.Column<int>(type: "int", nullable: false),
+                    AccidentDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AccidentDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VictimRegistrationNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VictimFirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VictimLastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AccidentImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserAccidents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserAccidents_Policies_PolicyId",
+                        column: x => x.PolicyId,
+                        principalTable: "Policies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -228,6 +253,11 @@ namespace InsuranceApp.Infrastructure.Migrations
                 name: "IX_Policies_UserId",
                 table: "Policies",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserAccidents_PolicyId",
+                table: "UserAccidents",
+                column: "PolicyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -248,10 +278,13 @@ namespace InsuranceApp.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Policies");
+                name: "UserAccidents");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Policies");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

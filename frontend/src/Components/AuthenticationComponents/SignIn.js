@@ -76,7 +76,7 @@ class SignIn extends Component {
               }
             })
         }
-      }
+    }
 
     handleSigningIn = () => {
         this.authenticateUser()

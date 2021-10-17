@@ -11,33 +11,33 @@ using System;
 
 namespace InsuranceApp.Application.Services
 {
-    public class AccidentsService: IAccidentsService
+    public class UserAccidentsService: IUserAccidentsService
     {
-        private readonly IAccidentsRepository _accidentsRepository;
+        private readonly IUserAccidentsRepository _userAccidentsRepository;
         private readonly IPoliciesRepository _policiesRepository;
         private readonly IMapper _mapper;
 
-        public AccidentsService(IAccidentsRepository accidentsRepository, IPoliciesRepository policiesRepository, IMapper mapper)
+        public UserAccidentsService(IUserAccidentsRepository userAccidentsRepository, IPoliciesRepository policiesRepository, IMapper mapper)
         {
-            _accidentsRepository = accidentsRepository;
+            _userAccidentsRepository = userAccidentsRepository;
             _policiesRepository = policiesRepository;
             _mapper = mapper;
         }
 
-        public async Task<List<AccidentDto>> GetAccidents(int policyId, string userId)
+        public async Task<List<UserAccidentDto>> GetUserAccidents(int policyId, string userId)
         {
             var policyWithAccidents = await _policiesRepository.GetUserPolicy(policyId, Guid.Parse(userId));
 
             if (policyWithAccidents == null)
                 throw new NotFoundException("Policy with this id does not exist.");
 
-            var accidents = await _accidentsRepository.GetAccidents(policyId);
+            var accidents = await _userAccidentsRepository.GetUserAccidents(policyId);
 
-            return _mapper.Map<List<AccidentDto>>(accidents);
+            return _mapper.Map<List<UserAccidentDto>>(accidents);
         }
 
-        public async Task<AccidentDto> CreateAccident(int policyId, string userId,
-            RequestAccidentDto newAccidentDto, AccidentImageDto accidentImageDto)
+        public async Task<UserAccidentDto> CreateUserAccident(int policyId, string userId,
+            RequestUserAccidentDto newAccidentDto, AccidentImageDto accidentImageDto)
         {
             byte[] accidentImage;
 
@@ -54,7 +54,7 @@ namespace InsuranceApp.Application.Services
             if (policyWithAccidents == null)
                 throw new NotFoundException("Policy with this id does not exist.");
 
-            var accidentToAdd = _mapper.Map<Accident>(newAccidentDto);
+            var accidentToAdd = _mapper.Map<UserAccident>(newAccidentDto);
             accidentToAdd.PolicyId = policyId;
 
             using (var memoryStream = new MemoryStream())
@@ -63,28 +63,28 @@ namespace InsuranceApp.Application.Services
                 accidentImage = memoryStream.ToArray();
             }
 
-            await _accidentsRepository.AddAccident(accidentToAdd, accidentImage);
+            await _userAccidentsRepository.AddUserAccident(accidentToAdd, accidentImage);
 
-            return _mapper.Map<AccidentDto>(accidentToAdd);
+            return _mapper.Map<UserAccidentDto>(accidentToAdd);
         }
 
-        public async Task DeleteAccident(int accidentId, int policyId, string userId)
+        public async Task DeleteUserAccident(int accidentId, int policyId, string userId)
         {
             var policyWithAccidents = await _policiesRepository.GetUserPolicy(policyId, Guid.Parse(userId));
 
             if (policyWithAccidents == null)
                 throw new NotFoundException("Policy with this id does not exist.");
 
-            var accidentToDelete = await _accidentsRepository.GetAccident(accidentId, policyId);
+            var accidentToDelete = await _userAccidentsRepository.GetUserAccident(accidentId, policyId);
 
             if (accidentToDelete == null)
                 throw new NotFoundException("Accident with this id does not exist.");
 
-            await _accidentsRepository.DeleteAccident(accidentId, policyId);
+            await _userAccidentsRepository.DeleteUserAccident(accidentId, policyId);
         }
 
-        public async Task UpdateAccident(int accidentId, int policyId, string userId,
-            RequestAccidentDto updatedAccidentDto, AccidentImageDto accidentImageDto)
+        public async Task UpdateUserAccident(int accidentId, int policyId, string userId,
+            RequestUserAccidentDto updatedAccidentDto, AccidentImageDto accidentImageDto)
         {
             byte[] accidentImage;
 
@@ -101,12 +101,12 @@ namespace InsuranceApp.Application.Services
             if (policyWithAccidents == null)
                 throw new NotFoundException("Policy with this id does not exist.");
 
-            var accidentToUpdate = await _accidentsRepository.GetAccident(accidentId, policyId);
+            var accidentToUpdate = await _userAccidentsRepository.GetUserAccident(accidentId, policyId);
 
             if (accidentToUpdate == null)
                 throw new NotFoundException("Accident with this id does not exist.");
 
-            accidentToUpdate = _mapper.Map<Accident>(updatedAccidentDto);
+            accidentToUpdate = _mapper.Map<UserAccident>(updatedAccidentDto);
 
             using (var memoryStream = new MemoryStream())
             {
@@ -114,7 +114,7 @@ namespace InsuranceApp.Application.Services
                 accidentImage = memoryStream.ToArray();
             }
 
-            await _accidentsRepository.UpdateAccident(accidentId, policyId, accidentToUpdate, accidentImage);
+            await _userAccidentsRepository.UpdateUserAccident(accidentId, policyId, accidentToUpdate, accidentImage);
         }
     }
 }

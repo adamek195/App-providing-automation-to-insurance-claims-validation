@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace InsuranceApp.Application.Services
 {
@@ -93,6 +95,32 @@ namespace InsuranceApp.Application.Services
             }
 
             await _guiltyPartyAccidentsRepository.UpdateGuiltyPartyAccident(accidentId, accidentToUpdate, accidentImage);
+        }
+
+        public async Task DetectCarDamage(AccidentImageDto accidentImageDto)
+        {
+            byte[] accidentImage;
+
+            var client = new HttpClient();
+
+            client.DefaultRequestHeaders.Add("Prediction-Key", "prediction-key");
+
+            string url = "https://westeurope.api.cognitive.microsoft.com/customvision/v3.0/Prediction/90a7e9a6-9f36-4364-8bf7-ee773b1846ad/detect/iterations/Iteration1/image";
+
+            HttpResponseMessage response;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                await accidentImageDto.AccidentImage.CopyToAsync(memoryStream);
+                accidentImage = memoryStream.ToArray();
+            }
+
+            using( var content = new ByteArrayContent(accidentImage))
+            {
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                response = await client.PostAsync(url, content);
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+            }
         }
     }
 }

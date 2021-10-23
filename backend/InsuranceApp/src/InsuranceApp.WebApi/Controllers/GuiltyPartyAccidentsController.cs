@@ -55,5 +55,13 @@ namespace InsuranceApp.WebApi.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("Detect")]
+        public async Task<IActionResult> DetectCarDamage([FromForm] AccidentImageDto accidentImageDto)
+        {
+            await _guiltyPartyAccidentsService.DetectCarDamage(accidentImageDto);
+
+            return NoContent();
+        }
     }
 }

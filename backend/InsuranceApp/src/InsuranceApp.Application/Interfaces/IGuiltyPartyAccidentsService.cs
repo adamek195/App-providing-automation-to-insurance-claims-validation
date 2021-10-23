@@ -10,5 +10,6 @@ namespace InsuranceApp.Application.Interfaces
         Task<GuiltyPartyAccidentDto> CreateGuiltyPartyAccident(string userId, RequestGuiltyPartyAccidentDto newAccidentDto, AccidentImageDto accidentImageDto);
         Task DeleteGuiltyPartyAccident(int accidentId, string userId);
         Task UpdateGuiltyPartyAccident(int accidentId, string userId, RequestGuiltyPartyAccidentDto updatedAccidentDto, AccidentImageDto accidentImageDto);
+        Task DetectCarDamage(AccidentImageDto accidentImageDto);
     }
 }

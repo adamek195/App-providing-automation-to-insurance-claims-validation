@@ -16,10 +16,12 @@ namespace InsuranceApp.WebApi.Controllers
     public class GuiltyPartyAccidentsController : ControllerBase
     {
         private readonly IGuiltyPartyAccidentsService _guiltyPartyAccidentsService;
+        private readonly ICarDamageDetectionService _carDamageDetectionService;
 
-        public GuiltyPartyAccidentsController(IGuiltyPartyAccidentsService guiltyPartyAccidentsService)
+        public GuiltyPartyAccidentsController(IGuiltyPartyAccidentsService guiltyPartyAccidentsService, ICarDamageDetectionService carDamageDetectionService)
         {
             _guiltyPartyAccidentsService = guiltyPartyAccidentsService;
+            _carDamageDetectionService = carDamageDetectionService;
         }
 
         [HttpGet]
@@ -59,7 +61,7 @@ namespace InsuranceApp.WebApi.Controllers
         [HttpPost("Detect")]
         public async Task<IActionResult> DetectCarDamage([FromForm] AccidentImageDto accidentImageDto)
         {
-            await _guiltyPartyAccidentsService.DetectCarDamage(accidentImageDto);
+            await _carDamageDetectionService.DetectCarDamage(accidentImageDto);
 
             return NoContent();
         }

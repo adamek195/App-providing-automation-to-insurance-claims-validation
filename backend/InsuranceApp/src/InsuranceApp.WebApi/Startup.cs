@@ -5,6 +5,7 @@ using InsuranceApp.Infrastructure.Repositories;
 using InsuranceApp.Application.Interfaces;
 using InsuranceApp.Application.Mappings;
 using InsuranceApp.Application.Services;
+using InsuranceApp.Application.Configuration;
 using InsuranceApp.WebApi.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -21,12 +22,12 @@ namespace InsuranceApp.WebApi
 {
     public class Startup
     {
+        private readonly IConfiguration Configuration;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -39,6 +40,7 @@ namespace InsuranceApp.WebApi
             services.AddTransient<IUserAccidentsRepository, UserAccidentsRepository>();
             services.AddTransient<IGuiltyPartyAccidentsRepository, GuiltyPartyAccidentsRepository>();
             services.AddTransient<IGuiltyPartyAccidentsService, GuiltyPartyAccidentsService>();
+            services.AddTransient<ICarDamageDetectionService, CarDamageDetectionService>();
 
             services.AddSingleton(AutoMapperConfig.Initialize());
 
@@ -74,6 +76,10 @@ namespace InsuranceApp.WebApi
                         RequireExpirationTime = true
                     };
                 });
+
+            var azureCognitiveServiceSettings = new AzureCognitiveServiceSettings();
+            Configuration.GetSection("AzureCognitiveServiceSettings").Bind(azureCognitiveServiceSettings);
+            services.AddTransient(x => azureCognitiveServiceSettings);
 
             services.AddSwaggerGen(c =>
             {

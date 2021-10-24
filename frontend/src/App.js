@@ -15,7 +15,7 @@ import NewAccident from './Components/AccidentComponents/NewAccident';
 import Accidents from './Components/AccidentComponents/Accidents';
 import Policies from './Components/PolicyComponents/Policies'
 import NewPolicy from './Components/PolicyComponents/NewPolicy'
-import PdfGenerator from './Components/AccidentComponents/PdfGenerator'
+import DocumentGenerator from './Components/AccidentComponents/DocumentGenerator'
 
 class App extends Component {
 
@@ -81,7 +81,7 @@ class App extends Component {
             <Route path="/new-policy" component={NewPolicy} />
             <Route path="/accidents" component={Accidents} />
             <Route path="/new-accident" component={NewAccident} />
-            <Route path="/pdf" component={PdfGenerator} />
+            <Route path="/document" component={DocumentGenerator} />
           </Switch>
           <Spinner loading={this.state.loading} />
         </div>

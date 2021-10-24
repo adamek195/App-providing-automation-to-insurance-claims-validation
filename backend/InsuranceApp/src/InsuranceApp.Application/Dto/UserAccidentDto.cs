@@ -11,5 +11,6 @@ namespace InsuranceApp.Application.Dto
         public string VictimRegistrationNumber { get; set; }
         public string VictimFirstName { get; set; }
         public string VictimLastName { get; set; }
+        public bool DamageDetected { get; set; }
     }
 }

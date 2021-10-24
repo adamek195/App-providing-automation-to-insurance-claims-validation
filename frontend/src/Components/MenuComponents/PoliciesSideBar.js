@@ -25,8 +25,8 @@ class PoliciesSideBar extends Component {
                     if(selected === 'accidents'){
                         history.push("/accidents")
                     }
-                    if(selected === 'pdf'){
-                        history.push("/pdf")
+                    if(selected === 'document'){
+                        history.push("/document")
                     }
             }}>
                 <SideNav.Toggle id="sideBarMenuToggle"/>
@@ -71,7 +71,7 @@ class PoliciesSideBar extends Component {
                             Zgłoszone szkody
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="pdf">
+                    <NavItem eventKey="document">
                         <NavIcon>
                             <i className="fa fa-fw fa-file-pdf-o" style={{color: 'black', fontSize: '1.75em' }} />
                         </NavIcon>

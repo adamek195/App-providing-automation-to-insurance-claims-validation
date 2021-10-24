@@ -20,5 +20,6 @@ namespace InsuranceApp.Domain.Entities
         public string VictimFirstName { get; set; }
         public string VictimLastName { get; set; }
         public byte[] AccidentImage { get; set; }
+        public bool DamageDetected { get; set; }
     }
 }

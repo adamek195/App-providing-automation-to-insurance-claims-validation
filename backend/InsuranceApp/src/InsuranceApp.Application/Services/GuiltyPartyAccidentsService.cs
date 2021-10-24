@@ -30,7 +30,7 @@ namespace InsuranceApp.Application.Services
         }
 
         public async Task<GuiltyPartyAccidentDto> CreateGuiltyPartyAccident(string userId, RequestGuiltyPartyAccidentDto newAccidentDto,
-            AccidentImageDto accidentImageDto)
+            AccidentImageDto accidentImageDto, bool damageDetected)
         {
             byte[] accidentImage;
 
@@ -44,6 +44,7 @@ namespace InsuranceApp.Application.Services
 
             var accidentToAdd = _mapper.Map<GuiltyPartyAccident>(newAccidentDto);
             accidentToAdd.UserId = Guid.Parse(userId);
+            accidentToAdd.DamageDetected = damageDetected;
 
             using (var memoryStream = new MemoryStream())
             {
@@ -66,7 +67,8 @@ namespace InsuranceApp.Application.Services
             await _guiltyPartyAccidentsRepository.DeleteGuiltyPartyAccident(accidentId, Guid.Parse(userId));
         }
 
-        public async Task UpdateGuiltyPartyAccident(int accidentId, string userId, RequestGuiltyPartyAccidentDto updatedAccidentDto, AccidentImageDto accidentImageDto)
+        public async Task UpdateGuiltyPartyAccident(int accidentId, string userId, RequestGuiltyPartyAccidentDto updatedAccidentDto,
+            AccidentImageDto accidentImageDto, bool damageDetected)
         {
             byte[] accidentImage;
 
@@ -85,6 +87,7 @@ namespace InsuranceApp.Application.Services
 
             accidentToUpdate = _mapper.Map<GuiltyPartyAccident>(updatedAccidentDto);
             accidentToUpdate.UserId = Guid.Parse(userId);
+            accidentToUpdate.DamageDetected = damageDetected;
 
             using (var memoryStream = new MemoryStream())
             {

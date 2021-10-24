@@ -201,12 +201,17 @@ class Accidents extends Component {
     renderUserAccidentOC = (accident) => {
         let accidentDate = new Date(accident.accidentDateTime)
         let parseAccidentDate = accidentDate.getFullYear() + "-" + ('0' + (accidentDate.getMonth()+1)).slice(-2) + "-" + ('0' + accidentDate.getDate()).slice(-2);
+        let damageDetection = "Brak informacji";
         if((accident.victimFirstName === null) || (accident.victimFirstName === 'undefined'))
             accident.victimFirstName = "";
         if((accident.victimLastName === null) || (accident.victimLastName === 'undefined'))
             accident.victimLastName = "";
         if((accident.victimRegistrationNumber === null) || (accident.victimRegistrationNumber === 'undefined'))
             accident.victimRegistrationNumber = "";
+        if(accident.damageDetected === false)
+            damageDetection = "System nie wykrył żadnych szkód. Zdjęcie musi zostac przekazane do weryfikacji ręcznej.";
+        if(accident.damageDetected === true)
+            damageDetection = "System wykrył szkody na zamieszczonym zdjęciu.";
         let victim = accident.victimFirstName + " " + accident.victimLastName;
         let victimRegistrationNumber = accident.victimRegistrationNumber;
         return (
@@ -217,6 +222,7 @@ class Accidents extends Component {
               <td>{accident.accidentDescription}</td>
               <td>{victimRegistrationNumber}</td>
               <td>{victim}</td>
+              <td>{damageDetection}</td>
             </tr>
         )
     }
@@ -224,12 +230,18 @@ class Accidents extends Component {
     renderUserAccidentAC = (accident) => {
         let accidentDate = new Date(accident.accidentDateTime)
         let parseAccidentDate = accidentDate.getFullYear() + "-" + ('0' + (accidentDate.getMonth()+1)).slice(-2) + "-" + ('0' + accidentDate.getDate()).slice(-2);
+        let damageDetection = "Brak informacji";
+        if(accident.damageDetected === false)
+            damageDetection = "System nie wykrył żadnych szkód. Zdjęcie musi zostac przekazane do weryfikacji ręcznej.";
+        if(accident.damageDetected === true)
+            damageDetection = "System wykrył szkody na zamieszczonym zdjęciu.";
         return (
             <tr key={accident.id}>
               <i className="fa fa-fw fa-car" style={{color: 'black', marginRight:'10px', fontSize: '1.5em' }}/>
               <td>{accident.id}</td>
               <td>{parseAccidentDate}</td>
               <td>{accident.accidentDescription}</td>
+              <td>{damageDetection}</td>
             </tr>
         )
     }
@@ -237,6 +249,11 @@ class Accidents extends Component {
     renderGuiltyPartyAccident = (accident) => {
         let accidentDate = new Date(accident.accidentDateTime)
         let parseAccidentDate = accidentDate.getFullYear() + "-" + ('0' + (accidentDate.getMonth()+1)).slice(-2) + "-" + ('0' + accidentDate.getDate()).slice(-2);
+        let damageDetection = "Brak informacji";
+        if(accident.damageDetected === false)
+            damageDetection = "System nie wykrył żadnych szkód. Zdjęcie musi zostac przekazane do weryfikacji ręcznej.";
+        if(accident.damageDetected === true)
+            damageDetection = "System wykrył szkody na zamieszczonym zdjęciu.";
         return (
             <tr key={accident.id}>
               <i className="fa fa-fw fa-car" style={{color: 'black', marginRight:'10px', fontSize: '1.5em' }}/>
@@ -245,6 +262,7 @@ class Accidents extends Component {
               <td>{accident.accidentDescription}</td>
               <td>{accident.guiltyPartyPolicyNumber}</td>
               <td>{accident.guiltyPartyRegistrationNumber}</td>
+              <td>{damageDetection}</td>
             </tr>
         )
     }
@@ -339,6 +357,7 @@ class Accidents extends Component {
                                     <th scope="col">Opis</th>
                                     <th scope="col">Numer rejestracyjny poszkodowanego</th>
                                     <th scope="col">Poszkodowany</th>
+                                    <th scope="col">Detekcja szkody</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -355,6 +374,7 @@ class Accidents extends Component {
                                     <th scope="col">Numer szkody</th>
                                     <th scope="col">Data wypadku</th>
                                     <th scope="col">Opis</th>
+                                    <th scope="col">Detekcja szkody</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -399,6 +419,7 @@ class Accidents extends Component {
                                     <th scope="col">Opis</th>
                                     <th scope="col">Numer polisy sprawcy</th>
                                     <th scope="col">Numer rejestracyjny sprawcy</th>
+                                    <th scope="col">Detekcja szkody</th>
                                 </tr>
                                 </thead>
                                 <tbody>

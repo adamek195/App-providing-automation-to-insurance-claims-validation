@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System;
+using Newtonsoft.Json;
 
 namespace InsuranceApp.Application.Services
 {
@@ -22,23 +23,25 @@ namespace InsuranceApp.Application.Services
         {
             byte[] accidentImage;
 
-            var client = new HttpClient();
-
-            client.DefaultRequestHeaders.Add("Prediction-Key", _settings.Key);
-
-            HttpResponseMessage response;
-
             using (var memoryStream = new MemoryStream())
             {
                 await accidentImageDto.AccidentImage.CopyToAsync(memoryStream);
                 accidentImage = memoryStream.ToArray();
             }
 
+            var client = new HttpClient();
+            HttpResponseMessage response;
+
             using (var content = new ByteArrayContent(accidentImage))
             {
+                client.DefaultRequestHeaders.Add("Prediction-Key", _settings.Key);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                 response = await client.PostAsync(_settings.UrlPath, content);
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                var dto = JsonConvert.DeserializeObject<CarDamageDto>(response.Content.ReadAsStringAsync().Result);
+                foreach ( var damage in dto.Predictions)
+                {
+                    Console.WriteLine(damage.Probability);
+                }
             }
         }
     }

@@ -4,7 +4,7 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import '../../Styles/SideBarMenu.css';
 import history from '../../History';
 
-class PdfSideBar extends Component {
+class DocumentSideBar extends Component {
     render() {
         return(
         <div>
@@ -25,12 +25,12 @@ class PdfSideBar extends Component {
                     if(selected === 'accidents'){
                         history.push("/accidents")
                     }
-                    if(selected === 'pdf'){
-                        history.push("/pdf")
+                    if(selected === 'document'){
+                        history.push("/document")
                     }
             }}>
                 <SideNav.Toggle id="sideBarMenuToggle"/>
-                <SideNav.Nav defaultSelected="pdf">
+                <SideNav.Nav defaultSelected="document">
                     <NavItem eventKey="home">
                         <NavIcon>
                             <i className="fa fa-fw fa-home" style={{color: 'black', fontSize: '1.75em' }} />
@@ -71,7 +71,7 @@ class PdfSideBar extends Component {
                             Zgłoszone szkody
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="pdf">
+                    <NavItem eventKey="document">
                         <NavIcon>
                             <i className="fa fa-fw fa-file-pdf-o" style={{color: 'black', fontSize: '1.75em' }} />
                         </NavIcon>
@@ -86,4 +86,4 @@ class PdfSideBar extends Component {
     }
 }
 
-export default PdfSideBar;
+export default DocumentSideBar;

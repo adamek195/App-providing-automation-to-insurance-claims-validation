@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import UserNavBar from '../MenuComponents/UserNavBar';
-import PdfSideBar from '../MenuComponents/PdfSideBar';
+import DocumentSideBar from '../MenuComponents/DocumentSideBar';
 
-class PdfGenerator extends Component {
+class DocumentGenerator extends Component {
     render() {
         return(
             <div>
                 <UserNavBar />
-                <PdfSideBar />
+                <DocumentSideBar />
                 <h1>Wygeneruj plik pdf</h1>
             </div>
         );
     }
 }
 
-export default PdfGenerator;
+export default DocumentGenerator;

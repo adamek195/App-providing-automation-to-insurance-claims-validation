@@ -1,1 +1,1 @@
-# Engineering thesis in progress
+# Engineering thesis project in progress

@@ -20,5 +20,6 @@ namespace InsuranceApp.Domain.Entities
         public string GuiltyPartyPolicyNumber { get; set; }
         public string GuiltyPartyRegistrationNumber { get; set; }
         public byte[] AccidentImage { get; set; }
+        public bool DamageDetected { get; set; }
     }
 }

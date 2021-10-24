@@ -63,6 +63,7 @@ namespace InsuranceApp.Infrastructure.Repositories
                 accidentToUpdate.VictimFirstName = updatedAccident.VictimFirstName;
                 accidentToUpdate.VictimLastName = updatedAccident.VictimLastName;
                 accidentToUpdate.AccidentImage = accidentImage;
+                accidentToUpdate.DamageDetected = updatedAccident.DamageDetected;
             }
 
             await _context.SaveChangesAsync();

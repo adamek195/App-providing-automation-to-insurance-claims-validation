@@ -5,6 +5,6 @@ namespace InsuranceApp.Application.Interfaces
 {
     public interface ICarDamageDetectionService
     {
-        Task DetectCarDamage(AccidentImageDto accidentImageDto);
+        Task<bool> DetectCarDamage(AccidentImageDto accidentImageDto);
     }
 }

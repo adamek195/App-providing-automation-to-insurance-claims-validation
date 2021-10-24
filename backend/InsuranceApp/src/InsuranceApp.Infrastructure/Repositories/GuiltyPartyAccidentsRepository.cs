@@ -63,6 +63,7 @@ namespace InsuranceApp.Infrastructure.Repositories
                 accidentToUpdate.GuiltyPartyPolicyNumber = updatedAccident.GuiltyPartyPolicyNumber;
                 accidentToUpdate.GuiltyPartyRegistrationNumber = updatedAccident.GuiltyPartyRegistrationNumber;
                 accidentToUpdate.AccidentImage = accidentImage;
+                accidentToUpdate.DamageDetected = updatedAccident.DamageDetected;
             }
 
             await _context.SaveChangesAsync();

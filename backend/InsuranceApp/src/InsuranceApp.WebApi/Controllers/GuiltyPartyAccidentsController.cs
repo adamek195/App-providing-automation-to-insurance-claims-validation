@@ -36,7 +36,8 @@ namespace InsuranceApp.WebApi.Controllers
         public async Task<IActionResult> CreateGuiltyPartyAccident([FromForm] RequestGuiltyPartyAccidentDto newAccidentDto,
             [FromForm] AccidentImageDto accidentImageDto)
         {
-            var newAccident = await _guiltyPartyAccidentsService.CreateGuiltyPartyAccident(User.GetId(), newAccidentDto, accidentImageDto);
+            var damageDetected = await _carDamageDetectionService.DetectCarDamage(accidentImageDto);
+            var newAccident = await _guiltyPartyAccidentsService.CreateGuiltyPartyAccident(User.GetId(), newAccidentDto, accidentImageDto, damageDetected);
 
             return Created($"api/policies/{newAccident.Id}", newAccident);
         }
@@ -53,15 +54,8 @@ namespace InsuranceApp.WebApi.Controllers
         public async Task<IActionResult> UpdateGuiltyPartyAccident([FromRoute] int accidentId,
             [FromForm] RequestGuiltyPartyAccidentDto updatedAccidentDto, [FromForm] AccidentImageDto accidentImageDto)
         {
-            await _guiltyPartyAccidentsService.UpdateGuiltyPartyAccident(accidentId, User.GetId(), updatedAccidentDto, accidentImageDto);
-
-            return NoContent();
-        }
-
-        [HttpPost("Detect")]
-        public async Task<IActionResult> DetectCarDamage([FromForm] AccidentImageDto accidentImageDto)
-        {
-            await _carDamageDetectionService.DetectCarDamage(accidentImageDto);
+            var damageDetected = await _carDamageDetectionService.DetectCarDamage(accidentImageDto);
+            await _guiltyPartyAccidentsService.UpdateGuiltyPartyAccident(accidentId, User.GetId(), updatedAccidentDto, accidentImageDto, damageDetected);
 
             return NoContent();
         }

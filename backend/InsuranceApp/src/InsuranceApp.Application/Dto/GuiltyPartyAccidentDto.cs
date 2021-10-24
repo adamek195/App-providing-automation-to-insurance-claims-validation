@@ -10,5 +10,6 @@ namespace InsuranceApp.Application.Dto
         public string AccidentDescription { get; set; }
         public string GuiltyPartyPolicyNumber { get; set; }
         public string GuiltyPartyRegistrationNumber { get; set; }
+        public bool DamageDetected { get; set; }
     }
 }

@@ -16,10 +16,12 @@ namespace InsuranceApp.WebApi.Controllers
     public class UserAccidentsController : ControllerBase
     {
         private readonly IUserAccidentsService _userAccidentsService;
+        private readonly ICarDamageDetectionService _carDamageDetectionService;
 
-        public UserAccidentsController(IUserAccidentsService userAccidentsService)
+        public UserAccidentsController(IUserAccidentsService userAccidentsService, ICarDamageDetectionService carDamageDetectionService)
         {
             _userAccidentsService = userAccidentsService;
+            _carDamageDetectionService = carDamageDetectionService;
         }
 
         [HttpGet("{policyId}")]
@@ -34,7 +36,8 @@ namespace InsuranceApp.WebApi.Controllers
         public async Task<IActionResult> CreateUserAccident([FromRoute] int policyId, [FromForm] RequestUserAccidentDto newAccidentDto,
             [FromForm] AccidentImageDto accidentImageDto)
         {
-            var newAccident = await _userAccidentsService.CreateUserAccident(policyId, User.GetId(), newAccidentDto, accidentImageDto);
+            var damageDetected = await _carDamageDetectionService.DetectCarDamage(accidentImageDto);
+            var newAccident = await _userAccidentsService.CreateUserAccident(policyId, User.GetId(), newAccidentDto, accidentImageDto, damageDetected);
 
             return Created($"api/policies/{newAccident.Id}", newAccident);
         }
@@ -51,7 +54,8 @@ namespace InsuranceApp.WebApi.Controllers
         public async Task<IActionResult> UpdateUserAccident([FromRoute] int policyId, [FromRoute] int accidentId,
             [FromForm] RequestUserAccidentDto updatedAccidentDto, [FromForm] AccidentImageDto accidentImageDto)
         {
-            await _userAccidentsService.UpdateUserAccident(accidentId, policyId, User.GetId(), updatedAccidentDto, accidentImageDto);
+            var damageDetected = await _carDamageDetectionService.DetectCarDamage(accidentImageDto);
+            await _userAccidentsService.UpdateUserAccident(accidentId, policyId, User.GetId(), updatedAccidentDto, accidentImageDto, damageDetected);
 
             return NoContent();
         }

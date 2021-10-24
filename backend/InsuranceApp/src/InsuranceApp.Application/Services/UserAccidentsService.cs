@@ -37,7 +37,7 @@ namespace InsuranceApp.Application.Services
         }
 
         public async Task<UserAccidentDto> CreateUserAccident(int policyId, string userId,
-            RequestUserAccidentDto newAccidentDto, AccidentImageDto accidentImageDto)
+            RequestUserAccidentDto newAccidentDto, AccidentImageDto accidentImageDto, bool damageDetected)
         {
             byte[] accidentImage;
 
@@ -56,6 +56,7 @@ namespace InsuranceApp.Application.Services
 
             var accidentToAdd = _mapper.Map<UserAccident>(newAccidentDto);
             accidentToAdd.PolicyId = policyId;
+            accidentToAdd.DamageDetected = damageDetected;
 
             using (var memoryStream = new MemoryStream())
             {
@@ -84,7 +85,7 @@ namespace InsuranceApp.Application.Services
         }
 
         public async Task UpdateUserAccident(int accidentId, int policyId, string userId,
-            RequestUserAccidentDto updatedAccidentDto, AccidentImageDto accidentImageDto)
+            RequestUserAccidentDto updatedAccidentDto, AccidentImageDto accidentImageDto, bool damageDetected)
         {
             byte[] accidentImage;
 
@@ -107,6 +108,7 @@ namespace InsuranceApp.Application.Services
                 throw new NotFoundException("Accident with this id does not exist.");
 
             accidentToUpdate = _mapper.Map<UserAccident>(updatedAccidentDto);
+            accidentToUpdate.DamageDetected = damageDetected;
 
             using (var memoryStream = new MemoryStream())
             {

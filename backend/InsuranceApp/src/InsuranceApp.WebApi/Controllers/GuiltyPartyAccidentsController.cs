@@ -19,16 +19,16 @@ namespace InsuranceApp.WebApi.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class GuiltyPartyAccidentsController : ControllerBase
     {
+        private readonly IUsersService _usersService;
         private readonly IGuiltyPartyAccidentsService _guiltyPartyAccidentsService;
         private readonly ICarDamageDetectionService _carDamageDetectionService;
-        private readonly IDocumentsService _documentsService;
 
         public GuiltyPartyAccidentsController(IGuiltyPartyAccidentsService guiltyPartyAccidentsService, ICarDamageDetectionService carDamageDetectionService,
-            IDocumentsService documentsService)
+            IUsersService usersService)
         {
             _guiltyPartyAccidentsService = guiltyPartyAccidentsService;
             _carDamageDetectionService = carDamageDetectionService;
-            _documentsService = documentsService;
+            _usersService = usersService;
         }
 
         [HttpGet]
@@ -70,6 +70,7 @@ namespace InsuranceApp.WebApi.Controllers
         [HttpPost("{accidentId}/Documents")]
         public async Task<IActionResult> CreateGuiltyPartyAccidentDocument([FromRoute] int accidentId)
         {
+            var user = await _usersService.GetUser(User.GetId());
 
             using (PdfDocument document = new PdfDocument())
             {
@@ -77,7 +78,9 @@ namespace InsuranceApp.WebApi.Controllers
 
                 XGraphics gfx = XGraphics.FromPdfPage(page);
 
-                gfx.DrawString("Zgłoszenie szkody w pojeździe", new XFont("Arial", 40, XFontStyle.Bold), XBrushes.Black, new XPoint(200, 70));
+                gfx.DrawString("Zgłoszenie szkody samochodowej", new XFont("Arial", 30, XFontStyle.Bold), XBrushes.Black, new XPoint(65, 70));
+
+                gfx.DrawString($"Użytkownik: {user.FirstName} {user.LastName}", new XFont("Arial", 15, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 150));
 
                 var stream = new MemoryStream();
 

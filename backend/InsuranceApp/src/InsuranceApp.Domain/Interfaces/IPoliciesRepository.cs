@@ -11,7 +11,7 @@ namespace InsuranceApp.Domain.Interfaces
         Task<Policy> GetUserPolicy(int policyId, Guid userId);
         Task<Policy> GetUserPolicyByPolicyNumber(string policyNumber);
         Task<Policy> AddPolicy(Policy newPolicy);
-        Task DeletePolicy(int policyId, Guid userdId);
+        Task DeletePolicy(int policyId, Guid userId);
         Task UpdatePolicy(int policyId, Policy updatedPolicy);
     }
 }

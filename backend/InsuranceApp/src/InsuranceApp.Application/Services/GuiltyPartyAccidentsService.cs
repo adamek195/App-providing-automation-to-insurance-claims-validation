@@ -89,10 +89,10 @@ namespace InsuranceApp.Application.Services
             accidentToUpdate.UserId = Guid.Parse(userId);
             accidentToUpdate.DamageDetected = damageDetected;
 
-            using (var memoryStream = new MemoryStream())
+            using (var stream = new MemoryStream())
             {
-                await accidentImageDto.AccidentImage.CopyToAsync(memoryStream);
-                accidentImage = memoryStream.ToArray();
+                await accidentImageDto.AccidentImage.CopyToAsync(stream);
+                accidentImage = stream.ToArray();
             }
 
             await _guiltyPartyAccidentsRepository.UpdateGuiltyPartyAccident(accidentId, accidentToUpdate, accidentImage);

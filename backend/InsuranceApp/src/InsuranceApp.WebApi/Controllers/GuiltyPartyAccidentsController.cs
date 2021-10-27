@@ -5,6 +5,10 @@ using InsuranceApp.WebApi.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Pdf;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace InsuranceApp.WebApi.Controllers
@@ -17,11 +21,14 @@ namespace InsuranceApp.WebApi.Controllers
     {
         private readonly IGuiltyPartyAccidentsService _guiltyPartyAccidentsService;
         private readonly ICarDamageDetectionService _carDamageDetectionService;
+        private readonly IDocumentsService _documentsService;
 
-        public GuiltyPartyAccidentsController(IGuiltyPartyAccidentsService guiltyPartyAccidentsService, ICarDamageDetectionService carDamageDetectionService)
+        public GuiltyPartyAccidentsController(IGuiltyPartyAccidentsService guiltyPartyAccidentsService, ICarDamageDetectionService carDamageDetectionService,
+            IDocumentsService documentsService)
         {
             _guiltyPartyAccidentsService = guiltyPartyAccidentsService;
             _carDamageDetectionService = carDamageDetectionService;
+            _documentsService = documentsService;
         }
 
         [HttpGet]
@@ -58,6 +65,28 @@ namespace InsuranceApp.WebApi.Controllers
             await _guiltyPartyAccidentsService.UpdateGuiltyPartyAccident(accidentId, User.GetId(), updatedAccidentDto, accidentImageDto, damageDetected);
 
             return NoContent();
+        }
+
+        [HttpPost("{accidentId}/Documents")]
+        public async Task<IActionResult> CreateGuiltyPartyAccidentDocument([FromRoute] int accidentId)
+        {
+
+            using (PdfDocument document = new PdfDocument())
+            {
+                PdfPage page = document.AddPage();
+
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                gfx.DrawString("Zgłoszenie szkody w pojeździe", new XFont("Arial", 40, XFontStyle.Bold), XBrushes.Black, new XPoint(200, 70));
+
+                var stream = new MemoryStream();
+
+                document.Save(stream);
+                stream.Seek(0, SeekOrigin.Begin);
+
+                return new FileStreamResult(stream, "application/x-download") { FileDownloadName = $"szkoda.pdf" };
+
+            }
         }
     }
 }

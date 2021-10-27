@@ -110,10 +110,10 @@ namespace InsuranceApp.Application.Services
             accidentToUpdate = _mapper.Map<UserAccident>(updatedAccidentDto);
             accidentToUpdate.DamageDetected = damageDetected;
 
-            using (var memoryStream = new MemoryStream())
+            using (var stream = new MemoryStream())
             {
-                await accidentImageDto.AccidentImage.CopyToAsync(memoryStream);
-                accidentImage = memoryStream.ToArray();
+                await accidentImageDto.AccidentImage.CopyToAsync(stream);
+                accidentImage = stream.ToArray();
             }
 
             await _userAccidentsRepository.UpdateUserAccident(accidentId, policyId, accidentToUpdate, accidentImage);

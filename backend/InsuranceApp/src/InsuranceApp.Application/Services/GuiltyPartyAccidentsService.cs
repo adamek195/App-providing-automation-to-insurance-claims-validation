@@ -29,6 +29,26 @@ namespace InsuranceApp.Application.Services
             return _mapper.Map<List<GuiltyPartyAccidentDto>>(accidents);
         }
 
+        public async Task<GuiltyPartyAccidentDto> GetGuiltyPartyAccident(int accidentId, string userId)
+        {
+            var accident = await _guiltyPartyAccidentsRepository.GetGuiltyPartyAccident(accidentId, Guid.Parse(userId));
+
+            if (accident == null)
+                throw new NotFoundException("Accident with this id does not exist.");
+
+            return _mapper.Map<GuiltyPartyAccidentDto>(accident);
+        }
+
+        public async Task<byte[]> GetGuiltyPartyAccidentImage(int accidentId, string userId)
+        {
+            var image = await _guiltyPartyAccidentsRepository.GetGuiltyPartyAccidentImage(accidentId, Guid.Parse(userId));
+
+            if (image == null || image.Length == 0)
+                throw new NotFoundException("Photo does not exist.");
+
+            return image;
+        }
+
         public async Task<GuiltyPartyAccidentDto> CreateGuiltyPartyAccident(string userId, RequestGuiltyPartyAccidentDto newAccidentDto,
             AccidentImageDto accidentImageDto, bool damageDetected)
         {

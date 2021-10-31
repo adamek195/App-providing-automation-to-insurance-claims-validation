@@ -119,7 +119,7 @@ namespace InsuranceApp.WebApi.Controllers
                 using (var imageStream = new MemoryStream(accidentImage))
                 {
                     XImage image = XImage.FromStream(() => imageStream);
-                    gfx.DrawImage(image, 50, 475, 250, 250);
+                    gfx.DrawImage(image, 50, 495, 250, 250);
                 }
 
                 gfx.DrawString($"Detekcja szkody:", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 760));

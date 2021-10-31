@@ -5,11 +5,11 @@ using InsuranceApp.WebApi.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Drawing.Layout;
 using PdfSharpCore.Pdf;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace InsuranceApp.WebApi.Controllers
 {
@@ -105,27 +105,28 @@ namespace InsuranceApp.WebApi.Controllers
 
                 gfx.DrawString($"Data zdarzenia: {accident.AccidentDateTime.Date.ToString("d")}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 395));
                 gfx.DrawString($"Opis:",new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 410));
-                XRect rect = new XRect(50, 420, 500, 30);
-                gfx.DrawRectangle(XBrushes.White, rect);
+                XRect rectangle = new XRect(50, 420, 500, 50);
+                XPen pen = new XPen(XColor.FromArgb(0,0,0), 1);
+                gfx.DrawRectangle(pen, rectangle);
                 XTextFormatter textFormatter = new XTextFormatter(gfx);
-                textFormatter.DrawString(accident.AccidentDescription, new XFont("Arial", 11), XBrushes.Black, rect, XStringFormats.TopLeft);
+                textFormatter.DrawString(accident.AccidentDescription, new XFont("Arial", 11), XBrushes.Black, rectangle, XStringFormats.TopLeft);
                 textFormatter.Alignment = XParagraphAlignment.Justify;
 
-                gfx.DrawString($"Zdjęcie ze zdarzenia:", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 465));
+                gfx.DrawString($"Zdjęcie ze zdarzenia:", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 485));
                 using (var imageStream = new MemoryStream(accidentImage))
                 {
                     XImage image = XImage.FromStream(() => imageStream);
                     gfx.DrawImage(image, 50, 475, 250, 250);
                 }
 
-                gfx.DrawString($"Detekcja szkody:", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 740));
+                gfx.DrawString($"Detekcja szkody:", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 760));
                 if (accident.DamageDetected == true)
                     gfx.DrawString($"System wykrył na zamieszczonym zdjeciu szkodę samochodową.",
-                        new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 755));
+                        new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 775));
                 else if (accident.DamageDetected == false)
                 {
-                    gfx.DrawString($"System nie wykrył żadnych szkód samochodowych.", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 755));
-                    gfx.DrawString($"Zdjęcie musi zostac przekazane do weryfikacji ręcznej.", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 770));
+                    gfx.DrawString($"System nie wykrył żadnych szkód samochodowych.", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 775));
+                    gfx.DrawString($"Zdjęcie musi zostac przekazane do weryfikacji ręcznej.", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 790));
                 }
 
                 var stream = new MemoryStream();

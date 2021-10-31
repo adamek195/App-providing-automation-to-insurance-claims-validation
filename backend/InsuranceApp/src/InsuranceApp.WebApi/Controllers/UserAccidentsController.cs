@@ -151,9 +151,94 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpPost("{policyId}/{accidentId}/Documents/OC")]
-        public async Task<IActionResult> CreateUserAccidentDocumentOC([FromRoute] int accidentId)
+        public async Task<IActionResult> CreateUserAccidentDocumentOC([FromRoute] int policyId, [FromRoute] int accidentId)
         {
-            throw new NotImplementedException();
+            var user = await _usersService.GetUser(User.GetId());
+            var policy = await _policiesService.GetUserPolicy(policyId, User.GetId());
+            var accident = await _userAccidentsService.GetUserAccident(accidentId, policyId, User.GetId());
+            var accidentImage = await _userAccidentsService.GetUserAccidentImage(accidentId, policyId, User.GetId());
+
+            if (policy.TypeOfInsurance != "OC")
+                return Conflict("You can not generate a document with an accident with AC policy.");
+
+            using (PdfDocument document = new PdfDocument())
+            {
+                PdfPage page = document.AddPage();
+
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                gfx.DrawString("Zgłoszenie szkody samochodowej", new XFont("Arial", 27, XFontStyle.Bold), XBrushes.Black, new XPoint(65, 40));
+                gfx.DrawString("Rodzaj ubezpieczenia: Ubezpieczenie użytkownika (OC)", new XFont("Arial", 18, XFontStyle.Bold), XBrushes.Black, new XPoint(40, 65));
+
+                gfx.DrawString($"Dane użytkownika", new XFont("Arial", 13, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 115));
+                gfx.DrawLine(new XPen(XColor.FromArgb(0, 0, 0)), new XPoint(50, 120), new XPoint(550, 120));
+
+                gfx.DrawString($"Użytkownik: {user.FirstName} {user.LastName}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 135));
+                gfx.DrawString($"Email: {user.Email}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 145));
+                gfx.DrawString($"Pesel: {user.PersonalIdentitynumber}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 155));
+                gfx.DrawString($"Numer telefonu: {user.PhoneNumber}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 165));
+                gfx.DrawString($"Miasto: {user.City}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 175));
+                gfx.DrawString($"Kod pocztowy: {user.PostalCode}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 185));
+                gfx.DrawString($"Adres zamieszkania: {user.Address}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 195));
+
+                gfx.DrawString($"Polisa", new XFont("Arial", 13, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 225));
+                gfx.DrawLine(new XPen(XColor.FromArgb(0, 0, 0)), new XPoint(50, 230), new XPoint(550, 230));
+
+                gfx.DrawString($"Numer polisy: {policy.PolicyNumber}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 245));
+                gfx.DrawString($"Data utworzenia polisy: {policy.PolicyCreationDate.ToString("d")}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 255));
+                gfx.DrawString($"Data wygaśnięcia polisy: {policy.PolicyExpireDate.ToString("d")}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 265));
+                gfx.DrawString($"Ubezpieczyciel: {policy.Company}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 275));
+                gfx.DrawString($"Numer rejestracyjny ubezpieczonego samochodu: {policy.RegistrationNumber}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 285));
+                gfx.DrawString($"Marka ubezpieczonego samochodu: {policy.Mark}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 295));
+                gfx.DrawString($"Model ubezpieczonego samochodu: {policy.Model}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 305));
+
+                gfx.DrawString($"Dane poszkodowanego", new XFont("Arial", 13, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 335));
+                gfx.DrawLine(new XPen(XColor.FromArgb(0, 0, 0)), new XPoint(50, 340), new XPoint(550, 340));
+
+                var victim = accident.VictimFirstName + " " + accident.VictimLastName;
+                if (String.IsNullOrEmpty(accident.VictimFirstName) && String.IsNullOrEmpty(accident.VictimLastName))
+                    victim = "Brak";
+                gfx.DrawString($"Poszkodowany: {victim}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 355));
+                string victimRegistrationNumber  = String.IsNullOrEmpty(accident.VictimRegistrationNumber) ? "Brak" : accident.VictimRegistrationNumber;
+                gfx.DrawString($"Numer rejestracyjny poszkodowanego: {victimRegistrationNumber}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 365));
+
+                gfx.DrawString($"Zdarzenie", new XFont("Arial", 13, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 395));
+                gfx.DrawLine(new XPen(XColor.FromArgb(0, 0, 0)), new XPoint(50, 400), new XPoint(550, 400));
+
+                gfx.DrawString($"Data zdarzenia: {accident.AccidentDateTime.Date.ToString("d")}", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 415));
+                gfx.DrawString($"Opis:", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 425));
+                XRect rectangle = new XRect(50, 430, 500, 50);
+                XPen pen = new XPen(XColor.FromArgb(0, 0, 0), 1);
+                gfx.DrawRectangle(pen, rectangle);
+                XTextFormatter textFormatter = new XTextFormatter(gfx);
+                textFormatter.DrawString(accident.AccidentDescription, new XFont("Arial", 9), XBrushes.Black, rectangle, XStringFormats.TopLeft);
+                textFormatter.Alignment = XParagraphAlignment.Justify;
+
+                gfx.DrawString($"Zdjęcie ze zdarzenia:", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 495));
+                using (var imageStream = new MemoryStream(accidentImage))
+                {
+                    XImage image = XImage.FromStream(() => imageStream);
+                    gfx.DrawImage(image, 50, 510, 250, 250);
+                }
+
+                gfx.DrawString($"Detekcja szkody:", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 775));
+                if (accident.DamageDetected == true)
+                    gfx.DrawString($"System wykrył na zamieszczonym zdjeciu szkodę samochodową.",
+                        new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 785));
+                else if (accident.DamageDetected == false)
+                {
+                    gfx.DrawString($"System nie wykrył żadnych szkód samochodowych.", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 785));
+                    gfx.DrawString($"Zdjęcie musi zostac przekazane do weryfikacji ręcznej.", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 795));
+                }
+
+
+                var stream = new MemoryStream();
+
+                document.Save(stream);
+                stream.Seek(0, SeekOrigin.Begin);
+
+                return new FileStreamResult(stream, "application/x-download") { FileDownloadName = $"szkoda.pdf" };
+            }
         }
     }
 }

@@ -20,9 +20,9 @@ namespace InsuranceApp.Infrastructure.Repositories
 
         public async Task<List<Policy>> GetUserPolicies(Guid userId)
         {
-            var userPolicies = await _context.Policies.Where(p => p.UserId == userId).ToListAsync();
+            var policies = await _context.Policies.Where(p => p.UserId == userId).ToListAsync();
 
-            return userPolicies;
+            return policies;
         }
 
         public async Task<Policy> GetUserPolicy(int policyId, Guid userId)

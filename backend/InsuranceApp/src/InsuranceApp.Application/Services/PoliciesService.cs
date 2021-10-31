@@ -23,9 +23,19 @@ namespace InsuranceApp.Application.Services
 
         public async Task<List<PolicyDto>> GetUserPolicies(string userId)
         {
-            var userPolicies = await _policiesRepository.GetUserPolicies(Guid.Parse(userId));
+            var policies = await _policiesRepository.GetUserPolicies(Guid.Parse(userId));
 
-            return _mapper.Map<List<PolicyDto>>(userPolicies);
+            return _mapper.Map<List<PolicyDto>>(policies);
+        }
+
+        public async Task<PolicyDto> GetUserPolicy(int policyId, string userId)
+        {
+            var policy = await _policiesRepository.GetUserPolicy(policyId, Guid.Parse(userId));
+
+            if (policy == null)
+                throw new NotFoundException("Policy with this id does not exist.");
+
+            return _mapper.Map<PolicyDto>(policy);
         }
 
         public async Task<PolicyDto> CreatePolicy(RequestPolicyDto newPolicyDto, string userId)

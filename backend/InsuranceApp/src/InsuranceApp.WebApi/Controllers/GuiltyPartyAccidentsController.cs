@@ -24,12 +24,12 @@ namespace InsuranceApp.WebApi.Controllers
         private readonly IGuiltyPartyAccidentsService _guiltyPartyAccidentsService;
         private readonly ICarDamageDetectionService _carDamageDetectionService;
 
-        public GuiltyPartyAccidentsController(IGuiltyPartyAccidentsService guiltyPartyAccidentsService, ICarDamageDetectionService carDamageDetectionService,
-            IUsersService usersService)
+        public GuiltyPartyAccidentsController(IUsersService usersService, IGuiltyPartyAccidentsService guiltyPartyAccidentsService,
+            ICarDamageDetectionService carDamageDetectionService)
         {
+            _usersService = usersService;
             _guiltyPartyAccidentsService = guiltyPartyAccidentsService;
             _carDamageDetectionService = carDamageDetectionService;
-            _usersService = usersService;
         }
 
         [HttpGet]
@@ -138,7 +138,6 @@ namespace InsuranceApp.WebApi.Controllers
                 stream.Seek(0, SeekOrigin.Begin);
 
                 return new FileStreamResult(stream, "application/x-download") { FileDownloadName = $"szkoda.pdf" };
-
             }
         }
     }

@@ -108,7 +108,7 @@ namespace InsuranceApp.WebApi.Controllers
 
                 gfx.DrawString($"Data zdarzenia: {accident.AccidentDateTime.Date.ToString("d")}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 395));
                 gfx.DrawString($"Opis:",new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 410));
-                XRect rectangle = new XRect(50, 420, 500, 50);
+                XRect rectangle = new XRect(50, 415, 500, 50);
                 XPen pen = new XPen(XColor.FromArgb(0,0,0), 1);
                 gfx.DrawRectangle(pen, rectangle);
                 XTextFormatter textFormatter = new XTextFormatter(gfx);

@@ -91,17 +91,17 @@ namespace InsuranceApp.WebApi.Controllers
                 gfx.DrawString("Rodzaj ubezpieczenia: Ubezpieczenie użytkownika (AC)", new XFont("Arial", 20, XFontStyle.Bold), XBrushes.Black, new XPoint(40, 75));
 
                 gfx.DrawString($"Dane użytkownika", new XFont("Arial", 15, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 120));
-                gfx.DrawLine(new XPen(XColor.FromArgb(0, 0, 0)), new XPoint(50, 130), new XPoint(550, 130));
+                gfx.DrawLine(new XPen(XColor.FromArgb(0, 0, 0)), new XPoint(50, 125), new XPoint(550, 125));
 
-                gfx.DrawString($"Użytkownik: {user.FirstName} {user.LastName}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 150));
-                gfx.DrawString($"Email: {user.Email}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 165));
-                gfx.DrawString($"Pesel: {user.PersonalIdentitynumber}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 180));
-                gfx.DrawString($"Numer telefonu: {user.PhoneNumber}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 195));
-                gfx.DrawString($"Miasto: {user.City}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 210));
-                gfx.DrawString($"Kod pocztowy: {user.PostalCode}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 225));
-                gfx.DrawString($"Adres zamieszkania: {user.Address}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 240));
+                gfx.DrawString($"Użytkownik: {user.FirstName} {user.LastName}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 145));
+                gfx.DrawString($"Email: {user.Email}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 160));
+                gfx.DrawString($"Pesel: {user.PersonalIdentitynumber}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 175));
+                gfx.DrawString($"Numer telefonu: {user.PhoneNumber}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 190));
+                gfx.DrawString($"Miasto: {user.City}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 205));
+                gfx.DrawString($"Kod pocztowy: {user.PostalCode}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 220));
+                gfx.DrawString($"Adres zamieszkania: {user.Address}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 235));
 
-                gfx.DrawString($"Polisa", new XFont("Arial", 15, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 260));
+                gfx.DrawString($"Polisa", new XFont("Arial", 15, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 265));
                 gfx.DrawLine(new XPen(XColor.FromArgb(0, 0, 0)), new XPoint(50, 270), new XPoint(550, 270));
 
                 gfx.DrawString($"Numer polisy: {policy.PolicyNumber}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 290));
@@ -112,23 +112,23 @@ namespace InsuranceApp.WebApi.Controllers
                 gfx.DrawString($"Marka ubezpieczonego samochodu: {policy.Mark}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 365));
                 gfx.DrawString($"Model ubezpieczonego samochodu: {policy.Model}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 380));
 
-                gfx.DrawString($"Zdarzenie", new XFont("Arial", 15, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 400));
-                gfx.DrawLine(new XPen(XColor.FromArgb(0, 0, 0)), new XPoint(50, 410), new XPoint(550, 410));
+                gfx.DrawString($"Zdarzenie", new XFont("Arial", 15, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 410));
+                gfx.DrawLine(new XPen(XColor.FromArgb(0, 0, 0)), new XPoint(50, 415), new XPoint(550, 415));
 
-                gfx.DrawString($"Data zdarzenia: {accident.AccidentDateTime.Date.ToString("d")}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 430));
-                gfx.DrawString($"Opis:", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 445));
-                XRect rectangle = new XRect(50, 460, 500, 50);
+                gfx.DrawString($"Data zdarzenia: {accident.AccidentDateTime.Date.ToString("d")}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 435));
+                gfx.DrawString($"Opis:", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 450));
+                XRect rectangle = new XRect(50, 455, 500, 50);
                 XPen pen = new XPen(XColor.FromArgb(0, 0, 0), 1);
                 gfx.DrawRectangle(pen, rectangle);
                 XTextFormatter textFormatter = new XTextFormatter(gfx);
                 textFormatter.DrawString(accident.AccidentDescription, new XFont("Arial", 11), XBrushes.Black, rectangle, XStringFormats.TopLeft);
                 textFormatter.Alignment = XParagraphAlignment.Justify;
 
-                gfx.DrawString($"Zdjęcie ze zdarzenia:", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 525));
+                gfx.DrawString($"Zdjęcie ze zdarzenia:", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 520));
                 using (var imageStream = new MemoryStream(accidentImage))
                 {
                     XImage image = XImage.FromStream(() => imageStream);
-                    gfx.DrawImage(image, 50, 535, 250, 250);
+                    gfx.DrawImage(image, 50, 530, 250, 250);
                 }
 
                 gfx.DrawString($"Detekcja szkody:", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 800));

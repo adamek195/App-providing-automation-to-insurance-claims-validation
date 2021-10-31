@@ -6,11 +6,11 @@ using InsuranceApp.Application.Interfaces;
 using InsuranceApp.WebApi.Helpers;
 using InsuranceApp.WebApi.Filters;
 using InsuranceApp.Application.Dto;
-using System;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Drawing;
-using System.IO;
 using PdfSharpCore.Drawing.Layout;
+using System.IO;
+using System;
 
 namespace InsuranceApp.WebApi.Controllers
 {
@@ -230,7 +230,6 @@ namespace InsuranceApp.WebApi.Controllers
                     gfx.DrawString($"System nie wykrył żadnych szkód samochodowych.", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 785));
                     gfx.DrawString($"Zdjęcie musi zostac przekazane do weryfikacji ręcznej.", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 795));
                 }
-
 
                 var stream = new MemoryStream();
 

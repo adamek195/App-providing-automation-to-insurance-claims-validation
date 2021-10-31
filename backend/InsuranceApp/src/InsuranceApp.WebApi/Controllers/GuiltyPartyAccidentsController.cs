@@ -10,6 +10,7 @@ using PdfSharpCore.Drawing;
 using PdfSharpCore.Drawing.Layout;
 using PdfSharpCore.Pdf;
 using System.IO;
+using System;
 
 namespace InsuranceApp.WebApi.Controllers
 {
@@ -97,8 +98,10 @@ namespace InsuranceApp.WebApi.Controllers
                 gfx.DrawString($"Dane sprawcy", new XFont("Arial", 15, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 290));
                 gfx.DrawLine(new XPen(XColor.FromArgb(0, 0, 0)), new XPoint(50, 300), new XPoint(550, 300));
 
-                gfx.DrawString($"Numer polisy sprawcy: {accident.GuiltyPartyPolicyNumber}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 320));
-                gfx.DrawString($"Numer rejestracyjny pojazdu sprawcy: {accident.GuiltyPartyRegistrationNumber}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 335));
+                string guiltyPartyPolicyNumber = String.IsNullOrEmpty(accident.GuiltyPartyPolicyNumber) ? "Brak" : accident.GuiltyPartyPolicyNumber;
+                gfx.DrawString($"Numer polisy sprawcy: {guiltyPartyPolicyNumber}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 320));
+                string guiltyPartyRegistrationNumber = String.IsNullOrEmpty(accident.GuiltyPartyRegistrationNumber) ? "Brak" : accident.GuiltyPartyRegistrationNumber;
+                gfx.DrawString($"Numer rejestracyjny pojazdu sprawcy: {guiltyPartyRegistrationNumber}", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 335));
 
                 gfx.DrawString($"Zdarzenie", new XFont("Arial", 15, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 365));
                 gfx.DrawLine(new XPen(XColor.FromArgb(0, 0, 0)), new XPoint(50, 375), new XPoint(550, 375));

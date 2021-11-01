@@ -1,0 +1,16 @@
+.accidents-document-manager-wrapper {
+    margin-top:  40px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    flex-direction: column;
+    width: 1000px;
+    height: 100%;
+}
+
+.accidents-document-manager-inner {
+    background: #ffffff;
+    padding: 40px 55px 40px 55px;
+    border-radius: 15px;
+    transition: all .3s;
+}

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import UserNavBar from '../MenuComponents/UserNavBar';
 import NewAccidentSideBar from '../MenuComponents/NewAccidentSideBar';
 import axios from 'axios';
-import '../../Styles/NewAccident.css';
 import history from '../../History';
 import { guiltyPartyAccidentsUrl } from "../../ConstUrls"
 import { policiesUrl } from "../../ConstUrls"
 import { userAccidentsUrl } from "../../ConstUrls"
+import '../../Styles/NewAccident.css';
 
 class NewAccident extends Component {
 

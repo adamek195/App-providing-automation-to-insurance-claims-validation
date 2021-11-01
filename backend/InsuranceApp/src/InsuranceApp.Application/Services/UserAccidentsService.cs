@@ -36,6 +36,36 @@ namespace InsuranceApp.Application.Services
             return _mapper.Map<List<UserAccidentDto>>(accidents);
         }
 
+        public async Task<UserAccidentDto> GetUserAccident(int accidentId, int policyId, string userId)
+        {
+            var policyWithAccidents = await _policiesRepository.GetUserPolicy(policyId, Guid.Parse(userId));
+
+            if (policyWithAccidents == null)
+                throw new NotFoundException("Policy with this id does not exist.");
+
+            var accident = await _userAccidentsRepository.GetUserAccident(accidentId, policyId);
+
+            if (accident == null)
+                throw new NotFoundException("Accident with this id does not exist.");
+
+            return _mapper.Map<UserAccidentDto>(accident);
+        }
+
+        public async Task<byte[]> GetUserAccidentImage(int accidentId, int policyId, string userId)
+        {
+            var policyWithAccidents = await _policiesRepository.GetUserPolicy(policyId, Guid.Parse(userId));
+
+            if (policyWithAccidents == null)
+                throw new NotFoundException("Policy with this id does not exist.");
+
+            var image = await _userAccidentsRepository.GetUserAccidentImage(accidentId, policyId);
+
+            if (image == null || image.Length == 0)
+                throw new NotFoundException("Photo does not exist.");
+
+            return image;
+        }
+
         public async Task<UserAccidentDto> CreateUserAccident(int policyId, string userId,
             RequestUserAccidentDto newAccidentDto, AccidentImageDto accidentImageDto, bool damageDetected)
         {
@@ -110,10 +140,10 @@ namespace InsuranceApp.Application.Services
             accidentToUpdate = _mapper.Map<UserAccident>(updatedAccidentDto);
             accidentToUpdate.DamageDetected = damageDetected;
 
-            using (var memoryStream = new MemoryStream())
+            using (var stream = new MemoryStream())
             {
-                await accidentImageDto.AccidentImage.CopyToAsync(memoryStream);
-                accidentImage = memoryStream.ToArray();
+                await accidentImageDto.AccidentImage.CopyToAsync(stream);
+                accidentImage = stream.ToArray();
             }
 
             await _userAccidentsRepository.UpdateUserAccident(accidentId, policyId, accidentToUpdate, accidentImage);

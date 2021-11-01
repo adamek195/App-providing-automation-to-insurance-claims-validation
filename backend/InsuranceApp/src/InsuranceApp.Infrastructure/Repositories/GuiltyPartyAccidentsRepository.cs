@@ -32,6 +32,13 @@ namespace InsuranceApp.Infrastructure.Repositories
             return accident;
         }
 
+        public async Task<byte[]> GetGuiltyPartyAccidentImage(int accidentId, Guid userId)
+        {
+            var accident = await _context.GuiltyPartyAccidents.SingleOrDefaultAsync(a => a.Id == accidentId && a.UserId == userId);
+
+            return accident.AccidentImage;
+        }
+
         public async Task<GuiltyPartyAccident> AddGuiltyPartyAccident(GuiltyPartyAccident newAccident, byte[] accidentImage)
         {
             newAccident.AccidentImage = accidentImage;

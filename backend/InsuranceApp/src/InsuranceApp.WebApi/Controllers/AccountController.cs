@@ -24,7 +24,7 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("user")]
+        [Route("User")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetUser()
         {
@@ -34,7 +34,7 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("register")]
+        [Route("Register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] CreateUserDto newUserDto)
         {
@@ -44,7 +44,7 @@ namespace InsuranceApp.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("authenticate")]
+        [Route("Authenticate")]
         [AllowAnonymous]
         public async Task<IActionResult> GetToken(LoginUserDto loginDataDto)
         {

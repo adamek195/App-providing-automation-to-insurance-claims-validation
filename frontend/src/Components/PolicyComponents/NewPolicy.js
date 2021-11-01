@@ -186,7 +186,7 @@ class NewPolicy extends Component {
                             </div>
                             <br />
                             <div className="form-group p-mx-5">
-                            <label>Data utowrzenia polisy</label>
+                            <label>Data utworzenia polisy</label>
                             <input name="policyCreationDate"
                                 type="date"
                                 className="form-control"

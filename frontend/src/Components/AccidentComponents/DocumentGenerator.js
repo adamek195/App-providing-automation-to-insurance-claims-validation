@@ -13,6 +13,11 @@ class DocumentGenerator extends Component {
     state = {
         selectedPolicy: "",
         guiltyPartyAccidentId: "",
+        guiltyPartyAccidentDocumentError: false,
+    }
+
+    messages = {
+        server_error: 'Nie można wygenerować dokumentu o takim numerze zdarzenia.',
     }
 
     handleChangeRadioButton = (event) => {
@@ -27,6 +32,7 @@ class DocumentGenerator extends Component {
         const name = event.target.name;
         this.setState({
             [name]: value,
+            guiltyPartyAccidentDocumentError: false,
         });
     }
 
@@ -37,12 +43,21 @@ class DocumentGenerator extends Component {
             method: 'POST',
             responseType: 'blob',
         }).then((response) => {
+            if(response.status === 500)
+                    history.push("/internal-server-error");
+            if(response.status === 401)
+                history.push("/unauthorized");
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
             link.setAttribute('download', 'szkoda.pdf');
             document.body.appendChild(link);
             link.click();
+        })
+        .catch(() => {
+            this.setState({
+                guiltyPartyAccidentDocumentError: true
+            })
         });
     }
 
@@ -100,6 +115,7 @@ class DocumentGenerator extends Component {
                                 <p className="p-2">Nie pamietasz numeru szkody?</p>
                                 <Link className="nav-link p-2" to={"/accidents"}>Zobacz szkody</Link>
                             </div>
+                            {this.state.guiltyPartyAccidentDocumentError && <span style={{ fontSize: '15px', color: 'red' }}>{this.messages.server_error}</span>}
                         </div>
                     </div>
                 </div>}

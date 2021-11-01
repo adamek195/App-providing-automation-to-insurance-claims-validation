@@ -2,8 +2,10 @@
     margin-top:  40px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 30px;
     justify-content: center;
     flex-direction: column;
+    display: inline-block;
     width: 1000px;
     height: 100%;
 }

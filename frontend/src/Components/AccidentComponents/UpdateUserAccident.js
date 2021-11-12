@@ -221,7 +221,7 @@ class UpdateUserAccident extends Component {
                             {this.state.errors.userAccidentDateTimeAC && <span style={{ fontSize: '15px'}}>{this.messages.userAccidentDateTime_incorrect}</span>}
                             <br/>
                             <div className="form-group p-mx-5">
-                                <label>Opis zdarzenia</label>
+                                <label>Opis</label>
                                 <textarea name="userAccidentDescriptionAC"
                                     type="text"
                                     className="form-control"
@@ -266,7 +266,7 @@ class UpdateUserAccident extends Component {
                             {this.state.errors.userAccidentDateTimeOC && <span style={{ fontSize: '15px'}}>{this.messages.userAccidentDateTime_incorrect}</span>}
                             <br/>
                             <div className="form-group p-mx-5">
-                                <label>Opis zdarzenia</label>
+                                <label>Opis</label>
                                 <textarea name="userAccidentDescriptionOC"
                                     type="text"
                                     className="form-control"

@@ -412,7 +412,7 @@ class NewAccident extends Component {
                                 <h3 style={{textAlign: 'center'}}>Ubezpieczenie sprawcy (OC)</h3>
                                 <i className="fa fa-fw fa-taxi" id="new-accident-icon" style={{color: 'black' , fontSize: '3.5em' }} />
                                 <div className="form-group p-mx-5">
-                                    <label>Data wypadku</label>
+                                    <label>Data zdarzenia</label>
                                     <input name="guiltyPartyAccidentDateTime"
                                         type="date"
                                         className="form-control"
@@ -501,7 +501,7 @@ class NewAccident extends Component {
                             {this.state.errors.userAccidentDateTimeAC && <span style={{ fontSize: '15px'}}>{this.messages.userAccidentDateTime_incorrect}</span>}
                             <br/>
                             <div className="form-group p-mx-5">
-                                <label>Opis zdarzenia</label>
+                                <label>Opis</label>
                                 <textarea name="userAccidentDescriptionAC"
                                     type="text"
                                     className="form-control"
@@ -556,7 +556,7 @@ class NewAccident extends Component {
                             {this.state.errors.userAccidentDateTimeOC && <span style={{ fontSize: '15px'}}>{this.messages.userAccidentDateTime_incorrect}</span>}
                             <br/>
                             <div className="form-group p-mx-5">
-                                <label>Opis zdarzenia</label>
+                                <label>Opis</label>
                                 <textarea name="userAccidentDescriptionOC"
                                     type="text"
                                     className="form-control"

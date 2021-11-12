@@ -118,7 +118,7 @@ class UpdateGuiltyPartyAccident extends Component {
                             <h3 style={{textAlign: 'center'}}>Ubezpieczenie sprawcy (OC)</h3>
                             <i className="fa fa-fw fa-taxi" id="new-accident-icon" style={{color: 'black' , fontSize: '3.5em' }} />
                             <div className="form-group p-mx-5">
-                            <label>Data wypadku</label>
+                            <label>Data zdarzenia</label>
                             <input name="guiltyPartyAccidentDateTime"
                                 type="date"
                                 className="form-control"

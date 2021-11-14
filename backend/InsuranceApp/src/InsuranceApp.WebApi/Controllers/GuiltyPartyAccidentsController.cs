@@ -129,7 +129,7 @@ namespace InsuranceApp.WebApi.Controllers
                 else if (accident.DamageDetected == false)
                 {
                     gfx.DrawString($"System nie wykrył żadnych szkód samochodowych.", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 775));
-                    gfx.DrawString($"Zdjęcie musi zostac przekazane do weryfikacji ręcznej.", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 790));
+                    gfx.DrawString($"Zdjęcie musi zostać przekazane do weryfikacji przez rzeczoznawce.", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 790));
                 }
 
                 var stream = new MemoryStream();

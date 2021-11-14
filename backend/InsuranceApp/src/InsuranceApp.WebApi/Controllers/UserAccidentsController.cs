@@ -138,7 +138,7 @@ namespace InsuranceApp.WebApi.Controllers
                 else if (accident.DamageDetected == false)
                 {
                     gfx.DrawString($"System nie wykrył żadnych szkód samochodowych.", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 815));
-                    gfx.DrawString($"Zdjęcie musi zostac przekazane do weryfikacji ręcznej.", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 830));
+                    gfx.DrawString($"Zdjęcie musi zostać przekazane do weryfikacji przez rzeczoznawce.", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 830));
                 }
 
                 var stream = new MemoryStream();
@@ -228,7 +228,7 @@ namespace InsuranceApp.WebApi.Controllers
                 else if (accident.DamageDetected == false)
                 {
                     gfx.DrawString($"System nie wykrył żadnych szkód samochodowych.", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 785));
-                    gfx.DrawString($"Zdjęcie musi zostac przekazane do weryfikacji ręcznej.", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 795));
+                    gfx.DrawString($"Zdjęcie musi zostać przekazane do weryfikacji przez rzeczoznawce.", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 795));
                 }
 
                 var stream = new MemoryStream();

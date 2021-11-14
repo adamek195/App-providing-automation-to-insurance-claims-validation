@@ -209,7 +209,7 @@ class Accidents extends Component {
         if((accident.victimRegistrationNumber === null) || (accident.victimRegistrationNumber === 'undefined'))
             accident.victimRegistrationNumber = "";
         if(accident.damageDetected === false)
-            damageDetection = "System nie wykrył żadnych szkód. Zdjęcie musi zostac przekazane do weryfikacji ręcznej.";
+            damageDetection = "System nie wykrył żadnych szkód. Zdjęcie musi zostać przekazane do weryfikacji przez rzeczoznawce.";
         if(accident.damageDetected === true)
             damageDetection = "System wykrył szkody na zamieszczonym zdjęciu.";
         let victim = accident.victimFirstName + " " + accident.victimLastName;
@@ -232,7 +232,7 @@ class Accidents extends Component {
         let parseAccidentDate = accidentDate.getFullYear() + "-" + ('0' + (accidentDate.getMonth()+1)).slice(-2) + "-" + ('0' + accidentDate.getDate()).slice(-2);
         let damageDetection = "Brak informacji";
         if(accident.damageDetected === false)
-            damageDetection = "System nie wykrył żadnych szkód. Zdjęcie musi zostac przekazane do weryfikacji ręcznej.";
+            damageDetection = "System nie wykrył żadnych szkód. Zdjęcie musi zostać przekazane do weryfikacji przez rzeczoznawce.";
         if(accident.damageDetected === true)
             damageDetection = "System wykrył szkody na zamieszczonym zdjęciu.";
         return (
@@ -251,7 +251,7 @@ class Accidents extends Component {
         let parseAccidentDate = accidentDate.getFullYear() + "-" + ('0' + (accidentDate.getMonth()+1)).slice(-2) + "-" + ('0' + accidentDate.getDate()).slice(-2);
         let damageDetection = "Brak informacji";
         if(accident.damageDetected === false)
-            damageDetection = "System nie wykrył żadnych szkód. Zdjęcie musi zostac przekazane do weryfikacji ręcznej.";
+            damageDetection = "System nie wykrył żadnych szkód. Zdjęcie musi zostać przekazane do weryfikacji przez rzeczoznawce.";
         if(accident.damageDetected === true)
             damageDetection = "System wykrył szkody na zamieszczonym zdjęciu.";
         return (

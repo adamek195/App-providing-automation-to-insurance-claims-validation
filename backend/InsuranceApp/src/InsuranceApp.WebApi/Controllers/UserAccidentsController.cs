@@ -133,7 +133,7 @@ namespace InsuranceApp.WebApi.Controllers
 
                 gfx.DrawString($"Detekcja szkody:", new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 800));
                 if (accident.DamageDetected == true)
-                    gfx.DrawString($"System wykrył na zamieszczonym zdjeciu szkodę samochodową.",
+                    gfx.DrawString($"System wykrył na zamieszczonym zdjęciu szkodę samochodową.",
                         new XFont("Arial", 11, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 815));
                 else if (accident.DamageDetected == false)
                 {
@@ -223,7 +223,7 @@ namespace InsuranceApp.WebApi.Controllers
 
                 gfx.DrawString($"Detekcja szkody:", new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Black, new XPoint(50, 775));
                 if (accident.DamageDetected == true)
-                    gfx.DrawString($"System wykrył na zamieszczonym zdjeciu szkodę samochodową.",
+                    gfx.DrawString($"System wykrył na zamieszczonym zdjęciu szkodę samochodową.",
                         new XFont("Arial", 9, XFontStyle.Bold), XBrushes.Red, new XPoint(50, 785));
                 else if (accident.DamageDetected == false)
                 {

@@ -41,3 +41,28 @@ Build with:
 - Swashbuckle.AspNetCore
 - System.Drawing.Common
 - System.Text.Encoding.CodePages
+
+## How to run server
+
+1. Create file **appsettings.json** with the same settings as in **appsettings.defualt.json** in InsuranceApp.WebApi folder.
+
+2. Set in appsetting.json settings:
+
+- "InsuranceAppCS" - connection string for MSQL database
+- "Key" - key for JWT Token
+- "TokenLifeTime" - life time for JWT Token
+- "AzureCognitiveServiceSettings" - settings for Azure Cognitive Services
+
+3. To build the server in folder **scripts** run PowerShell script:
+
+### `.\dotnet-build.ps1`
+
+4. To run the server in folder **scripts** run PowerShell script:
+
+### `.\dotnet-run.ps1`
+
+Application will be listen on:
+`http://localhost:5000`
+
+or:
+`https://localhost:5001`

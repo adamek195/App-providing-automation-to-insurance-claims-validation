@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# App providing automation to insurance claims validation frontend
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

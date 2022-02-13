@@ -55,11 +55,11 @@ Build with:
 
 3. To build the server in folder **scripts** run PowerShell script:
 
-### `.\dotnet-build.ps1`
+#### `.\dotnet-build.ps1`
 
 4. To run the server in folder **scripts** run PowerShell script:
 
-### `.\dotnet-run.ps1`
+#### `.\dotnet-run.ps1`
 
 Application will be listen on:
 

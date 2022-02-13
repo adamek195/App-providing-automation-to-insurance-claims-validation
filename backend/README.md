@@ -14,4 +14,30 @@ Build with:
 - Visual Studio 2019
 - Visual Studio Code
 
+## Packages
 
+1. InsuranceApp.Application
+
+- AutoMapper
+- Microsoft.AspNetCore.Authentication.JwtBearer
+- Newtonsoft.Json
+
+2. InsuranceApp.Domain
+
+- Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+3. InsuranceApp.Infrastructure
+
+- Microsoft.EntityFrameworkCore
+- Microsoft.EntityFrameworkCore.Design
+- Microsoft.EntityFrameworkCore.SqlServer
+- Microsoft.EntityFrameworkCore.Tools
+- Microsoft.Extensions.Identity.Core
+
+4. InsuranceApp.WebApi
+
+- Microsoft.EntityFrameworkCore.Design
+- PdfSharpCore
+- Swashbuckle.AspNetCore
+- System.Drawing.Common
+- System.Text.Encoding.CodePages

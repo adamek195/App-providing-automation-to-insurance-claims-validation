@@ -62,7 +62,9 @@ Build with:
 ### `.\dotnet-run.ps1`
 
 Application will be listen on:
-`http://localhost:5000`
+
+- `http://localhost:5000`
 
 or:
-`https://localhost:5001`
+
+- `https://localhost:5001`

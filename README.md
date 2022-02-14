@@ -8,9 +8,11 @@ Build with client-server architecture:
 - Gui - React
 - Mechanism of car damage detection - Azure Cognitive Services
 
+Because of application was created with rules of reporting damages in Poland, the user interfaces and generated documents are in **polish language**.
+
 ## Mechanism of car damage detection
 
-Using Azure Custom Vision service available by Azure Cognitive Services, the model was created for detection car damge. Dataset for training has 652 photos with car damages. The test dataset has 131 photos. The created model has a precision of 84. 7%.
+Using Azure Custom Vision service available by Azure Cognitive Services, the model was created for detection car damge. Dataset for training has 652 photos with car damages. The test dataset has 131 photos. The created model has a precision of 84.7%.
 
 ![damages](screenshots/damages.PNG "damages")
 

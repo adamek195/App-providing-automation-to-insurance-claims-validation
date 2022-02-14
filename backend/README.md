@@ -48,10 +48,10 @@ Build with:
 
 2. Set in appsetting.json settings:
 
-- "InsuranceAppCS" - connection string for MSQL database
-- "Key" - key for JWT Token
-- "TokenLifeTime" - life time for JWT Token
-- "AzureCognitiveServiceSettings" - settings for Azure Cognitive Services
+- `"InsuranceAppCS"` - connection string for MSQL database
+- `"Key"` - key for JWT Token
+- `"TokenLifeTime"` - life time for JWT Token
+- `"AzureCognitiveServiceSettings"` - settings for Azure Cognitive Services
 
 3. To build the server in folder **scripts** run PowerShell script:
 

@@ -16,4 +16,12 @@ Using Azure Custom Vision service available by Azure Cognitive Services, the mod
 
 ## User interface
 
+![login](screenshots/login.PNG "login")
+
+![policies](screenshots/policies.PNG "policies")
+
+![user_damage_form](screenshots/user_damage_form.PNG "user_damage_form")
+
+![guilty_party_damage_form](screenshots/guilty_party_damage_form.PNG "guilty_party_damage_form")
+
 ## Summary document

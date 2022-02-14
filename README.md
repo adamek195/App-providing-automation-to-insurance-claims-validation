@@ -24,4 +24,10 @@ Using Azure Custom Vision service available by Azure Cognitive Services, the mod
 
 ![guilty_party_damage_form](screenshots/guilty_party_damage_form.PNG "guilty_party_damage_form")
 
+![generate_document](screenshots/generate_document.PNG "generate_document")
+
 ## Summary document
+
+![user_document](screenshots/user_document.PNG "user_document")
+
+![guilty_party_document](screenshots/guilty_party_document.PNG "guilty_party_document")

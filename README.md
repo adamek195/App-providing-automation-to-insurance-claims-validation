@@ -7,3 +7,9 @@ Build with client-server architecture:
 - Server - ASP.NET Core
 - Gui - React
 - Mechanism of car damage detection - Azure Cognitive Services
+
+## Mechanism of car damage detection
+
+## User interface
+
+## Summary document

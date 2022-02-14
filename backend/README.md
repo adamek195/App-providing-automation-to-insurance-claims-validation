@@ -68,3 +68,11 @@ Application will be listen on:
 or:
 
 - `https://localhost:5001`
+
+5. Browse api using Swagger UI
+
+- `http://localhost:5000/swagger/index.html`
+
+or:
+
+- `https://localhost:5001/swagger/index.html`

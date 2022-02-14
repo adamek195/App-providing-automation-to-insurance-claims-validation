@@ -20,6 +20,8 @@ Using Azure Custom Vision service available by Azure Cognitive Services, the mod
 
 ![login](screenshots/login.PNG "login")
 
+![home](screenshots/home.PNG "home")
+
 ![policies](screenshots/policies.PNG "policies")
 
 ![user_damage_form](screenshots/user_damage_form.PNG "user_damage_form")

@@ -11,7 +11,7 @@ using System;
 
 namespace InsuranceApp.Application.Services
 {
-    public class UserAccidentsService: IUserAccidentsService
+    public class UserAccidentsService : IUserAccidentsService
     {
         private readonly IUserAccidentsRepository _userAccidentsRepository;
         private readonly IPoliciesRepository _policiesRepository;

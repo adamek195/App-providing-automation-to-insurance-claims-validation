@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace InsuranceApp.WebApi.Filters
 {
-    public class GlobalExceptionFilter: ExceptionFilterAttribute
+    public class GlobalExceptionFilter : ExceptionFilterAttribute
     {
         public override void OnException(ExceptionContext context)
         {

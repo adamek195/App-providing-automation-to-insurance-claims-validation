@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InsuranceApp.Infrastructure.Repositories
 {
-    public class GuiltyPartyAccidentsRepository: IGuiltyPartyAccidentsRepository
+    public class GuiltyPartyAccidentsRepository : IGuiltyPartyAccidentsRepository
     {
         private readonly InsuranceAppContext _context;
 

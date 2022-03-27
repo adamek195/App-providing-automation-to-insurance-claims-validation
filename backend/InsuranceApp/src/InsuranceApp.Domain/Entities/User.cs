@@ -4,7 +4,7 @@ using System;
 
 namespace InsuranceApp.Domain.Entities
 {
-    public class User: IdentityUser<Guid>
+    public class User : IdentityUser<Guid>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -2,7 +2,7 @@
 
 namespace InsuranceApp.Application.Exceptions
 {
-    public class ConflictException: Exception
+    public class ConflictException : Exception
     {
         public ConflictException() { }
 

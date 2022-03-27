@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace InsuranceApp.Application.Services
 {
-    public class GuiltyPartyAccidentsService: IGuiltyPartyAccidentsService
+    public class GuiltyPartyAccidentsService : IGuiltyPartyAccidentsService
     {
         private readonly IGuiltyPartyAccidentsRepository _guiltyPartyAccidentsRepository;
         private readonly IMapper _mapper;

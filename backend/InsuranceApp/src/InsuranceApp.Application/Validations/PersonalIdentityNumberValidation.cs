@@ -2,7 +2,7 @@
 
 namespace InsuranceApp.Application.Validations
 {
-    public class PersonalIdentityNumberValidation: ValidationAttribute
+    public class PersonalIdentityNumberValidation : ValidationAttribute
     {
         public override bool IsValid(object value)
         {

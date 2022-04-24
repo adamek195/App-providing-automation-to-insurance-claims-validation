@@ -47,7 +47,7 @@ namespace InsuranceApp.WebApi.Controllers
             var damageDetected = await _carDamageDetectionService.DetectCarDamage(accidentImageDto);
             var newAccident = await _guiltyPartyAccidentsService.CreateGuiltyPartyAccident(User.GetId(), newAccidentDto, accidentImageDto, damageDetected);
 
-            return Created($"api/policies/{newAccident.Id}", newAccident);
+            return Created($"api/guiltyPartyAccidents/{newAccident.Id}", newAccident);
         }
 
         [HttpDelete("{accidentId}")]

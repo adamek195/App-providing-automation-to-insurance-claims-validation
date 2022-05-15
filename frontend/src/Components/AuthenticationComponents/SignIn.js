@@ -94,7 +94,7 @@ class SignIn extends Component {
     authenticateUser = () => {
         let credentials = {
             email: this.state.email,
-            passwordHash: this.state.password
+            password: this.state.password
         }
         return axios.post(authenticateUrl, credentials)
             .then((response) => {

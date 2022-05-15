@@ -30,7 +30,7 @@ namespace InsuranceApp.Application.Services
             if (user == null)
                 throw new NotFoundException("Wrong Email! Please check user details and try again.");
 
-            var passwordCorrect = await _userManager.CheckPasswordAsync(user, loginDataDto.PasswordHash);
+            var passwordCorrect = await _userManager.CheckPasswordAsync(user, loginDataDto.Password);
             if (!passwordCorrect)
                 throw new NotFoundException("Wrong Password! Please check user details and try again.");
 

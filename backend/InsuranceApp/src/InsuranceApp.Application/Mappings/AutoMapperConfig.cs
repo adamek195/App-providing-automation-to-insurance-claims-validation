@@ -10,10 +10,12 @@ namespace InsuranceApp.Application.Mappings
             => new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<User, UserDto>();
-                cfg.CreateMap<LoginUserDto, User>();
+                cfg.CreateMap<LoginUserDto, User>()
+                    .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
                 cfg.CreateMap<UserDto, User>();
                 cfg.CreateMap<CreateUserDto, User>()
-                    .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
+                    .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
+                    .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
                 cfg.CreateMap<Policy, PolicyDto>();
                 cfg.CreateMap<PolicyDto, Policy>();
                 cfg.CreateMap<RequestPolicyDto, Policy>();

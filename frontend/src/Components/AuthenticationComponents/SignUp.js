@@ -165,7 +165,7 @@ class SignUp extends Component {
             city: this.state.city,
             postalCode: this.state.postalCode,
             address: this.state.address,
-            passwordHash: this.state.password
+            password: this.state.password
         }
         axios.post(registerUrl, postData)
             .then((response) => {
